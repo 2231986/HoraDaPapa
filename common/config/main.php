@@ -8,6 +8,8 @@ return [
     'components' => [
         'cache' => [
             'class' => \yii\caching\FileCache::class,
+        ],  'Mosquitto' => [
+            'class' => 'common\components\Mosquitto'
         ],
     ],
 ];
