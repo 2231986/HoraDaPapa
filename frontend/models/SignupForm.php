@@ -45,10 +45,11 @@ class SignupForm extends Model
      */
     public function signup()
     {
-        if (!$this->validate()) {
+        if (!$this->validate())
+        {
             return null;
         }
-        
+
         $user = new User();
         $user->username = $this->username;
         $user->email = $this->email;
@@ -56,7 +57,14 @@ class SignupForm extends Model
         $user->generateAuthKey();
         $user->generateEmailVerificationToken();
 
-        return $user->save() && $this->sendEmail($user);
+        $user->save();
+
+        //Adiciona um role
+        $auth = \Yii::$app->authManager;
+        $authorRole = $auth->getRole('client');
+        $auth->assign($authorRole, $user->getId());
+
+        return $this->sendEmail($user);
     }
 
     /**
