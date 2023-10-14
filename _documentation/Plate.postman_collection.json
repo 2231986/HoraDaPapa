@@ -1,0 +1,41 @@
+{
+	"info": {
+		"_postman_id": "110df534-a28c-497e-a97c-7054a474b0c4",
+		"name": "Plate",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "6462296"
+	},
+	"item": [
+		{
+			"name": "UserLogin",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": {
+						"password": "12345678",
+						"username": "Dinis"
+					}
+				},
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost/HoraDaPapa/backend/web/api/user/login"
+			},
+			"response": []
+		},
+		{
+			"name": "PlateGetAll",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "PX_gKI3xzdf7_zaB4vsarW8MUF7XehBY"
+					}
+				},
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost/HoraDaPapa/backend/web/api/plate"
+			},
+			"response": []
+		}
+	]
+}

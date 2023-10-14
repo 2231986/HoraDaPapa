@@ -2,9 +2,11 @@
 
 namespace backend\modules\api\controllers;
 
-use backend\modules\api\components\CustomAuth;
+use yii\filters\auth\HttpBearerAuth;
 use common\models\Plate;
 
+
+//Guia Autenticação - https://www.yiiframework.com/doc/guide/2.0/en/rest-authentication
 class PlateController extends CustomActiveController
 {
 	public $modelClass = 'backend\models\Plate';
@@ -13,7 +15,7 @@ class PlateController extends CustomActiveController
 	{
 		$behaviors = parent::behaviors();
 		$behaviors['authenticator'] = [
-			'class' => CustomAuth::className(),
+			'class' => HttpBearerAuth::className(),
 		];
 
 		return $behaviors;
