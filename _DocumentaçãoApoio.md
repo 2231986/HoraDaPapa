@@ -15,6 +15,9 @@ Rbac
 
 >php yii rbac/init
 
+Testes: https://github.com/yiisoft/yii2-app-advanced/blob/master/docs/guide/start-testing.md
+>vendor/bin/codecept run
+
 Exemplos de urls
 >http://localhost/HoraDaPapa/frontend/web/
 >http://localhost/HoraDaPapa/backend/web/
