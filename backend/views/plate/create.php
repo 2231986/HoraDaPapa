@@ -3,7 +3,7 @@
 use yii\helpers\Html;
 
 /** @var yii\web\View $this */
-/** @var app\models\Plate $model */
+/** @var \common\models\Plate $model */
 
 $this->title = 'Create Plate';
 $this->params['breadcrumbs'][] = ['label' => 'Plates', 'url' => ['index']];

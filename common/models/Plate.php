@@ -1,8 +1,9 @@
 <?php
 
-namespace app\models;
+namespace common\models;
 
-use Yii;
+use app\models\Favorite;
+use app\models\Request;
 
 /**
  * This is the model class for table "plate".

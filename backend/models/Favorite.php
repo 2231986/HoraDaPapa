@@ -2,7 +2,7 @@
 
 namespace app\models;
 
-use Yii;
+use common\models\Plate;
 
 /**
  * This is the model class for table "favorite".

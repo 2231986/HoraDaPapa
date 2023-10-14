@@ -1,13 +1,13 @@
 <?php
 
-use app\models\Plate;
-use yii\helpers\Html;
-use yii\helpers\Url;
+use common\models\Plate;
 use yii\grid\ActionColumn;
 use yii\grid\GridView;
+use yii\helpers\Html;
+use yii\helpers\Url;
 
 /** @var yii\web\View $this */
-/** @var app\models\PlateSearch $searchModel */
+/** @var \common\models\PlateSearch $searchModel */
 /** @var yii\data\ActiveDataProvider $dataProvider */
 
 $this->title = 'Plates';

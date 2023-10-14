@@ -2,11 +2,11 @@
 
 namespace backend\controllers;
 
-use app\models\Plate;
-use app\models\PlateSearch;
+use common\models\Plate;
+use common\models\PlateSearch;
+use yii\filters\VerbFilter;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
 
 /**
  * PlateController implements the CRUD actions for Plate model.

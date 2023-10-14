@@ -2,9 +2,8 @@
 
 namespace backend\modules\api\controllers;
 
-use Yii;
-use app\models\Plate;
 use backend\modules\api\components\CustomAuth;
+use common\models\Plate;
 
 class PlateController extends CustomActiveController
 {
