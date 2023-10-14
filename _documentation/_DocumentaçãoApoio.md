@@ -1,29 +1,39 @@
-Inicializa o projeto
+**Inicializa o projeto**
 >php init
 
-Atualizar dependencias
+**Atualizar dependencias**
 >composer update
 
-Criar base de dados
+**Criar base de dados**
 >Nome: horadapapa
 
-Executa migrações
+**Executa migrações**
 >php yii migrate
 
-Rbac
+**Rbac**
 >php yii migrate --migrationPath=@yii/rbac/migrations
 
 >php yii rbac/init
 
-Testes: https://github.com/yiisoft/yii2-app-advanced/blob/master/docs/guide/start-testing.md
->vendor/bin/codecept run
+**Testes:**
+https://github.com/yiisoft/yii2-app-advanced/blob/master/docs/guide/start-testing.md
 
-GII
+>php vendor/bin/codecept run
+
+>php vendor/bin/codecept run -- -c common
+
+>php vendor/bin/codecept run -- -c frontend
+
+>php vendor/bin/codecept run -- -c backend
+
+**GII**
 >http://localhost/HoraDaPapa/backend/web/gii
 
 >http://localhost/basic/web/index.php?r=gii
 
-Exemplos de urls
+**Exemplos de urls**
 >http://localhost/HoraDaPapa/frontend/web/
+
 >http://localhost/HoraDaPapa/backend/web/
+
 >http://localhost/HoraDaPapa/backend/web/api/users
