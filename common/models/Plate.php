@@ -32,7 +32,7 @@ class Plate extends \yii\db\ActiveRecord
     {
         return [
             [['description', 'price'], 'required'],
-            [['description'], 'integer'],
+            [['description'], 'string', 'max' => 255],
             [['price'], 'number'],
         ];
     }

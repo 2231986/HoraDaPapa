@@ -16,7 +16,8 @@ class PlateSearch extends Plate
     public function rules()
     {
         return [
-            [['id', 'description'], 'integer'],
+            ['id', 'integer'],
+            [['description'], 'string', 'max' => 255],
             [['price'], 'number'],
         ];
     }
@@ -49,7 +50,8 @@ class PlateSearch extends Plate
 
         $this->load($params);
 
-        if (!$this->validate()) {
+        if (!$this->validate())
+        {
             // uncomment the following line if you do not want to return any records when validation fails
             // $query->where('0=1');
             return $dataProvider;
