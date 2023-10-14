@@ -3,23 +3,17 @@
 namespace backend\modules\api\controllers;
 
 use Yii;
-use yii\rest\ActiveController;
 use yii\filters\auth\HttpBasicAuth;
 use common\models\User;
 use frontend\models\SignupForm;
 
 //Guia Autenticação - https://p0vidl0.info/yii2-api-guides/yii-filters-auth-httpbasicauth.html
-class UserController extends ActiveController
+class UserController extends APIActiveController
 {
     public $modelClass = 'common\models\User';
 
     public function behaviors()
     {
-        /* Debug */
-        // var_dump($_SERVER['PHP_AUTH_USER']);
-        // var_dump($_SERVER['PHP_AUTH_PW']);
-        // die;
-
         $behaviors = parent::behaviors();
 
         $behaviors['authenticator'] = [
@@ -39,30 +33,7 @@ class UserController extends ActiveController
             },
         ];
 
-        //Configure JSON output
-        $behaviors['contentNegotiator']['formats']['text/html'] = \yii\web\Response::FORMAT_JSON;
-
         return $behaviors;
-    }
-
-    public function actions()
-    {
-        $actions = parent::actions();
-
-        //Limpar ações default do ActiveRecord
-        unset($actions['index']);
-        unset($actions['update']);
-        unset($actions['delete']);
-        unset($actions['view']);
-        unset($actions['create']);
-
-        return $actions;
-    }
-
-    public function beforeAction($action)
-    {
-        $this->enableCsrfValidation = false;
-        return parent::beforeAction($action);
     }
 
     protected function verbs()

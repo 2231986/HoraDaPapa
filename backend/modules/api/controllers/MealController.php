@@ -3,12 +3,13 @@
 namespace backend\modules\api\controllers;
 
 use yii\filters\auth\HttpBearerAuth;
-use common\models\Plate;
+use app\models\Meal;
+
 
 //Guia Autenticação - https://www.yiiframework.com/doc/guide/2.0/en/rest-authentication
-class PlateController extends APIActiveController
+class MealController extends APIActiveController
 {
-	public $modelClass = 'common\models\Plate';
+	public $modelClass = 'backend\models\Meal';
 
 	public function behaviors()
 	{
@@ -22,6 +23,6 @@ class PlateController extends APIActiveController
 
 	public function actionIndex()
 	{
-		return Plate::find()->select('id, description, price')->all();
+		return Meal::find()->all();
 	}
 }

@@ -36,6 +36,81 @@
 				"url": "http://localhost/HoraDaPapa/backend/web/api/plate"
 			},
 			"response": []
+		},
+		{
+			"name": "RequestGetAll",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "PX_gKI3xzdf7_zaB4vsarW8MUF7XehBY"
+					}
+				},
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost/HoraDaPapa/backend/web/api/plate"
+			},
+			"response": []
+		},
+		{
+			"name": "MealGetAll",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "PX_gKI3xzdf7_zaB4vsarW8MUF7XehBY"
+					}
+				},
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost/HoraDaPapa/backend/web/api/plate"
+			},
+			"response": []
+		},
+		{
+			"name": "InvoiceGetAll",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "PX_gKI3xzdf7_zaB4vsarW8MUF7XehBY"
+					}
+				},
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost/HoraDaPapa/backend/web/api/plate"
+			},
+			"response": []
+		},
+		{
+			"name": "FavoriteGetAll",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "PX_gKI3xzdf7_zaB4vsarW8MUF7XehBY"
+					}
+				},
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost/HoraDaPapa/backend/web/api/plate"
+			},
+			"response": []
+		},
+		{
+			"name": "DinnerGetAll",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "PX_gKI3xzdf7_zaB4vsarW8MUF7XehBY"
+					}
+				},
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost/HoraDaPapa/backend/web/api/plate"
+			},
+			"response": []
 		}
 	]
 }
