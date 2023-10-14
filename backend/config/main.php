@@ -41,7 +41,14 @@ return [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
-                ['class' => 'yii\rest\UrlRule', 'controller' => 'api/user', 'pluralize' => true,],
+                [
+                    'class' => 'yii\rest\UrlRule', 'controller' => 'api/user', 'pluralize' => false,
+                    'extraPatterns' => [
+                        'GET login' => 'login',
+                        'POST register' => 'register',
+
+                    ],
+                ],
             ],
         ],
     ],

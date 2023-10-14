@@ -6,6 +6,7 @@ use Yii;
 use yii\rest\ActiveController;
 use yii\filters\auth\HttpBasicAuth;
 use common\models\User;
+use frontend\models\SignupForm;
 
 //Guia Autenticação - https://p0vidl0.info/yii2-api-guides/yii-filters-auth-httpbasicauth.html
 class UserController extends ActiveController
@@ -23,6 +24,7 @@ class UserController extends ActiveController
 
         $behaviors['authenticator'] = [
             'class' => HttpBasicAuth::className(),
+            'except' => ['register'],
             'auth' => function ($username, $password)
             {
                 $user = User::findByUsername($username);
@@ -43,6 +45,37 @@ class UserController extends ActiveController
         return $behaviors;
     }
 
+    public function actions()
+    {
+        $actions = parent::actions();
+
+        //Limpar ações default do ActiveRecord
+        unset($actions['index']);
+        unset($actions['update']);
+        unset($actions['delete']);
+        unset($actions['view']);
+        unset($actions['create']);
+
+        return $actions;
+    }
+
+    public function beforeAction($action)
+    {
+        $this->enableCsrfValidation = false;
+        return parent::beforeAction($action);
+    }
+
+    protected function verbs()
+    {
+        $verbs = parent::verbs();
+        $verbs =  [
+            'login' => ['GET'],
+            'register' => ['POST'],
+        ];
+
+        return $verbs;
+    }
+
     public function actionLogin()
     {
         $userID = $this->user->id;
@@ -56,5 +89,18 @@ class UserController extends ActiveController
         $token = $this->user->auth_key;
 
         return $this->asJson(["response" => $token]);
+    }
+
+    public function actionRegister()
+    {
+        $model = new SignupForm();
+        $model->load(Yii::$app->request->post(), '');
+
+        if ($model->signup())
+        {
+            return $this->asJson(["response" => "Sucesso"]);
+        }
+
+        return $this->asJson(["response" => $model->errors]);
     }
 }
