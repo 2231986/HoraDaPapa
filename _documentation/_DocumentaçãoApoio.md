@@ -36,4 +36,4 @@ https://github.com/yiisoft/yii2-app-advanced/blob/master/docs/guide/start-testin
 
 >http://localhost/HoraDaPapa/backend/web/
 
->http://localhost/HoraDaPapa/backend/web/api/users
+>http://localhost/HoraDaPapa/backend/web/api/user/login
