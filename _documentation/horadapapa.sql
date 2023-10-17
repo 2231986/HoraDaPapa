@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:8889
--- Generation Time: Oct 17, 2023 at 08:52 PM
+-- Generation Time: Oct 17, 2023 at 09:13 PM
 -- Server version: 5.7.39
 -- PHP Version: 8.2.0
 
@@ -131,10 +131,10 @@ CREATE TABLE `favorite` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `help_ticket`
+-- Table structure for table `helpticket`
 --
 
-CREATE TABLE `help_ticket` (
+CREATE TABLE `helpticket` (
   `id` int(11) NOT NULL COMMENT 'id do ticket',
   `id_user` int(11) NOT NULL COMMENT 'id utilizador que fez ticket',
   `status` tinyint(1) NOT NULL COMMENT 'Estado da ajuda'
@@ -293,9 +293,9 @@ ALTER TABLE `favorite`
   ADD KEY `user_id` (`user_id`);
 
 --
--- Indexes for table `help_ticket`
+-- Indexes for table `helpticket`
 --
-ALTER TABLE `help_ticket`
+ALTER TABLE `helpticket`
   ADD PRIMARY KEY (`id`),
   ADD KEY `id_user` (`id_user`),
   ADD KEY `status` (`status`);
@@ -364,9 +364,9 @@ ALTER TABLE `favorite`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id do favorito';
 
 --
--- AUTO_INCREMENT for table `help_ticket`
+-- AUTO_INCREMENT for table `helpticket`
 --
-ALTER TABLE `help_ticket`
+ALTER TABLE `helpticket`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id do ticket';
 
 --
@@ -428,6 +428,12 @@ ALTER TABLE `auth_item_child`
 ALTER TABLE `favorite`
   ADD CONSTRAINT `fk_favorite_plate_id` FOREIGN KEY (`plate_id`) REFERENCES `plate` (`id`),
   ADD CONSTRAINT `fk_favorite_user_id` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`);
+
+--
+-- Constraints for table `helpticket`
+--
+ALTER TABLE `helpticket`
+  ADD CONSTRAINT `FK_helpticket_userID` FOREIGN KEY (`id_user`) REFERENCES `user` (`id`);
 
 --
 -- Constraints for table `invoice`
