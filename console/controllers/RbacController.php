@@ -47,5 +47,6 @@ class RbacController extends Controller
         $auth->assign($admin, 1);
         $auth->assign($cooker, 2);
         $auth->assign($waiter, 3);
+        $auth->assign($client, 4);
     }
 }

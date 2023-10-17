@@ -4,6 +4,7 @@ namespace backend\modules\api\controllers;
 
 use Yii;
 use yii\filters\auth\HttpBasicAuth;
+use yii\filters\AccessControl;
 use common\models\User;
 use frontend\models\SignupForm;
 
@@ -33,6 +34,17 @@ class UserController extends APIActiveController
             },
         ];
 
+        //ACF
+        $behaviors['access'] = [
+            'class' => AccessControl::class,
+            'rules' => [
+                [
+                    'allow' => true,
+                    'roles' => ['client'],
+                ],
+            ],
+        ];
+
         return $behaviors;
     }
 
@@ -49,14 +61,6 @@ class UserController extends APIActiveController
 
     public function actionLogin()
     {
-        $userID = $this->user->id;
-        $role = 'client';
-        if (!Yii::$app->authManager->getAssignment($role, $userID))
-        {
-            //TODO: Ativar a Exceção quando terminar os testes. Está comentado apenas porque o cliente criado ainda não tem roles.
-            //throw new \yii\web\ForbiddenHttpException("Acesso Negado");
-        }
-
         $token = $this->user->auth_key;
 
         return $this->asJson(["response" => $token]);
