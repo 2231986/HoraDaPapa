@@ -23,7 +23,7 @@ SET
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */
 ;
 
-/*!40101 SET NAMES utf8mb4 */
+/*!40101 SET NAMES utf8 */
 ;
 
 --
@@ -181,7 +181,7 @@ CREATE TABLE IF NOT EXISTS `dinner` (
   `name` varchar(255) NOT NULL COMMENT 'nome da mesa',
   `isClean` tinyint(1) NOT NULL DEFAULT '0' COMMENT 'estado da mesa',
   PRIMARY KEY (`id`)
-) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
+) ENGINE = InnoDB DEFAULT CHARSET = utf8 COLLATE = utf8_general_ci;
 
 -- --------------------------------------------------------
 --
@@ -197,7 +197,7 @@ CREATE TABLE IF NOT EXISTS `favorite` (
   PRIMARY KEY (`id`),
   KEY `plate_id` (`plate_id`),
   KEY `user_id` (`user_id`)
-) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
+) ENGINE = InnoDB DEFAULT CHARSET = utf8 COLLATE = utf8_general_ci;
 
 -- --------------------------------------------------------
 --
@@ -211,7 +211,7 @@ CREATE TABLE IF NOT EXISTS `invoice` (
   `meal_id` int NOT NULL COMMENT 'id da refeição',
   PRIMARY KEY (`id`),
   KEY `meal_id` (`meal_id`)
-) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
+) ENGINE = InnoDB DEFAULT CHARSET = utf8 COLLATE = utf8_general_ci;
 
 -- --------------------------------------------------------
 --
@@ -227,7 +227,7 @@ CREATE TABLE IF NOT EXISTS `meal` (
   PRIMARY KEY (`id`),
   KEY `dinner_table_id` (`dinner_table_id`),
   KEY `checkout` (`checkout`)
-) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
+) ENGINE = InnoDB DEFAULT CHARSET = utf8 COLLATE = utf8_general_ci;
 
 -- --------------------------------------------------------
 --
@@ -239,7 +239,7 @@ CREATE TABLE IF NOT EXISTS `migration` (
   `version` varchar(180) NOT NULL,
   `apply_time` int DEFAULT NULL,
   PRIMARY KEY (`version`)
-) ENGINE = MyISAM DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
+) ENGINE = MyISAM DEFAULT CHARSET = utf8 COLLATE = utf8_general_ci;
 
 --
 -- Extraindo dados da tabela `migration`
@@ -265,7 +265,7 @@ CREATE TABLE IF NOT EXISTS `plate` (
   `description` varchar(255) NOT NULL COMMENT 'descrição do prato',
   `price` decimal(6, 2) NOT NULL COMMENT 'preço do prato',
   PRIMARY KEY (`id`)
-) ENGINE = InnoDB AUTO_INCREMENT = 2 DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
+) ENGINE = InnoDB AUTO_INCREMENT = 2 DEFAULT CHARSET = utf8 COLLATE = utf8_general_ci;
 
 --
 -- Extraindo dados da tabela `plate`
@@ -295,7 +295,7 @@ CREATE TABLE IF NOT EXISTS `request` (
   KEY `isCooked` (`isCooked`),
   KEY `isDelivered` (`isDelivered`),
   KEY `user_id` (`user_id`)
-) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
+) ENGINE = InnoDB DEFAULT CHARSET = utf8 COLLATE = utf8_general_ci;
 
 -- --------------------------------------------------------
 --
