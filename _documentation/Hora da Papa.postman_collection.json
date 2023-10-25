@@ -1,7 +1,7 @@
 {
 	"info": {
 		"_postman_id": "110df534-a28c-497e-a97c-7054a474b0c4",
-		"name": "Plate",
+		"name": "Hora da Papa",
 		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
 		"_exporter_id": "6462296"
 	},
@@ -12,8 +12,8 @@
 				"auth": {
 					"type": "basic",
 					"basic": {
-						"password": "12345678",
-						"username": "Dinis"
+						"username": "Alfredo2",
+						"password": "12345678"
 					}
 				},
 				"method": "GET",
@@ -28,7 +28,7 @@
 				"auth": {
 					"type": "bearer",
 					"bearer": {
-						"token": "PX_gKI3xzdf7_zaB4vsarW8MUF7XehBY"
+						"token": "UPFEzZ_a0tjVrtelAsjWqVPFHu8lKW3i"
 					}
 				},
 				"method": "GET",
@@ -48,7 +48,7 @@
 				},
 				"method": "GET",
 				"header": [],
-				"url": "http://localhost/HoraDaPapa/backend/web/api/plate"
+				"url": "http://localhost/HoraDaPapa/backend/web/api/request"
 			},
 			"response": []
 		},
@@ -63,7 +63,7 @@
 				},
 				"method": "GET",
 				"header": [],
-				"url": "http://localhost/HoraDaPapa/backend/web/api/plate"
+				"url": "http://localhost/HoraDaPapa/backend/web/api/meal"
 			},
 			"response": []
 		},
@@ -78,7 +78,7 @@
 				},
 				"method": "GET",
 				"header": [],
-				"url": "http://localhost/HoraDaPapa/backend/web/api/plate"
+				"url": "http://localhost/HoraDaPapa/backend/web/api/invoice"
 			},
 			"response": []
 		},
@@ -93,7 +93,7 @@
 				},
 				"method": "GET",
 				"header": [],
-				"url": "http://localhost/HoraDaPapa/backend/web/api/plate"
+				"url": "http://localhost/HoraDaPapa/backend/web/api/favorite"
 			},
 			"response": []
 		},
@@ -108,7 +108,36 @@
 				},
 				"method": "GET",
 				"header": [],
-				"url": "http://localhost/HoraDaPapa/backend/web/api/plate"
+				"url": "http://localhost/HoraDaPapa/backend/web/api/dinner"
+			},
+			"response": []
+		},
+		{
+			"name": "UserRegister",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "username",
+							"value": "Alfredo3",
+							"type": "text"
+						},
+						{
+							"key": "email",
+							"value": "alfredo3@horapapa.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "12345678",
+							"type": "text"
+						}
+					]
+				},
+				"url": "http://localhost/HoraDaPapa/backend/web/api/user/register"
 			},
 			"response": []
 		}
