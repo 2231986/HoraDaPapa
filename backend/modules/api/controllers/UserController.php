@@ -8,17 +8,14 @@ use yii\filters\AccessControl;
 use common\models\User;
 use frontend\models\SignupForm;
 
-//Guia Autenticação - https://p0vidl0.info/yii2-api-guides/yii-filters-auth-httpbasicauth.html
-class UserController extends APIActiveController
+class UserController extends \yii\web\Controller
 {
-    public $modelClass = 'common\models\User';
-
     public function behaviors()
     {
         $behaviors = parent::behaviors();
 
         $behaviors['authenticator'] = [
-            'class' => HttpBasicAuth::className(),
+            'class' => HttpBasicAuth::class,
             'except' => ['register'],
             'auth' => function ($username, $password)
             {
@@ -37,10 +34,17 @@ class UserController extends APIActiveController
         //ACF
         $behaviors['access'] = [
             'class' => AccessControl::class,
+            'only' => ['login', 'register'],
             'rules' => [
                 [
                     'allow' => true,
+                    'actions' => ['login'],
                     'roles' => ['client'],
+                ],
+                [
+                    'allow' => true,
+                    'actions' => ['register'],
+                    'roles' => ['?'],
                 ],
             ],
         ];
@@ -59,6 +63,12 @@ class UserController extends APIActiveController
         return $verbs;
     }
 
+    public function beforeAction($action)
+    {
+        $this->enableCsrfValidation = false;
+        return parent::beforeAction($action);
+    }
+
     public function actionLogin()
     {
         $token = $this->user->auth_key;
@@ -73,7 +83,7 @@ class UserController extends APIActiveController
 
         if ($model->signup())
         {
-            return $this->asJson(["response" => "Sucesso"]);
+            return $this->asJson(["response" => "Utilizador criado com sucesso!"]);
         }
 
         return $this->asJson(["response" => $model->errors]);
