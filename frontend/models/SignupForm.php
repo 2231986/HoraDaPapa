@@ -5,6 +5,7 @@ namespace frontend\models;
 use Yii;
 use yii\base\Model;
 use common\models\User;
+use console\controllers\RbacController;
 
 /**
  * Signup form
@@ -61,7 +62,7 @@ class SignupForm extends Model
 
         //Adiciona um role
         $auth = \Yii::$app->authManager;
-        $authorRole = $auth->getRole('client');
+        $authorRole = $auth->getRole(RbacController::$RoleClient);
         $auth->assign($authorRole, $user->getId());
 
         return $this->sendEmail($user);

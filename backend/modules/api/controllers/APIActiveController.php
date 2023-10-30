@@ -6,6 +6,7 @@ use Yii;
 use yii\filters\AccessControl;
 use yii\filters\auth\HttpBearerAuth;
 use yii\rest\ActiveController;
+use console\controllers\RbacController;
 
 //Guia Autenticação - https://www.yiiframework.com/doc/guide/2.0/en/rest-authentication
 class APIActiveController extends ActiveController
@@ -32,7 +33,7 @@ class APIActiveController extends ActiveController
             'rules' => [
                 [
                     'allow' => true,
-                    'roles' => ['client'],
+                    'roles' => [RbacController::$RoleClient],
                 ],
             ],
         ];

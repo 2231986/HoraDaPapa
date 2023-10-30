@@ -11,6 +11,11 @@ use yii\console\Controller;
 //php yii rbac/init
 class RbacController extends Controller
 {
+    public static $RoleAdmin = "admin";
+    public static $RoleWaiter = "waiter";
+    public static $RoleCooker = "cooker";
+    public static $RoleClient = "client";
+
     public function actionInit()
     {
         $auth = Yii::$app->authManager;
@@ -26,21 +31,21 @@ class RbacController extends Controller
         //Roles
 
         //Role - Admin
-        $admin = $auth->createRole('admin');
+        $admin = $auth->createRole(RbacController::$RoleAdmin);
         $auth->add($admin);
         $auth->addChild($admin, $permission_managePlate);
 
         //Role - Cozinheiro
-        $cooker = $auth->createRole('cooker');
+        $cooker = $auth->createRole(RbacController::$RoleCooker);
         $auth->add($cooker);
         $auth->addChild($cooker, $permission_managePlate);
 
         //Role - Garçon
-        $waiter = $auth->createRole('waiter');
+        $waiter = $auth->createRole(RbacController::$RoleWaiter);
         $auth->add($waiter);
 
         //Role - Cliente
-        $client = $auth->createRole('client');
+        $client = $auth->createRole(RbacController::$RoleClient);
         $auth->add($client);
 
         // Adiciona os Roles aos Utilizadores pré-definidos na BD

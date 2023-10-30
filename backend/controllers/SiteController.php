@@ -8,6 +8,7 @@ use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\Response;
+use console\controllers\RbacController;
 
 /**
  * Site controller
@@ -37,7 +38,8 @@ class SiteController extends Controller
             'verbs' => [
                 'class' => VerbFilter::class,
                 'actions' => [
-                    'logout' => ['post'],
+                    //Esta linha foi comentada porque o redirect feito no login caso o cliente não tenha permissões não era POST.
+                    //'logout' => ['post'],
                 ],
             ],
         ];
@@ -82,7 +84,20 @@ class SiteController extends Controller
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login())
         {
-            return $this->goBack();
+            $userID = $this->user->id;
+
+            if (
+                Yii::$app->authManager->getAssignment(RbacController::$RoleAdmin, $userID) ||
+                Yii::$app->authManager->getAssignment(RbacController::$RoleCooker, $userID) ||
+                Yii::$app->authManager->getAssignment(RbacController::$RoleWaiter, $userID)
+            )
+            {
+                return $this->goBack();
+            }
+            else
+            {
+                return $this->redirect('logout');
+            }
         }
 
         $model->password = '';
