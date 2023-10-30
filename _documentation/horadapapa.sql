@@ -1,611 +1,259 @@
--- phpMyAdmin SQL Dump
--- version 5.2.0
--- https://www.phpmyadmin.net/
---
--- Host: localhost:8889
--- Generation Time: Oct 17, 2023 at 09:13 PM
--- Server version: 5.7.39
--- PHP Version: 8.2.0
-SET
-  SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-
-START TRANSACTION;
-
-SET
-  time_zone = "+00:00";
-
+-- --------------------------------------------------------
+-- Anfitrião:                    127.0.0.1
+-- Versão do servidor:           8.0.31 - MySQL Community Server - GPL
+-- Server OS:                    Win64
+-- HeidiSQL Versão:              11.2.0.6213
+-- --------------------------------------------------------
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */
 ;
 
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */
+/*!40101 SET NAMES utf8 */
 ;
 
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */
+/*!50503 SET NAMES utf8mb4 */
 ;
 
-/*!40101 SET NAMES utf8mb4 */
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */
 ;
 
---
--- Database: `horadapapa`
---
--- --------------------------------------------------------
---
--- Table structure for table `auth_assignment`
---
-CREATE TABLE `auth_assignment` (
-  `item_name` varchar(64) NOT NULL,
-  `user_id` varchar(64) NOT NULL,
-  `created_at` int(11) DEFAULT NULL
-) ENGINE = InnoDB DEFAULT CHARSET = utf8;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */
+;
 
---
--- Dumping data for table `auth_assignment`
---
-INSERT INTO
-  `auth_assignment` (`item_name`, `user_id`, `created_at`)
-VALUES
-  ('admin', '1', 1697275759),
-  ('client', '1', 1697488914),
-  ('client', '5', 1697306197),
-  ('cooker', '2', 1697275759),
-  ('waiter', '3', 1697275759);
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */
+;
 
--- --------------------------------------------------------
---
--- Table structure for table `auth_item`
---
-CREATE TABLE `auth_item` (
-  `name` varchar(64) NOT NULL,
-  `type` smallint(6) NOT NULL,
-  `description` text,
-  `rule_name` varchar(64) DEFAULT NULL,
+-- Dumping database structure for horadapapa
+DROP DATABASE IF EXISTS `horadapapa`;
+
+CREATE DATABASE IF NOT EXISTS `horadapapa`
+/*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */
+/*!80016 DEFAULT ENCRYPTION='N' */
+;
+
+USE `horadapapa`;
+
+-- Dumping structure for table horadapapa.auth_assignment
+DROP TABLE IF EXISTS `auth_assignment`;
+
+CREATE TABLE IF NOT EXISTS `auth_assignment` (
+  `item_name` varchar(64) COLLATE utf8mb3_unicode_ci NOT NULL,
+  `user_id` varchar(64) COLLATE utf8mb3_unicode_ci NOT NULL,
+  `created_at` int DEFAULT NULL,
+  PRIMARY KEY (`item_name`, `user_id`),
+  KEY `idx-auth_assignment-user_id` (`user_id`),
+  CONSTRAINT `auth_assignment_ibfk_1` FOREIGN KEY (`item_name`) REFERENCES `auth_item` (`name`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE = InnoDB DEFAULT CHARSET = utf8mb3 COLLATE = utf8mb3_unicode_ci;
+
+-- Data exporting was unselected.
+-- Dumping structure for table horadapapa.auth_item
+DROP TABLE IF EXISTS `auth_item`;
+
+CREATE TABLE IF NOT EXISTS `auth_item` (
+  `name` varchar(64) COLLATE utf8mb3_unicode_ci NOT NULL,
+  `type` smallint NOT NULL,
+  `description` text COLLATE utf8mb3_unicode_ci,
+  `rule_name` varchar(64) COLLATE utf8mb3_unicode_ci DEFAULT NULL,
   `data` blob,
-  `created_at` int(11) DEFAULT NULL,
-  `updated_at` int(11) DEFAULT NULL
-) ENGINE = InnoDB DEFAULT CHARSET = utf8;
+  `created_at` int DEFAULT NULL,
+  `updated_at` int DEFAULT NULL,
+  PRIMARY KEY (`name`),
+  KEY `rule_name` (`rule_name`),
+  KEY `idx-auth_item-type` (`type`),
+  CONSTRAINT `auth_item_ibfk_1` FOREIGN KEY (`rule_name`) REFERENCES `auth_rule` (`name`) ON DELETE
+  SET
+    NULL ON UPDATE CASCADE
+) ENGINE = InnoDB DEFAULT CHARSET = utf8mb3 COLLATE = utf8mb3_unicode_ci;
 
---
--- Dumping data for table `auth_item`
---
-INSERT INTO
-  `auth_item` (
-    `name`,
-    `type`,
-    `description`,
-    `rule_name`,
-    `data`,
-    `created_at`,
-    `updated_at`
-  )
-VALUES
-  (
-    'admin',
-    1,
-    NULL,
-    NULL,
-    NULL,
-    1697275759,
-    1697275759
-  ),
-  (
-    'client',
-    1,
-    NULL,
-    NULL,
-    NULL,
-    1697275759,
-    1697275759
-  ),
-  (
-    'cooker',
-    1,
-    NULL,
-    NULL,
-    NULL,
-    1697275759,
-    1697275759
-  ),
-  (
-    'managePlate',
-    2,
-    'Gere um Prato',
-    NULL,
-    NULL,
-    1697275759,
-    1697275759
-  ),
-  (
-    'waiter',
-    1,
-    NULL,
-    NULL,
-    NULL,
-    1697275759,
-    1697275759
-  );
+-- Data exporting was unselected.
+-- Dumping structure for table horadapapa.auth_item_child
+DROP TABLE IF EXISTS `auth_item_child`;
 
--- --------------------------------------------------------
---
--- Table structure for table `auth_item_child`
---
-CREATE TABLE `auth_item_child` (
-  `parent` varchar(64) NOT NULL,
-  `child` varchar(64) NOT NULL
-) ENGINE = InnoDB DEFAULT CHARSET = utf8;
+CREATE TABLE IF NOT EXISTS `auth_item_child` (
+  `parent` varchar(64) COLLATE utf8mb3_unicode_ci NOT NULL,
+  `child` varchar(64) COLLATE utf8mb3_unicode_ci NOT NULL,
+  PRIMARY KEY (`parent`, `child`),
+  KEY `child` (`child`),
+  CONSTRAINT `auth_item_child_ibfk_1` FOREIGN KEY (`parent`) REFERENCES `auth_item` (`name`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `auth_item_child_ibfk_2` FOREIGN KEY (`child`) REFERENCES `auth_item` (`name`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE = InnoDB DEFAULT CHARSET = utf8mb3 COLLATE = utf8mb3_unicode_ci;
 
---
--- Dumping data for table `auth_item_child`
---
-INSERT INTO
-  `auth_item_child` (`parent`, `child`)
-VALUES
-  ('admin', 'managePlate'),
-  ('cooker', 'managePlate');
+-- Data exporting was unselected.
+-- Dumping structure for table horadapapa.auth_rule
+DROP TABLE IF EXISTS `auth_rule`;
 
--- --------------------------------------------------------
---
--- Table structure for table `auth_rule`
---
-CREATE TABLE `auth_rule` (
-  `name` varchar(64) NOT NULL,
+CREATE TABLE IF NOT EXISTS `auth_rule` (
+  `name` varchar(64) COLLATE utf8mb3_unicode_ci NOT NULL,
   `data` blob,
-  `created_at` int(11) DEFAULT NULL,
-  `updated_at` int(11) DEFAULT NULL
-) ENGINE = InnoDB DEFAULT CHARSET = utf8;
+  `created_at` int DEFAULT NULL,
+  `updated_at` int DEFAULT NULL,
+  PRIMARY KEY (`name`)
+) ENGINE = InnoDB DEFAULT CHARSET = utf8mb3 COLLATE = utf8mb3_unicode_ci;
 
--- --------------------------------------------------------
---
--- Table structure for table `dinner`
---
-CREATE TABLE `dinner` (
-  `id` int(11) NOT NULL COMMENT 'id da mesa',
+-- Data exporting was unselected.
+-- Dumping structure for table horadapapa.dinner
+DROP TABLE IF EXISTS `dinner`;
+
+CREATE TABLE IF NOT EXISTS `dinner` (
+  `id` int NOT NULL AUTO_INCREMENT COMMENT 'id da mesa',
   `name` varchar(255) NOT NULL COMMENT 'nome da mesa',
-  `isClean` tinyint(1) NOT NULL DEFAULT '0' COMMENT 'estado da mesa'
-) ENGINE = InnoDB DEFAULT CHARSET = utf8;
+  `isClean` tinyint(1) NOT NULL DEFAULT '0' COMMENT 'estado da mesa',
+  `date_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'date',
+  PRIMARY KEY (`id`)
+) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = 'Mesa que o cliente irá se sentar';
 
--- --------------------------------------------------------
---
--- Table structure for table `favorite`
---
-CREATE TABLE `favorite` (
-  `id` int(11) NOT NULL COMMENT 'id do favorito',
-  `plate_id` int(11) NOT NULL COMMENT 'id do prato',
-  `date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'data',
-  `user_id` int(11) NOT NULL COMMENT 'id do utilizador'
-) ENGINE = InnoDB DEFAULT CHARSET = utf8;
+-- Data exporting was unselected.
+-- Dumping structure for table horadapapa.favorite
+DROP TABLE IF EXISTS `favorite`;
 
--- --------------------------------------------------------
---
--- Table structure for table `helpticket`
---
-CREATE TABLE `helpticket` (
-  `id` int(11) NOT NULL COMMENT 'id do ticket',
-  `id_user` int(11) NOT NULL COMMENT 'id utilizador que fez ticket',
-  `status` tinyint(1) NOT NULL COMMENT 'Estado da ajuda'
-) ENGINE = InnoDB DEFAULT CHARSET = utf8;
+CREATE TABLE IF NOT EXISTS `favorite` (
+  `id` int NOT NULL AUTO_INCREMENT COMMENT 'id do favorito',
+  `plate_id` int NOT NULL COMMENT 'id do prato',
+  `date_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'data',
+  `user_id` int NOT NULL COMMENT 'id do utilizador',
+  PRIMARY KEY (`id`),
+  KEY `plate_id` (`plate_id`),
+  KEY `user_id` (`user_id`),
+  CONSTRAINT `fk_favorite_plate_id` FOREIGN KEY (`plate_id`) REFERENCES `plate` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT `fk_favorite_user_id` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
+) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = 'Pratos favoritos do Cliente';
 
--- --------------------------------------------------------
---
--- Table structure for table `invoice`
---
-CREATE TABLE `invoice` (
-  `id` int(11) NOT NULL COMMENT 'id da fatura',
-  `total` decimal(6, 2) NOT NULL COMMENT 'preço final',
-  `meal_id` int(11) NOT NULL COMMENT 'id da refeição'
-) ENGINE = InnoDB DEFAULT CHARSET = utf8;
+-- Data exporting was unselected.
+-- Dumping structure for table horadapapa.help_ticket
+DROP TABLE IF EXISTS `help_ticket`;
 
--- --------------------------------------------------------
---
--- Table structure for table `meal`
---
-CREATE TABLE `meal` (
-  `id` int(11) NOT NULL COMMENT 'id da refeição',
-  `dinner_table_id` int(11) NOT NULL COMMENT 'id da mesa',
+CREATE TABLE IF NOT EXISTS `help_ticket` (
+  `id` int NOT NULL AUTO_INCREMENT COMMENT 'id do ticket',
+  `id_user` int NOT NULL COMMENT 'id utilizador que fez ticket',
+  `needHelp` tinyint(1) NOT NULL COMMENT 'estado da ajuda',
+  `description` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT 'descrição do pedido de ajuda',
+  `date_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'data',
+  PRIMARY KEY (`id`),
+  KEY `id_user` (`id_user`),
+  KEY `status` (`needHelp`) USING BTREE,
+  CONSTRAINT `FK_help_user` FOREIGN KEY (`id_user`) REFERENCES `user` (`id`)
+) ENGINE = InnoDB DEFAULT CHARSET = utf8mb3 COMMENT = 'Pedido de ajuda do cliente';
+
+-- Data exporting was unselected.
+-- Dumping structure for table horadapapa.invoice
+DROP TABLE IF EXISTS `invoice`;
+
+CREATE TABLE IF NOT EXISTS `invoice` (
+  `id` int NOT NULL AUTO_INCREMENT COMMENT 'id da fatura',
+  `price` decimal(6, 2) NOT NULL COMMENT 'preço final',
+  `meal_id` int NOT NULL COMMENT 'id da refeição',
+  `date_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'data',
+  `nif` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT 'número fiscal do cliente',
+  PRIMARY KEY (`id`),
+  KEY `meal_id` (`meal_id`),
+  CONSTRAINT `fk_meal` FOREIGN KEY (`meal_id`) REFERENCES `meal` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
+) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = 'Fatura';
+
+-- Data exporting was unselected.
+-- Dumping structure for table horadapapa.meal
+DROP TABLE IF EXISTS `meal`;
+
+CREATE TABLE IF NOT EXISTS `meal` (
+  `id` int NOT NULL AUTO_INCREMENT COMMENT 'id da refeição',
+  `dinner_table_id` int NOT NULL COMMENT 'id da mesa',
   `checkout` tinyint(1) NOT NULL DEFAULT '0' COMMENT 'estado do pagamento',
-  `date_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'data de criação'
-) ENGINE = InnoDB DEFAULT CHARSET = utf8;
+  `date_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'data de criação',
+  PRIMARY KEY (`id`),
+  KEY `dinner_table_id` (`dinner_table_id`),
+  KEY `checkout` (`checkout`),
+  CONSTRAINT `fk_dinner_table` FOREIGN KEY (`dinner_table_id`) REFERENCES `dinner` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
+) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = 'A Meal é quem vai aglomerar todos os Requests feitos durante a refeição';
 
--- --------------------------------------------------------
---
--- Table structure for table `migration`
---
-CREATE TABLE `migration` (
+-- Data exporting was unselected.
+-- Dumping structure for table horadapapa.migration
+DROP TABLE IF EXISTS `migration`;
+
+CREATE TABLE IF NOT EXISTS `migration` (
   `version` varchar(180) NOT NULL,
-  `apply_time` int(11) DEFAULT NULL
-) ENGINE = MyISAM DEFAULT CHARSET = utf8;
+  `apply_time` int DEFAULT NULL,
+  PRIMARY KEY (`version`)
+) ENGINE = MyISAM DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
 
---
--- Dumping data for table `migration`
---
-INSERT INTO
-  `migration` (`version`, `apply_time`)
-VALUES
-  ('m000000_000000_base', 1696446333),
-  ('m130524_201442_init', 1696446341),
-  (
-    'm190124_110200_add_verification_token_column_to_user_table',
-    1696446341
-  );
+-- Data exporting was unselected.
+-- Dumping structure for table horadapapa.plate
+DROP TABLE IF EXISTS `plate`;
 
--- --------------------------------------------------------
---
--- Table structure for table `plate`
---
-CREATE TABLE `plate` (
-  `id` int(11) NOT NULL COMMENT 'id do prato',
-  `title` varchar(255) NOT NULL COMMENT 'título do prato',
+CREATE TABLE IF NOT EXISTS `plate` (
+  `id` int NOT NULL AUTO_INCREMENT COMMENT 'id do prato',
   `description` varchar(255) NOT NULL COMMENT 'descrição do prato',
-  `price` decimal(6, 2) NOT NULL COMMENT 'preço do prato' `isAvailable` tinyint(1) NOT NULL DEFAULT '1' COMMENT 'disponibilidade do prato'
-) ENGINE = InnoDB DEFAULT CHARSET = utf8;
+  `price` decimal(6, 2) NOT NULL COMMENT 'preço do prato',
+  `title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT 'titulo do prato',
+  `date_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'data',
+  PRIMARY KEY (`id`)
+) ENGINE = InnoDB AUTO_INCREMENT = 2 DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = 'O objeto Prato';
 
---
--- Dumping data for table `plate`
---
-INSERT INTO
-  `plate` (`id`, `description`, `price`)
-VALUES
-  (1, 'arroz', '5.00');
+-- Data exporting was unselected.
+-- Dumping structure for table horadapapa.request
+DROP TABLE IF EXISTS `request`;
 
--- --------------------------------------------------------
---
--- Table structure for table `request`
---
-CREATE TABLE `request` (
-  `id` int(11) NOT NULL COMMENT 'id do pedido',
-  `meal_id` int(11) NOT NULL COMMENT 'id da refeição',
+CREATE TABLE IF NOT EXISTS `request` (
+  `id` int NOT NULL AUTO_INCREMENT COMMENT 'id do pedido',
+  `meal_id` int NOT NULL COMMENT 'id da refeição',
   `observation` varchar(255) NOT NULL COMMENT 'comentários extra',
-  `plate_id` int(11) NOT NULL COMMENT 'id do prato',
+  `plate_id` int NOT NULL COMMENT 'id do prato',
   `isCooked` tinyint(1) NOT NULL DEFAULT '0' COMMENT 'estado do cozinheiro',
   `isDelivered` tinyint(1) NOT NULL DEFAULT '0' COMMENT 'estado do garçon',
-  `user_id` int(11) NOT NULL COMMENT 'id do utilizador'
-) ENGINE = InnoDB DEFAULT CHARSET = utf8;
-
--- --------------------------------------------------------
---
--- Table structure for table `user`
---
-CREATE TABLE `user` (
-  `id` int(11) NOT NULL,
-  `username` varchar(255) NOT NULL,
-  `auth_key` varchar(32) NOT NULL,
-  `password_hash` varchar(255) NOT NULL,
-  `password_reset_token` varchar(255) DEFAULT NULL,
-  `email` varchar(255) NOT NULL,
-  `status` smallint(6) NOT NULL DEFAULT '10',
-  `created_at` int(11) NOT NULL,
-  `updated_at` int(11) NOT NULL,
-  `verification_token` varchar(255) DEFAULT NULL
-) ENGINE = InnoDB DEFAULT CHARSET = utf8;
-
---
--- Dumping data for table `user`
---
-INSERT INTO
-  `user` (
-    `id`,
-    `username`,
-    `auth_key`,
-    `password_hash`,
-    `password_reset_token`,
-    `email`,
-    `status`,
-    `created_at`,
-    `updated_at`,
-    `verification_token`
-  )
-VALUES
-  (
-    1,
-    'Dinis',
-    'UPFEzZ_a0tjVrtelAsjWqVPFHu8lKW3i',
-    '$2y$13$92kaCka.Q5lVo9lUcaaoJ.ONjZu4haHFsNLlfCnCDg/SjfoUNl6Ni',
-    NULL,
-    'dinis@ipl.com',
-    10,
-    1697488914,
-    1697488914,
-    'OszSJNjNOTqPmRnwglpt9NOhq2og_GFZ_1697488914'
-  );
-
---
--- Indexes for dumped tables
---
---
--- Indexes for table `auth_assignment`
---
-ALTER TABLE
-  `auth_assignment`
-ADD
-  PRIMARY KEY (`item_name`, `user_id`),
-ADD
-  KEY `idx-auth_assignment-user_id` (`user_id`);
-
---
--- Indexes for table `auth_item`
---
-ALTER TABLE
-  `auth_item`
-ADD
-  PRIMARY KEY (`name`),
-ADD
-  KEY `rule_name` (`rule_name`),
-ADD
-  KEY `idx-auth_item-type` (`type`);
-
---
--- Indexes for table `auth_item_child`
---
-ALTER TABLE
-  `auth_item_child`
-ADD
-  PRIMARY KEY (`parent`, `child`),
-ADD
-  KEY `child` (`child`);
-
---
--- Indexes for table `auth_rule`
---
-ALTER TABLE
-  `auth_rule`
-ADD
-  PRIMARY KEY (`name`);
-
---
--- Indexes for table `dinner`
---
-ALTER TABLE
-  `dinner`
-ADD
-  PRIMARY KEY (`id`);
-
---
--- Indexes for table `favorite`
---
-ALTER TABLE
-  `favorite`
-ADD
+  `user_id` int NOT NULL COMMENT 'id do utilizador',
+  `date_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'data',
+  `price` decimal(6, 2) NOT NULL COMMENT 'preço do prato',
   PRIMARY KEY (`id`),
-ADD
-  KEY `plate_id` (`plate_id`),
-ADD
-  KEY `user_id` (`user_id`);
-
---
--- Indexes for table `helpticket`
---
-ALTER TABLE
-  `helpticket`
-ADD
-  PRIMARY KEY (`id`),
-ADD
-  KEY `id_user` (`id_user`),
-ADD
-  KEY `status` (`status`);
-
---
--- Indexes for table `invoice`
---
-ALTER TABLE
-  `invoice`
-ADD
-  PRIMARY KEY (`id`),
-ADD
-  KEY `meal_id` (`meal_id`);
-
---
--- Indexes for table `meal`
---
-ALTER TABLE
-  `meal`
-ADD
-  PRIMARY KEY (`id`),
-ADD
-  KEY `dinner_table_id` (`dinner_table_id`),
-ADD
-  KEY `checkout` (`checkout`);
-
---
--- Indexes for table `migration`
---
-ALTER TABLE
-  `migration`
-ADD
-  PRIMARY KEY (`version`);
-
---
--- Indexes for table `plate`
---
-ALTER TABLE
-  `plate`
-ADD
-  PRIMARY KEY (`id`);
-
---
--- Indexes for table `request`
---
-ALTER TABLE
-  `request`
-ADD
-  PRIMARY KEY (`id`),
-ADD
   KEY `meal_id` (`meal_id`),
-ADD
   KEY `plate_id` (`plate_id`),
-ADD
   KEY `isCooked` (`isCooked`),
-ADD
   KEY `isDelivered` (`isDelivered`),
-ADD
-  KEY `user_id` (`user_id`);
+  KEY `user_id` (`user_id`),
+  CONSTRAINT `fk_meal_id` FOREIGN KEY (`meal_id`) REFERENCES `meal` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT `fk_plate_id` FOREIGN KEY (`plate_id`) REFERENCES `plate` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT `fk_request_user_id` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
+) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = 'Pedido de comida feito pelo cliente';
 
---
--- Indexes for table `user`
---
-ALTER TABLE
-  `user`
-ADD
+-- Data exporting was unselected.
+-- Dumping structure for table horadapapa.user
+DROP TABLE IF EXISTS `user`;
+
+CREATE TABLE IF NOT EXISTS `user` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `username` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
+  `auth_key` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
+  `password_hash` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
+  `password_reset_token` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL,
+  `email` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
+  `status` smallint NOT NULL DEFAULT '10',
+  `created_at` int NOT NULL,
+  `updated_at` int NOT NULL,
+  `verification_token` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
-ADD
   UNIQUE KEY `username` (`username`),
-ADD
   UNIQUE KEY `email` (`email`),
-ADD
-  UNIQUE KEY `password_reset_token` (`password_reset_token`);
+  UNIQUE KEY `password_reset_token` (`password_reset_token`)
+) ENGINE = InnoDB AUTO_INCREMENT = 5 DEFAULT CHARSET = utf8mb3 COLLATE = utf8mb3_unicode_ci;
 
---
--- AUTO_INCREMENT for dumped tables
---
---
--- AUTO_INCREMENT for table `dinner`
---
-ALTER TABLE
-  `dinner`
-MODIFY
-  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id da mesa';
+-- Data exporting was unselected.
+-- Dumping structure for table horadapapa.user_info
+DROP TABLE IF EXISTS `user_info`;
 
---
--- AUTO_INCREMENT for table `favorite`
---
-ALTER TABLE
-  `favorite`
-MODIFY
-  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id do favorito';
+CREATE TABLE IF NOT EXISTS `user_info` (
+  `user_id` int NOT NULL COMMENT 'id do user',
+  `nif` varchar(9) DEFAULT NULL COMMENT 'número fiscal do cliente',
+  `nome` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT 'nome do cliente',
+  `apelido` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT 'último nome do cliente',
+  PRIMARY KEY (`user_id`),
+  CONSTRAINT `fk_user_info` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
+) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = 'Armazena informações extra do utilizador';
 
---
--- AUTO_INCREMENT for table `helpticket`
---
-ALTER TABLE
-  `helpticket`
-MODIFY
-  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id do ticket';
+-- Data exporting was unselected.
+/*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */
+;
 
---
--- AUTO_INCREMENT for table `invoice`
---
-ALTER TABLE
-  `invoice`
-MODIFY
-  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id da fatura';
-
---
--- AUTO_INCREMENT for table `meal`
---
-ALTER TABLE
-  `meal`
-MODIFY
-  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id da refeição';
-
---
--- AUTO_INCREMENT for table `plate`
---
-ALTER TABLE
-  `plate`
-MODIFY
-  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id do prato',
-  AUTO_INCREMENT = 2;
-
---
--- AUTO_INCREMENT for table `request`
---
-ALTER TABLE
-  `request`
-MODIFY
-  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id do pedido';
-
---
--- AUTO_INCREMENT for table `user`
---
-ALTER TABLE
-  `user`
-MODIFY
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  AUTO_INCREMENT = 2;
-
---
--- Constraints for dumped tables
---
---
--- Constraints for table `auth_assignment`
---
-ALTER TABLE
-  `auth_assignment`
-ADD
-  CONSTRAINT `auth_assignment_ibfk_1` FOREIGN KEY (`item_name`) REFERENCES `auth_item` (`name`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Constraints for table `auth_item`
---
-ALTER TABLE
-  `auth_item`
-ADD
-  CONSTRAINT `auth_item_ibfk_1` FOREIGN KEY (`rule_name`) REFERENCES `auth_rule` (`name`) ON DELETE
-SET
-  NULL ON UPDATE CASCADE;
-
---
--- Constraints for table `auth_item_child`
---
-ALTER TABLE
-  `auth_item_child`
-ADD
-  CONSTRAINT `auth_item_child_ibfk_1` FOREIGN KEY (`parent`) REFERENCES `auth_item` (`name`) ON DELETE CASCADE ON UPDATE CASCADE,
-ADD
-  CONSTRAINT `auth_item_child_ibfk_2` FOREIGN KEY (`child`) REFERENCES `auth_item` (`name`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Constraints for table `favorite`
---
-ALTER TABLE
-  `favorite`
-ADD
-  CONSTRAINT `fk_favorite_plate_id` FOREIGN KEY (`plate_id`) REFERENCES `plate` (`id`),
-ADD
-  CONSTRAINT `fk_favorite_user_id` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`);
-
---
--- Constraints for table `helpticket`
---
-ALTER TABLE
-  `helpticket`
-ADD
-  CONSTRAINT `FK_helpticket_userID` FOREIGN KEY (`id_user`) REFERENCES `user` (`id`);
-
---
--- Constraints for table `invoice`
---
-ALTER TABLE
-  `invoice`
-ADD
-  CONSTRAINT `fk_meal` FOREIGN KEY (`meal_id`) REFERENCES `meal` (`id`);
-
---
--- Constraints for table `meal`
---
-ALTER TABLE
-  `meal`
-ADD
-  CONSTRAINT `fk_dinner_table` FOREIGN KEY (`dinner_table_id`) REFERENCES `dinner` (`id`);
-
---
--- Constraints for table `request`
---
-ALTER TABLE
-  `request`
-ADD
-  CONSTRAINT `fk_meal_id` FOREIGN KEY (`meal_id`) REFERENCES `meal` (`id`),
-ADD
-  CONSTRAINT `fk_plate_id` FOREIGN KEY (`plate_id`) REFERENCES `plate` (`id`),
-ADD
-  CONSTRAINT `fk_request_user_id` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`);
-
-COMMIT;
+/*!40014 SET FOREIGN_KEY_CHECKS=IFNULL(@OLD_FOREIGN_KEY_CHECKS, 1) */
+;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */
 ;
 
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */
-;
-
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */
+/*!40111 SET SQL_NOTES=IFNULL(@OLD_SQL_NOTES, 1) */
 ;
