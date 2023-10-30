@@ -18,7 +18,8 @@ class InvoiceSearch extends Invoice
     {
         return [
             [['id', 'meal_id'], 'integer'],
-            [['total'], 'number'],
+            [['price'], 'number'],
+            [['date_time', 'nif'], 'safe'],
         ];
     }
 
@@ -59,9 +60,12 @@ class InvoiceSearch extends Invoice
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'total' => $this->total,
+            'price' => $this->price,
             'meal_id' => $this->meal_id,
+            'date_time' => $this->date_time,
         ]);
+
+        $query->andFilterWhere(['like', 'nif', $this->nif]);
 
         return $dataProvider;
     }

@@ -2,14 +2,14 @@
 
 namespace app\models;
 
-use common\models\Plate;
+use Yii;
 
 /**
  * This is the model class for table "favorite".
  *
  * @property int $id id do favorito
  * @property int $plate_id id do prato
- * @property string $date data
+ * @property string $date_time data
  * @property int $user_id id do utilizador
  *
  * @property Plate $plate
@@ -33,7 +33,7 @@ class Favorite extends \yii\db\ActiveRecord
         return [
             [['plate_id', 'user_id'], 'required'],
             [['plate_id', 'user_id'], 'integer'],
-            [['date'], 'safe'],
+            [['date_time'], 'safe'],
             [['plate_id'], 'exist', 'skipOnError' => true, 'targetClass' => Plate::class, 'targetAttribute' => ['plate_id' => 'id']],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['user_id' => 'id']],
         ];
@@ -47,7 +47,7 @@ class Favorite extends \yii\db\ActiveRecord
         return [
             'id' => 'id do favorito',
             'plate_id' => 'id do prato',
-            'date' => 'data',
+            'date_time' => 'data',
             'user_id' => 'id do utilizador',
         ];
     }

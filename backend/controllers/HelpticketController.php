@@ -2,16 +2,16 @@
 
 namespace backend\controllers;
 
-use app\models\Helpticket;
-use app\models\HelpticketSearch;
+use app\models\HelpTicket;
+use app\models\HelpTicketSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * HelpticketController implements the CRUD actions for Helpticket model.
+ * HelpTicketController implements the CRUD actions for HelpTicket model.
  */
-class HelpticketController extends Controller
+class HelpTicketController extends Controller
 {
     /**
      * @inheritDoc
@@ -32,13 +32,13 @@ class HelpticketController extends Controller
     }
 
     /**
-     * Lists all Helpticket models.
+     * Lists all HelpTicket models.
      *
      * @return string
      */
     public function actionIndex()
     {
-        $searchModel = new HelpticketSearch();
+        $searchModel = new HelpTicketSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
 
         return $this->render('index', [
@@ -48,7 +48,7 @@ class HelpticketController extends Controller
     }
 
     /**
-     * Displays a single Helpticket model.
+     * Displays a single HelpTicket model.
      * @param int $id id do ticket
      * @return string
      * @throws NotFoundHttpException if the model cannot be found
@@ -61,13 +61,13 @@ class HelpticketController extends Controller
     }
 
     /**
-     * Creates a new Helpticket model.
+     * Creates a new HelpTicket model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return string|\yii\web\Response
      */
     public function actionCreate()
     {
-        $model = new Helpticket();
+        $model = new HelpTicket();
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
@@ -83,7 +83,7 @@ class HelpticketController extends Controller
     }
 
     /**
-     * Updates an existing Helpticket model.
+     * Updates an existing HelpTicket model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param int $id id do ticket
      * @return string|\yii\web\Response
@@ -103,7 +103,7 @@ class HelpticketController extends Controller
     }
 
     /**
-     * Deletes an existing Helpticket model.
+     * Deletes an existing HelpTicket model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param int $id id do ticket
      * @return \yii\web\Response
@@ -117,15 +117,15 @@ class HelpticketController extends Controller
     }
 
     /**
-     * Finds the Helpticket model based on its primary key value.
+     * Finds the HelpTicket model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param int $id id do ticket
-     * @return Helpticket the loaded model
+     * @return HelpTicket the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Helpticket::findOne(['id' => $id])) !== null) {
+        if (($model = HelpTicket::findOne(['id' => $id])) !== null) {
             return $model;
         }
 

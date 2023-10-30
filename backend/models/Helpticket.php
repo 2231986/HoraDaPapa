@@ -5,22 +5,24 @@ namespace app\models;
 use Yii;
 
 /**
- * This is the model class for table "helpticket".
+ * This is the model class for table "help_ticket".
  *
  * @property int $id id do ticket
  * @property int $id_user id utilizador que fez ticket
- * @property int $status Estado da ajuda
+ * @property int $needHelp estado da ajuda
+ * @property string $description descrição do pedido de ajuda
+ * @property string $date_time data
  *
  * @property User $user
  */
-class Helpticket extends \yii\db\ActiveRecord
+class HelpTicket extends \yii\db\ActiveRecord
 {
     /**
      * {@inheritdoc}
      */
     public static function tableName()
     {
-        return 'helpticket';
+        return 'help_ticket';
     }
 
     /**
@@ -29,8 +31,10 @@ class Helpticket extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id_user', 'status'], 'required'],
-            [['id_user', 'status'], 'integer'],
+            [['id_user', 'needHelp', 'description'], 'required'],
+            [['id_user', 'needHelp'], 'integer'],
+            [['date_time'], 'safe'],
+            [['description'], 'string', 'max' => 255],
             [['id_user'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['id_user' => 'id']],
         ];
     }
@@ -43,7 +47,9 @@ class Helpticket extends \yii\db\ActiveRecord
         return [
             'id' => 'id do ticket',
             'id_user' => 'id utilizador que fez ticket',
-            'status' => 'Estado da ajuda',
+            'needHelp' => 'estado da ajuda',
+            'description' => 'descrição do pedido de ajuda',
+            'date_time' => 'data',
         ];
     }
 

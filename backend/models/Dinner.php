@@ -10,6 +10,7 @@ use Yii;
  * @property int $id id da mesa
  * @property string $name nome da mesa
  * @property int $isClean estado da mesa
+ * @property string $date_time date
  *
  * @property Meal[] $meals
  */
@@ -31,6 +32,7 @@ class Dinner extends \yii\db\ActiveRecord
         return [
             [['name'], 'required'],
             [['isClean'], 'integer'],
+            [['date_time'], 'safe'],
             [['name'], 'string', 'max' => 255],
         ];
     }
@@ -44,6 +46,7 @@ class Dinner extends \yii\db\ActiveRecord
             'id' => 'id da mesa',
             'name' => 'nome da mesa',
             'isClean' => 'estado da mesa',
+            'date_time' => 'date',
         ];
     }
 

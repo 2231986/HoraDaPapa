@@ -4,9 +4,10 @@ namespace common\models;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
+use common\models\Plate;
 
 /**
- * PlateSearch represents the model behind the search form of `app\models\Plate`.
+ * PlateSearch represents the model behind the search form of `common\models\Plate`.
  */
 class PlateSearch extends Plate
 {
@@ -16,8 +17,8 @@ class PlateSearch extends Plate
     public function rules()
     {
         return [
-            ['id', 'integer'],
-            [['description'], 'string', 'max' => 255],
+            [['id'], 'integer'],
+            [['description', 'title', 'date_time'], 'safe'],
             [['price'], 'number'],
         ];
     }
@@ -60,9 +61,12 @@ class PlateSearch extends Plate
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'description' => $this->description,
             'price' => $this->price,
+            'date_time' => $this->date_time,
         ]);
+
+        $query->andFilterWhere(['like', 'description', $this->description])
+            ->andFilterWhere(['like', 'title', $this->title]);
 
         return $dataProvider;
     }

@@ -18,7 +18,7 @@ class FavoriteSearch extends Favorite
     {
         return [
             [['id', 'plate_id', 'user_id'], 'integer'],
-            [['date'], 'safe'],
+            [['date_time'], 'safe'],
         ];
     }
 
@@ -60,7 +60,7 @@ class FavoriteSearch extends Favorite
         $query->andFilterWhere([
             'id' => $this->id,
             'plate_id' => $this->plate_id,
-            'date' => $this->date,
+            'date_time' => $this->date_time,
             'user_id' => $this->user_id,
         ]);
 

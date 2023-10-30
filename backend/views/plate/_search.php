@@ -4,7 +4,7 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /** @var yii\web\View $this */
-/** @var \common\models\PlateSearch $model */
+/** @var app\models\PlateSearch $model */
 /** @var yii\widgets\ActiveForm $form */
 ?>
 
@@ -20,6 +20,10 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'description') ?>
 
     <?= $form->field($model, 'price') ?>
+
+    <?= $form->field($model, 'title') ?>
+
+    <?= $form->field($model, 'date_time') ?>
 
     <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>

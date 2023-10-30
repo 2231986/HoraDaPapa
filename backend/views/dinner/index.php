@@ -32,6 +32,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'id',
             'name',
             'isClean',
+            'date_time',
             [
                 'class' => ActionColumn::className(),
                 'urlCreator' => function ($action, Dinner $model, $key, $index, $column) {

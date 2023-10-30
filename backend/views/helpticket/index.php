@@ -1,24 +1,24 @@
 <?php
 
-use app\models\Helpticket;
+use app\models\HelpTicket;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\grid\ActionColumn;
 use yii\grid\GridView;
 
 /** @var yii\web\View $this */
-/** @var app\models\HelpticketSearch $searchModel */
+/** @var app\models\HelpTicketSearch $searchModel */
 /** @var yii\data\ActiveDataProvider $dataProvider */
 
-$this->title = 'Helptickets';
+$this->title = 'Help Tickets';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="helpticket-index">
+<div class="help-ticket-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Create Helpticket', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Create Help Ticket', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
@@ -31,10 +31,12 @@ $this->params['breadcrumbs'][] = $this->title;
 
             'id',
             'id_user',
-            'status',
+            'needHelp',
+            'description',
+            'date_time',
             [
                 'class' => ActionColumn::className(),
-                'urlCreator' => function ($action, Helpticket $model, $key, $index, $column) {
+                'urlCreator' => function ($action, HelpTicket $model, $key, $index, $column) {
                     return Url::toRoute([$action, 'id' => $model->id]);
                  }
             ],

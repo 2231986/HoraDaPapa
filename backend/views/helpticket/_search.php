@@ -4,11 +4,11 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /** @var yii\web\View $this */
-/** @var app\models\HelpticketSearch $model */
+/** @var app\models\HelpTicketSearch $model */
 /** @var yii\widgets\ActiveForm $form */
 ?>
 
-<div class="helpticket-search">
+<div class="help-ticket-search">
 
     <?php $form = ActiveForm::begin([
         'action' => ['index'],
@@ -19,7 +19,11 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'id_user') ?>
 
-    <?= $form->field($model, 'status') ?>
+    <?= $form->field($model, 'needHelp') ?>
+
+    <?= $form->field($model, 'description') ?>
+
+    <?= $form->field($model, 'date_time') ?>
 
     <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>

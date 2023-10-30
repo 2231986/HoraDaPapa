@@ -4,9 +4,9 @@ namespace backend\controllers;
 
 use common\models\Plate;
 use common\models\PlateSearch;
-use yii\filters\VerbFilter;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
+use yii\filters\VerbFilter;
 
 /**
  * PlateController implements the CRUD actions for Plate model.
@@ -69,11 +69,15 @@ class PlateController extends Controller
     {
         $model = new Plate();
 
-        if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
+        if ($this->request->isPost)
+        {
+            if ($model->load($this->request->post()) && $model->save())
+            {
                 return $this->redirect(['view', 'id' => $model->id]);
             }
-        } else {
+        }
+        else
+        {
             $model->loadDefaultValues();
         }
 
@@ -93,7 +97,8 @@ class PlateController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
+        if ($this->request->isPost && $model->load($this->request->post()) && $model->save())
+        {
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
@@ -125,7 +130,8 @@ class PlateController extends Controller
      */
     protected function findModel($id)
     {
-        if (($model = Plate::findOne(['id' => $id])) !== null) {
+        if (($model = Plate::findOne(['id' => $id])) !== null)
+        {
             return $model;
         }
 

@@ -4,14 +4,14 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /** @var yii\web\View $this */
-/** @var app\models\Helpticket $model */
+/** @var app\models\HelpTicket $model */
 
 $this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Helptickets', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Help Tickets', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
-<div class="helpticket-view">
+<div class="help-ticket-view">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
@@ -31,7 +31,9 @@ $this->params['breadcrumbs'][] = $this->title;
         'attributes' => [
             'id',
             'id_user',
-            'status',
+            'needHelp',
+            'description',
+            'date_time',
         ],
     ]) ?>
 

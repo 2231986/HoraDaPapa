@@ -2,15 +2,16 @@
 
 namespace common\models;
 
-use app\models\Favorite;
-use app\models\Request;
+use Yii;
 
 /**
  * This is the model class for table "plate".
  *
  * @property int $id id do prato
- * @property int $description descrição do prato
+ * @property string $description descrição do prato
  * @property float $price preço do prato
+ * @property string $title titulo do prato
+ * @property string $date_time data
  *
  * @property Favorite[] $favorites
  * @property Request[] $requests
@@ -31,9 +32,10 @@ class Plate extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['description', 'price'], 'required'],
-            [['description'], 'string', 'max' => 255],
+            [['description', 'price', 'title'], 'required'],
             [['price'], 'number'],
+            [['date_time'], 'safe'],
+            [['description', 'title'], 'string', 'max' => 255],
         ];
     }
 
@@ -46,6 +48,8 @@ class Plate extends \yii\db\ActiveRecord
             'id' => 'id do prato',
             'description' => 'descrição do prato',
             'price' => 'preço do prato',
+            'title' => 'titulo do prato',
+            'date_time' => 'data',
         ];
     }
 

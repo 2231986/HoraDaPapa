@@ -3,13 +3,13 @@
 use yii\helpers\Html;
 
 /** @var yii\web\View $this */
-/** @var app\models\Helpticket $model */
+/** @var app\models\HelpTicket $model */
 
-$this->title = 'Create Helpticket';
-$this->params['breadcrumbs'][] = ['label' => 'Helptickets', 'url' => ['index']];
+$this->title = 'Create Help Ticket';
+$this->params['breadcrumbs'][] = ['label' => 'Help Tickets', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="helpticket-create">
+<div class="help-ticket-create">
 
     <h1><?= Html::encode($this->title) ?></h1>
 

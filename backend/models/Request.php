@@ -2,7 +2,7 @@
 
 namespace app\models;
 
-use common\models\Plate;
+use Yii;
 
 /**
  * This is the model class for table "request".
@@ -14,6 +14,8 @@ use common\models\Plate;
  * @property int $isCooked estado do cozinheiro
  * @property int $isDelivered estado do garçon
  * @property int $user_id id do utilizador
+ * @property string $date_time data
+ * @property float $price preço do prato
  *
  * @property Meal $meal
  * @property Plate $plate
@@ -35,8 +37,10 @@ class Request extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['meal_id', 'observation', 'plate_id', 'user_id'], 'required'],
+            [['meal_id', 'observation', 'plate_id', 'user_id', 'price'], 'required'],
             [['meal_id', 'plate_id', 'isCooked', 'isDelivered', 'user_id'], 'integer'],
+            [['date_time'], 'safe'],
+            [['price'], 'number'],
             [['observation'], 'string', 'max' => 255],
             [['meal_id'], 'exist', 'skipOnError' => true, 'targetClass' => Meal::class, 'targetAttribute' => ['meal_id' => 'id']],
             [['plate_id'], 'exist', 'skipOnError' => true, 'targetClass' => Plate::class, 'targetAttribute' => ['plate_id' => 'id']],
@@ -57,6 +61,8 @@ class Request extends \yii\db\ActiveRecord
             'isCooked' => 'estado do cozinheiro',
             'isDelivered' => 'estado do garçon',
             'user_id' => 'id do utilizador',
+            'date_time' => 'data',
+            'price' => 'preço do prato',
         ];
     }
 

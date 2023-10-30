@@ -4,12 +4,12 @@ namespace app\models;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\Helpticket;
+use app\models\HelpTicket;
 
 /**
- * HelpticketSearch represents the model behind the search form of `app\models\Helpticket`.
+ * HelpTicketSearch represents the model behind the search form of `app\models\HelpTicket`.
  */
-class HelpticketSearch extends Helpticket
+class HelpTicketSearch extends HelpTicket
 {
     /**
      * {@inheritdoc}
@@ -17,7 +17,8 @@ class HelpticketSearch extends Helpticket
     public function rules()
     {
         return [
-            [['id', 'id_user', 'status'], 'integer'],
+            [['id', 'id_user', 'needHelp'], 'integer'],
+            [['description', 'date_time'], 'safe'],
         ];
     }
 
@@ -39,7 +40,7 @@ class HelpticketSearch extends Helpticket
      */
     public function search($params)
     {
-        $query = Helpticket::find();
+        $query = HelpTicket::find();
 
         // add conditions that should always apply here
 
@@ -59,8 +60,11 @@ class HelpticketSearch extends Helpticket
         $query->andFilterWhere([
             'id' => $this->id,
             'id_user' => $this->id_user,
-            'status' => $this->status,
+            'needHelp' => $this->needHelp,
+            'date_time' => $this->date_time,
         ]);
+
+        $query->andFilterWhere(['like', 'description', $this->description]);
 
         return $dataProvider;
     }

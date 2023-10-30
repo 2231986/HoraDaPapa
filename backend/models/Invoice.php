@@ -8,8 +8,10 @@ use Yii;
  * This is the model class for table "invoice".
  *
  * @property int $id id da fatura
- * @property float $total preço final
+ * @property float $price preço final
  * @property int $meal_id id da refeição
+ * @property string $date_time data
+ * @property string|null $nif número fiscal do cliente
  *
  * @property Meal $meal
  */
@@ -29,9 +31,11 @@ class Invoice extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['total', 'meal_id'], 'required'],
-            [['total'], 'number'],
+            [['price', 'meal_id'], 'required'],
+            [['price'], 'number'],
             [['meal_id'], 'integer'],
+            [['date_time'], 'safe'],
+            [['nif'], 'string', 'max' => 255],
             [['meal_id'], 'exist', 'skipOnError' => true, 'targetClass' => Meal::class, 'targetAttribute' => ['meal_id' => 'id']],
         ];
     }
@@ -43,8 +47,10 @@ class Invoice extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'id da fatura',
-            'total' => 'preço final',
+            'price' => 'preço final',
             'meal_id' => 'id da refeição',
+            'date_time' => 'data',
+            'nif' => 'número fiscal do cliente',
         ];
     }
 

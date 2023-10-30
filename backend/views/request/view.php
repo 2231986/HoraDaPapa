@@ -36,6 +36,8 @@ $this->params['breadcrumbs'][] = $this->title;
             'isCooked',
             'isDelivered',
             'user_id',
+            'date_time',
+            'price',
         ],
     ]) ?>
 

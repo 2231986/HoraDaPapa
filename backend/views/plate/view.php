@@ -4,9 +4,9 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /** @var yii\web\View $this */
-/** @var \common\models\Plate $model */
+/** @var common\models\Plate $model */
 
-$this->title = $model->id;
+$this->title = $model->title;
 $this->params['breadcrumbs'][] = ['label' => 'Plates', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
@@ -32,6 +32,8 @@ $this->params['breadcrumbs'][] = $this->title;
             'id',
             'description',
             'price',
+            'title',
+            'date_time',
         ],
     ]) ?>
 

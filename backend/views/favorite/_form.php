@@ -14,7 +14,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'plate_id')->textInput() ?>
 
-    <?= $form->field($model, 'date')->textInput() ?>
+    <?= $form->field($model, 'date_time')->textInput() ?>
 
     <?= $form->field($model, 'user_id')->textInput() ?>
 

@@ -18,7 +18,7 @@ class DinnerSearch extends Dinner
     {
         return [
             [['id', 'isClean'], 'integer'],
-            [['name'], 'safe'],
+            [['name', 'date_time'], 'safe'],
         ];
     }
 
@@ -60,6 +60,7 @@ class DinnerSearch extends Dinner
         $query->andFilterWhere([
             'id' => $this->id,
             'isClean' => $this->isClean,
+            'date_time' => $this->date_time,
         ]);
 
         $query->andFilterWhere(['like', 'name', $this->name]);

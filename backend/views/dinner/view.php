@@ -32,6 +32,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'id',
             'name',
             'isClean',
+            'date_time',
         ],
     ]) ?>
 

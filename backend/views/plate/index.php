@@ -1,13 +1,13 @@
 <?php
 
 use common\models\Plate;
-use yii\grid\ActionColumn;
-use yii\grid\GridView;
 use yii\helpers\Html;
 use yii\helpers\Url;
+use yii\grid\ActionColumn;
+use yii\grid\GridView;
 
 /** @var yii\web\View $this */
-/** @var \common\models\PlateSearch $searchModel */
+/** @var app\models\PlateSearch $searchModel */
 /** @var yii\data\ActiveDataProvider $dataProvider */
 
 $this->title = 'Plates';
@@ -32,6 +32,8 @@ $this->params['breadcrumbs'][] = $this->title;
             'id',
             'description',
             'price',
+            'title',
+            'date_time',
             [
                 'class' => ActionColumn::className(),
                 'urlCreator' => function ($action, Plate $model, $key, $index, $column) {

@@ -12,7 +12,7 @@ use Yii;
  * @property int $checkout estado do pagamento
  * @property string $date_time data de criação
  *
- * @property DinnerTable $dinnerTable
+ * @property Dinner $dinnerTable
  * @property Invoice[] $invoices
  * @property Request[] $requests
  */
@@ -35,7 +35,7 @@ class Meal extends \yii\db\ActiveRecord
             [['dinner_table_id'], 'required'],
             [['dinner_table_id', 'checkout'], 'integer'],
             [['date_time'], 'safe'],
-            [['dinner_table_id'], 'exist', 'skipOnError' => true, 'targetClass' => DinnerTable::class, 'targetAttribute' => ['dinner_table_id' => 'id']],
+            [['dinner_table_id'], 'exist', 'skipOnError' => true, 'targetClass' => Dinner::class, 'targetAttribute' => ['dinner_table_id' => 'id']],
         ];
     }
 
@@ -59,7 +59,7 @@ class Meal extends \yii\db\ActiveRecord
      */
     public function getDinnerTable()
     {
-        return $this->hasOne(DinnerTable::class, ['id' => 'dinner_table_id']);
+        return $this->hasOne(Dinner::class, ['id' => 'dinner_table_id']);
     }
 
     /**

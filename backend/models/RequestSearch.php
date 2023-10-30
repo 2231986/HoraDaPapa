@@ -18,7 +18,8 @@ class RequestSearch extends Request
     {
         return [
             [['id', 'meal_id', 'plate_id', 'isCooked', 'isDelivered', 'user_id'], 'integer'],
-            [['observation'], 'safe'],
+            [['observation', 'date_time'], 'safe'],
+            [['price'], 'number'],
         ];
     }
 
@@ -64,6 +65,8 @@ class RequestSearch extends Request
             'isCooked' => $this->isCooked,
             'isDelivered' => $this->isDelivered,
             'user_id' => $this->user_id,
+            'date_time' => $this->date_time,
+            'price' => $this->price,
         ]);
 
         $query->andFilterWhere(['like', 'observation', $this->observation]);
