@@ -98,6 +98,7 @@ class RbacController extends Controller
 
         $auth->addChild($cooker, $permission_managePlate);
         $auth->addChild($cooker, $permission_manageRequest);
+
         //Role - Admin
         $admin = $auth->createRole(RbacController::$RoleAdmin);
         $admin->description = 'Administrador';
