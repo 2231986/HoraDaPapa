@@ -25,7 +25,7 @@ class RbacController extends Controller
 
         //Permission - Gerir Prato
         $permission_managePlate = $auth->createPermission('managePlate');
-        $permission_managePlate->description = 'Gere um Prato';
+        //$permission_managePlate->description = 'Gere um Prato';
         $auth->add($permission_managePlate);
 
         //Roles
