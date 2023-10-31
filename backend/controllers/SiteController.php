@@ -65,7 +65,15 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        $userRole = null;
+        $arrayAuthRoleItems = Yii::$app->authManager->getRolesByUser(Yii::$app->user->getId());
+        if (count($arrayAuthRoleItems) > 0) {
+            $userRole = array_values($arrayAuthRoleItems)[0]->description;
+        }
+
+        return $this->render('index', [
+            'userRole' => $userRole
+        ]);
     }
 
     /**
@@ -75,28 +83,23 @@ class SiteController extends Controller
      */
     public function actionLogin()
     {
-        if (!Yii::$app->user->isGuest)
-        {
+        if (!Yii::$app->user->isGuest) {
             return $this->goHome();
         }
 
         $this->layout = 'blank';
 
         $model = new LoginForm();
-        if ($model->load(Yii::$app->request->post()) && $model->login())
-        {
+        if ($model->load(Yii::$app->request->post()) && $model->login()) {
             $userID = $this->user->id;
 
             if (
                 Yii::$app->authManager->getAssignment(RbacController::$RoleAdmin, $userID) ||
                 Yii::$app->authManager->getAssignment(RbacController::$RoleCooker, $userID) ||
                 Yii::$app->authManager->getAssignment(RbacController::$RoleWaiter, $userID)
-            )
-            {
+            ) {
                 return $this->goBack();
-            }
-            else
-            {
+            } else {
                 return $this->redirect('logout');
             }
         }

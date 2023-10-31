@@ -11,10 +11,20 @@ use yii\console\Controller;
 //php yii rbac/init
 class RbacController extends Controller
 {
+    //Roles - names
     public static $RoleAdmin = "admin";
     public static $RoleWaiter = "waiter";
     public static $RoleCooker = "cooker";
     public static $RoleClient = "client";
+
+    //Permissions - names
+    public static $PermissionPlate = "managePlate";
+    public static $PermissionRequest = "manageRequest";
+    public static $PermissionInvoice = "manageInvoice";
+    public static $PermissionHelpTicket = "manageHelpTicket";
+    public static $PermissionFavorite = "manageFavorite";
+    public static $PermissionDinner = "manageDinner";
+    public static $PermissionUser = "manageUser";
 
     public function actionInit()
     {
@@ -24,34 +34,39 @@ class RbacController extends Controller
         //region Permissions
 
         //Permission - Gerir Prato
-        $permission_managePlate = $auth->createPermission('managePlate');
-        //$permission_managePlate->description = 'Gere um Prato';
+        $permission_managePlate = $auth->createPermission(RbacController::$PermissionPlate);
+        $permission_managePlate->description = 'Gere um Prato';
         $auth->add($permission_managePlate);
 
         //Permission - Gerir Pedidos
-        $permission_manageRequest = $auth->createPermission('manageRequest');
+        $permission_manageRequest = $auth->createPermission(RbacController::$PermissionRequest);
         $permission_manageRequest->description = 'Gere um Pedido de um Prato';
         $auth->add($permission_manageRequest);
 
         //Permission - Gerir Faturas
-        $permission_manageInvoice = $auth->createPermission('manageInvoice');
+        $permission_manageInvoice = $auth->createPermission(RbacController::$PermissionInvoice);
         $permission_manageInvoice->description = 'Gere uma Fatura';
         $auth->add($permission_manageInvoice);
 
         //Permission - Realizar um pedido de ajuda
-        $permission_manageHelpTicket = $auth->createPermission('manageHelpTicket');
+        $permission_manageHelpTicket = $auth->createPermission(RbacController::$PermissionHelpTicket);
         $permission_manageHelpTicket->description = 'Pedido de ajuda do cliente';
         $auth->add($permission_manageHelpTicket);
 
         //Permission - Gerir Favoritos
-        $permission_manageFavorite = $auth->createPermission('manageFavorite');
+        $permission_manageFavorite = $auth->createPermission(RbacController::$PermissionFavorite);
         $permission_manageFavorite->description = 'Pratos favoritos do Cliente';
         $auth->add($permission_manageFavorite);
 
         //Permission - Gerir Mesa
-        $permission_manageDinner = $auth->createPermission('manageDinner');
+        $permission_manageDinner = $auth->createPermission(RbacController::$PermissionDinner);
         $permission_manageDinner->description = 'Mesa que o cliente irá se sentar';
         $auth->add($permission_manageDinner);
+
+        //Permission - Gerir Utilizadores
+        $permission_manageUser = $auth->createPermission(RbacController::$PermissionUser);
+        $permission_manageUser->description = 'Gere todos os utilizadores';
+        $auth->add($permission_manageUser);
 
         //endregion Permissions
 
@@ -59,31 +74,40 @@ class RbacController extends Controller
 
         //Role - Cliente
         $client = $auth->createRole(RbacController::$RoleClient);
+        $client->description = 'Cliente';
+        $auth->add($client);
+
         $auth->addChild($client, $permission_manageFavorite);
         $auth->addChild($client, $permission_manageHelpTicket);
         $auth->addChild($client, $permission_manageInvoice);
         $auth->addChild($client, $permission_manageRequest);
-        $auth->add($client);
 
         //Role - Garçon
         $waiter = $auth->createRole(RbacController::$RoleWaiter);
+        $waiter->description = 'Garçon';
+        $auth->add($waiter);
+
         $auth->addChild($waiter, $permission_manageDinner);
         $auth->addChild($waiter, $permission_manageInvoice);
         $auth->addChild($waiter, $permission_manageRequest);
-        $auth->add($waiter);
 
         //Role - Cozinheiro
         $cooker = $auth->createRole(RbacController::$RoleCooker);
+        $cooker->description = 'Cozinheiro';
         $auth->add($cooker);
+
         $auth->addChild($cooker, $permission_managePlate);
         $auth->addChild($cooker, $permission_manageRequest);
 
         //Role - Admin
         $admin = $auth->createRole(RbacController::$RoleAdmin);
+        $admin->description = 'Administrador';
         $auth->add($admin);
+
         $auth->addChild($admin, $cooker);
         $auth->addChild($admin, $waiter);
         $auth->addChild($admin, $client);
+        $auth->addChild($admin, $permission_manageUser);
 
         //endregion Roles
 

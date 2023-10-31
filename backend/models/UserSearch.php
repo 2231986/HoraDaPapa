@@ -4,12 +4,12 @@ namespace app\models;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\HelpTicket;
+use common\models\User;
 
 /**
- * HelpTicketSearch represents the model behind the search form of `app\models\HelpTicket`.
+ * UserSearch represents the model behind the search form of `common\models\User`.
  */
-class HelpticketSearch extends HelpTicket
+class UserSearch extends User
 {
     /**
      * {@inheritdoc}
@@ -17,8 +17,8 @@ class HelpticketSearch extends HelpTicket
     public function rules()
     {
         return [
-            [['id', 'id_user', 'needHelp'], 'integer'],
-            [['description', 'date_time'], 'safe'],
+            [['id', 'status', 'created_at', 'updated_at'], 'integer'],
+            [['username', 'auth_key', 'password_hash', 'password_reset_token', 'email', 'verification_token'], 'safe'],
         ];
     }
 
@@ -40,7 +40,7 @@ class HelpticketSearch extends HelpTicket
      */
     public function search($params)
     {
-        $query = HelpTicket::find();
+        $query = User::find();
 
         // add conditions that should always apply here
 
@@ -59,12 +59,17 @@ class HelpticketSearch extends HelpTicket
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'id_user' => $this->id_user,
-            'needHelp' => $this->needHelp,
-            'date_time' => $this->date_time,
+            'status' => $this->status,
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
         ]);
 
-        $query->andFilterWhere(['like', 'description', $this->description]);
+        $query->andFilterWhere(['like', 'username', $this->username])
+            ->andFilterWhere(['like', 'auth_key', $this->auth_key])
+            ->andFilterWhere(['like', 'password_hash', $this->password_hash])
+            ->andFilterWhere(['like', 'password_reset_token', $this->password_reset_token])
+            ->andFilterWhere(['like', 'email', $this->email])
+            ->andFilterWhere(['like', 'verification_token', $this->verification_token]);
 
         return $dataProvider;
     }

@@ -15,7 +15,7 @@ use Yii;
  *
  * @property User $user
  */
-class HelpTicket extends \yii\db\ActiveRecord
+class Helpticket extends \yii\db\ActiveRecord
 {
     /**
      * {@inheritdoc}
