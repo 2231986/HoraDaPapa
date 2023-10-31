@@ -29,7 +29,7 @@ class SiteController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::class,
-                'only' => ['logout', 'signup', 'login'],
+                'only' => ['logout', 'signup', 'login', 'admin'],
                 'rules' => [
                     [
                         'actions' => ['signup', 'login'],
@@ -38,6 +38,11 @@ class SiteController extends Controller
                     ],
                     [
                         'actions' => ['logout'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                    [
+                        'actions' => ['admin'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -255,5 +260,12 @@ class SiteController extends Controller
         return $this->render('resendVerificationEmail', [
             'model' => $model
         ]);
+    }
+
+    public function actionAdmin(){
+        if (Yii::$app->user->can('managePlate')) {
+            return $this->render('admin');
+        }
+        return $this->render('adminErro');
     }
 }
