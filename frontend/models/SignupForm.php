@@ -2,6 +2,7 @@
 
 namespace frontend\models;
 
+use common\models\UserInfo;
 use Yii;
 use yii\base\Model;
 use common\models\User;
@@ -15,6 +16,9 @@ class SignupForm extends Model
     public $username;
     public $email;
     public $password;
+    public $name;
+    public $surname;
+    public $nif;
 
 
     /**
@@ -36,6 +40,15 @@ class SignupForm extends Model
 
             ['password', 'required'],
             ['password', 'string', 'min' => Yii::$app->params['user.passwordMinLength']],
+
+            ['name', 'trim'],
+            ['username', 'string', 'min' => 2, 'max' => 255],
+
+            ['surname', 'trim'],
+            ['surname', 'string', 'min' => 2, 'max' => 255],
+
+            ['nif', 'trim'],
+            ['nif', 'string', 'min' => 9, 'max' => 10],
         ];
     }
 
@@ -59,6 +72,14 @@ class SignupForm extends Model
         $user->generateEmailVerificationToken();
 
         $user->save();
+
+        $userinfo = new UserInfo();
+        $userinfo->nome = $this->username;
+        $userinfo->apelido = $this->username;
+
+
+
+
 
         //Adiciona um role
         $auth = \Yii::$app->authManager;
