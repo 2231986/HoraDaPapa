@@ -40,36 +40,44 @@ AppAsset::register($this);
             ],
         ]);
 
+        $userID = Yii::$app->user->getId();
+
         $menuItems = [
             ['label' => 'Home', 'url' => ['/site/index']],
-            ['label' => 'Utilizador', 'url' => ['/user/index']],
+            ['label' => 'Utilizador', 'url' => ["/user/update?id=$userID"]],
         ];
 
         #region MenuItems com permissões
-        
-        if (Yii::$app->user->can(RbacController::$PermissionPlate)) {
+
+        if (Yii::$app->user->can(RbacController::$PermissionPlate))
+        {
             array_push($menuItems, ['label' => 'Pratos', 'url' => ['/plate/index']]);
         }
 
-        if (Yii::$app->user->can(RbacController::$PermissionDinner)) {
+        if (Yii::$app->user->can(RbacController::$PermissionDinner))
+        {
             array_push($menuItems, ['label' => 'Mesas', 'url' => ['/dinner/index']]);
         }
 
-        if (Yii::$app->user->can(RbacController::$PermissionHelpTicket)) {
+        if (Yii::$app->user->can(RbacController::$PermissionHelpTicket))
+        {
             array_push($menuItems, ['label' => 'Pedidos de Ajuda', 'url' => ['/helpticket/index']]);
         }
 
-        if (Yii::$app->user->can(RbacController::$PermissionInvoice)) {
+        if (Yii::$app->user->can(RbacController::$PermissionInvoice))
+        {
             array_push($menuItems, ['label' => 'Faturas', 'url' => ['/invoice/index']]);
         }
 
-        if (Yii::$app->user->can(RbacController::$PermissionUser)) {
+        if (Yii::$app->user->can(RbacController::$PermissionUser))
+        {
             array_push($menuItems, ['label' => 'Utilizadores', 'url' => ['/user/index']]);
         }
 
         #endregion MenuItems com permissões
-        
-        if (Yii::$app->user->isGuest) {
+
+        if (Yii::$app->user->isGuest)
+        {
             $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
         }
 
@@ -78,9 +86,12 @@ AppAsset::register($this);
             'items' => $menuItems,
         ]);
 
-        if (Yii::$app->user->isGuest) {
+        if (Yii::$app->user->isGuest)
+        {
             echo Html::tag('div', Html::a('Login', ['/site/login'], ['class' => ['btn btn-link login text-decoration-none']]), ['class' => ['d-flex']]);
-        } else {
+        }
+        else
+        {
             echo Html::beginForm(['/site/logout'], 'post', ['class' => 'd-flex'])
                 . Html::submitButton(
                     'Logout (' . Yii::$app->user->identity->username . ')',
