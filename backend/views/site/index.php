@@ -3,7 +3,7 @@
 /** @var yii\web\View $this */
 /** @var String $userRole */
 
-$this->title = 'My Yii Application';
+$this->title = 'Hora da Papa BackOffice';
 ?>
 <div class="site-index">
 
