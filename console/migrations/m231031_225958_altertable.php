@@ -12,8 +12,8 @@ class m231031_225958_altertable extends Migration
      */
     public function safeUp()
     {
-        $this->renameColumn('UserInfo',nome, [
-        ]);
+        $this->renameColumn('user_info', 'nome', 'name');
+        $this->renameColumn('user_info', 'apelido', 'surname');
     }
 
     /**
