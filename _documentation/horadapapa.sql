@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Tempo de geração: 31-Out-2023 às 21:16
+-- Tempo de geração: 02-Nov-2023 às 21:28
 -- Versão do servidor: 8.0.31
 -- versão do PHP: 8.2.0
 SET
@@ -36,12 +36,12 @@ SET
 DROP TABLE IF EXISTS `auth_assignment`;
 
 CREATE TABLE IF NOT EXISTS `auth_assignment` (
-  `item_name` varchar(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
-  `user_id` varchar(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
+  `item_name` varchar(64) COLLATE utf8mb3_unicode_ci NOT NULL,
+  `user_id` varchar(64) COLLATE utf8mb3_unicode_ci NOT NULL,
   `created_at` int DEFAULT NULL,
   PRIMARY KEY (`item_name`, `user_id`),
   KEY `idx-auth_assignment-user_id` (`user_id`)
-) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_unicode_ci;
+) ENGINE = InnoDB DEFAULT CHARSET = utf8mb3 COLLATE = utf8mb3_unicode_ci;
 
 --
 -- Extraindo dados da tabela `auth_assignment`
@@ -49,14 +49,10 @@ CREATE TABLE IF NOT EXISTS `auth_assignment` (
 INSERT INTO
   `auth_assignment` (`item_name`, `user_id`, `created_at`)
 VALUES
-  ('admin', '1', 1697275759),
-  ('client', '1', 1697488914),
-  ('client', '2', 1698258089),
-  ('client', '3', 1698258715),
-  ('client', '4', 1698258980),
-  ('client', '5', 1697306197),
-  ('cooker', '2', 1697275759),
-  ('waiter', '3', 1697275759);
+  ('admin', '1', 1698959893),
+  ('client', '4', 1698959893),
+  ('cooker', '2', 1698959893),
+  ('waiter', '3', 1698959893);
 
 -- --------------------------------------------------------
 --
@@ -65,17 +61,17 @@ VALUES
 DROP TABLE IF EXISTS `auth_item`;
 
 CREATE TABLE IF NOT EXISTS `auth_item` (
-  `name` varchar(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
+  `name` varchar(64) COLLATE utf8mb3_unicode_ci NOT NULL,
   `type` smallint NOT NULL,
-  `description` text CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci,
-  `rule_name` varchar(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL,
+  `description` text COLLATE utf8mb3_unicode_ci,
+  `rule_name` varchar(64) COLLATE utf8mb3_unicode_ci DEFAULT NULL,
   `data` blob,
   `created_at` int DEFAULT NULL,
   `updated_at` int DEFAULT NULL,
   PRIMARY KEY (`name`),
   KEY `rule_name` (`rule_name`),
   KEY `idx-auth_item-type` (`type`)
-) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_unicode_ci;
+) ENGINE = InnoDB DEFAULT CHARSET = utf8mb3 COLLATE = utf8mb3_unicode_ci;
 
 --
 -- Extraindo dados da tabela `auth_item`
@@ -94,29 +90,65 @@ VALUES
   (
     'admin',
     1,
+    'Administrador',
     NULL,
     NULL,
-    NULL,
-    1697275759,
-    1697275759
+    1698959893,
+    1698959893
   ),
   (
     'client',
     1,
+    'Cliente',
     NULL,
     NULL,
-    NULL,
-    1697275759,
-    1697275759
+    1698959893,
+    1698959893
   ),
   (
     'cooker',
     1,
+    'Cozinheiro',
     NULL,
     NULL,
+    1698959893,
+    1698959893
+  ),
+  (
+    'manageDinner',
+    2,
+    'Mesa que o cliente irá se sentar',
     NULL,
-    1697275759,
-    1697275759
+    NULL,
+    1698959893,
+    1698959893
+  ),
+  (
+    'manageFavorite',
+    2,
+    'Pratos favoritos do Cliente',
+    NULL,
+    NULL,
+    1698959893,
+    1698959893
+  ),
+  (
+    'manageHelpTicket',
+    2,
+    'Pedido de ajuda do cliente',
+    NULL,
+    NULL,
+    1698959893,
+    1698959893
+  ),
+  (
+    'manageInvoice',
+    2,
+    'Gere uma Fatura',
+    NULL,
+    NULL,
+    1698959893,
+    1698959893
   ),
   (
     'managePlate',
@@ -124,17 +156,44 @@ VALUES
     'Gere um Prato',
     NULL,
     NULL,
-    1697275759,
-    1697275759
+    1698959893,
+    1698959893
+  ),
+  (
+    'manageRequest',
+    2,
+    'Gere um Pedido de um Prato',
+    NULL,
+    NULL,
+    1698959893,
+    1698959893
+  ),
+  (
+    'manageSupplier',
+    2,
+    'Gere todos os fornecedores',
+    NULL,
+    NULL,
+    1698959893,
+    1698959893
+  ),
+  (
+    'manageUser',
+    2,
+    'Gere todos os utilizadores',
+    NULL,
+    NULL,
+    1698959893,
+    1698959893
   ),
   (
     'waiter',
     1,
+    'Garçon',
     NULL,
     NULL,
-    NULL,
-    1697275759,
-    1697275759
+    1698959893,
+    1698959893
   );
 
 -- --------------------------------------------------------
@@ -144,11 +203,11 @@ VALUES
 DROP TABLE IF EXISTS `auth_item_child`;
 
 CREATE TABLE IF NOT EXISTS `auth_item_child` (
-  `parent` varchar(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
-  `child` varchar(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
+  `parent` varchar(64) COLLATE utf8mb3_unicode_ci NOT NULL,
+  `child` varchar(64) COLLATE utf8mb3_unicode_ci NOT NULL,
   PRIMARY KEY (`parent`, `child`),
   KEY `child` (`child`)
-) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_unicode_ci;
+) ENGINE = InnoDB DEFAULT CHARSET = utf8mb3 COLLATE = utf8mb3_unicode_ci;
 
 --
 -- Extraindo dados da tabela `auth_item_child`
@@ -156,8 +215,20 @@ CREATE TABLE IF NOT EXISTS `auth_item_child` (
 INSERT INTO
   `auth_item_child` (`parent`, `child`)
 VALUES
-  ('admin', 'managePlate'),
-  ('cooker', 'managePlate');
+  ('admin', 'client'),
+  ('admin', 'cooker'),
+  ('waiter', 'manageDinner'),
+  ('client', 'manageFavorite'),
+  ('client', 'manageHelpTicket'),
+  ('client', 'manageInvoice'),
+  ('waiter', 'manageInvoice'),
+  ('cooker', 'managePlate'),
+  ('client', 'manageRequest'),
+  ('cooker', 'manageRequest'),
+  ('waiter', 'manageRequest'),
+  ('admin', 'manageSupplier'),
+  ('admin', 'manageUser'),
+  ('admin', 'waiter');
 
 -- --------------------------------------------------------
 --
@@ -166,12 +237,12 @@ VALUES
 DROP TABLE IF EXISTS `auth_rule`;
 
 CREATE TABLE IF NOT EXISTS `auth_rule` (
-  `name` varchar(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
+  `name` varchar(64) COLLATE utf8mb3_unicode_ci NOT NULL,
   `data` blob,
   `created_at` int DEFAULT NULL,
   `updated_at` int DEFAULT NULL,
   PRIMARY KEY (`name`)
-) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_unicode_ci;
+) ENGINE = InnoDB DEFAULT CHARSET = utf8mb3 COLLATE = utf8mb3_unicode_ci;
 
 -- --------------------------------------------------------
 --
@@ -275,6 +346,19 @@ VALUES
   (
     'm190124_110200_add_verification_token_column_to_user_table',
     1696446341
+  ),
+  (
+    'm180523_151638_rbac_updates_indexes_without_prefix',
+    1698789367
+  ),
+  (
+    'm170907_052038_rbac_add_index_on_auth_assignment_user_id',
+    1698789367
+  ),
+  ('m140506_102106_rbac_init', 1698789367),
+  (
+    'm200409_110543_rbac_update_mssql_trigger',
+    1698789367
   );
 
 -- --------------------------------------------------------
@@ -329,6 +413,39 @@ CREATE TABLE IF NOT EXISTS `request` (
   KEY `isDelivered` (`isDelivered`),
   KEY `user_id` (`user_id`)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = 'Pedido de comida feito pelo cliente';
+
+-- --------------------------------------------------------
+--
+-- Estrutura da tabela `review`
+--
+DROP TABLE IF EXISTS `review`;
+
+CREATE TABLE IF NOT EXISTS `review` (
+  `id` int NOT NULL AUTO_INCREMENT COMMENT 'id da review',
+  `user_id` int NOT NULL COMMENT 'id do utilizador',
+  `plate_id` int NOT NULL COMMENT 'id do prato',
+  `description` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'descrição da review',
+  `value` int NOT NULL COMMENT 'valor da review',
+  `date_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'data',
+  PRIMARY KEY (`id`) USING BTREE,
+  KEY `fk_plateID_reviewID` (`plate_id`),
+  KEY `fk_userID_reviewID` (`user_id`)
+) ENGINE = InnoDB AUTO_INCREMENT = 2 DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = 'Review de um Prato';
+
+-- --------------------------------------------------------
+--
+-- Estrutura da tabela `supplier`
+--
+DROP TABLE IF EXISTS `supplier`;
+
+CREATE TABLE IF NOT EXISTS `supplier` (
+  `id` int NOT NULL AUTO_INCREMENT COMMENT 'id do fornecedor',
+  `plate_id` int NOT NULL COMMENT 'id do prato',
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'nome do fornecedor',
+  `nif` varchar(9) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'número fiscal da empresa',
+  PRIMARY KEY (`id`) USING BTREE,
+  KEY `fk_plateID_supplierID` (`plate_id`)
+) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = 'Fornecedores de pratos';
 
 -- --------------------------------------------------------
 --
@@ -389,7 +506,7 @@ VALUES
     '$2y$13$jB3nupyhkZ4Ct3UB4bbEi.Dl//huAF5p/TY1tlTTi7Ow07s26ruQS',
     NULL,
     'alfredo@horapapa.com',
-    9,
+    10,
     1698258089,
     1698258089,
     'PHirunXMv6_UilBrtehRnlvBtBLL6TdW_1698258089'
@@ -401,7 +518,7 @@ VALUES
     '$2y$13$460MgIlEebi7GFK3XSve5OrX6.V2t3XffHvMQwxkIFE5QbYcCmX3S',
     NULL,
     'alfredo2@horapapa.com',
-    9,
+    10,
     1698258715,
     1698258715,
     'jyk_jPF9GzwJ-n6gq4r4hJTDebLLwowM_1698258715'
@@ -509,6 +626,24 @@ ADD
   CONSTRAINT `fk_plate_id` FOREIGN KEY (`plate_id`) REFERENCES `plate` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
 ADD
   CONSTRAINT `fk_request_user_id` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+--
+-- Limitadores para a tabela `review`
+--
+ALTER TABLE
+  `review`
+ADD
+  CONSTRAINT `fk_plateID_reviewID` FOREIGN KEY (`plate_id`) REFERENCES `plate` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+ADD
+  CONSTRAINT `fk_userID_reviewID` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+--
+-- Limitadores para a tabela `supplier`
+--
+ALTER TABLE
+  `supplier`
+ADD
+  CONSTRAINT `fk_plateID_supplierID` FOREIGN KEY (`plate_id`) REFERENCES `plate` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 
 --
 -- Limitadores para a tabela `user_info`
