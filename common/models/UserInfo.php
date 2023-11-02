@@ -17,6 +17,11 @@ use Yii;
 class UserInfo extends \yii\db\ActiveRecord
 {
     /**
+     * @var mixed|null
+     */
+    public $surname;
+
+    /**
      * {@inheritdoc}
      */
     public static function tableName()
