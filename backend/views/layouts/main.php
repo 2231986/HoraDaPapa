@@ -74,6 +74,11 @@ AppAsset::register($this);
             array_push($menuItems, ['label' => 'Utilizadores', 'url' => ['/user/index']]);
         }
 
+        if (Yii::$app->user->can(RbacController::$PermissionSupplier))
+        {
+            array_push($menuItems, ['label' => 'Fornecedor', 'url' => ['/supplier/index']]);
+        }
+
         #endregion MenuItems com permissões
 
         if (Yii::$app->user->isGuest)

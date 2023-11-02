@@ -9,18 +9,13 @@ use Yii;
  *
  * @property int $user_id id do user
  * @property string|null $nif número fiscal do cliente
- * @property string|null $nome nome do cliente
- * @property string|null $apelido último nome do cliente
+ * @property string|null $name nome do cliente
+ * @property string|null $surname último nome do cliente
  *
  * @property User $user
  */
 class UserInfo extends \yii\db\ActiveRecord
 {
-    /**
-     * @var mixed|null
-     */
-    public $surname;
-
     /**
      * {@inheritdoc}
      */
@@ -38,7 +33,7 @@ class UserInfo extends \yii\db\ActiveRecord
             [['user_id'], 'required'],
             [['user_id'], 'integer'],
             [['nif'], 'string', 'max' => 9],
-            [['nome', 'apelido'], 'string', 'max' => 255],
+            [['name', 'surname'], 'string', 'max' => 255],
             [['user_id'], 'unique'],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['user_id' => 'id']],
         ];
@@ -52,8 +47,8 @@ class UserInfo extends \yii\db\ActiveRecord
         return [
             'user_id' => 'id do user',
             'nif' => 'número fiscal do cliente',
-            'nome' => 'nome do cliente',
-            'apelido' => 'último nome do cliente',
+            'name' => 'nome do cliente',
+            'surname' => 'último nome do cliente',
         ];
     }
 
