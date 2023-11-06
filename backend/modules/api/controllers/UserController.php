@@ -14,6 +14,11 @@ class UserController extends \yii\web\Controller
     {
         $behaviors = parent::behaviors();
 
+        /* Debug */
+        // var_dump($_SERVER['PHP_AUTH_USER']);
+        // var_dump($_SERVER['PHP_AUTH_PW']);
+        // die;
+
         $behaviors['authenticator'] = [
             'class' => HttpBasicAuth::class,
             'except' => ['register'],

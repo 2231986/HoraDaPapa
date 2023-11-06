@@ -21,9 +21,8 @@ class m231031_225958_altertable extends Migration
      */
     public function safeDown()
     {
-        echo "m231031_225958_altertable cannot be reverted.\n";
-
-        return false;
+        $this->renameColumn('user_info', 'name', 'nome');
+        $this->renameColumn('user_info', 'surname', 'apelido');
     }
 
     /*
