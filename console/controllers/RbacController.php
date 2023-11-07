@@ -94,6 +94,7 @@ class RbacController extends Controller
         $auth->add($waiter);
 
         $auth->addChild($waiter, $permission_manageDinner);
+        $auth->addChild($client, $permission_manageHelpticket);
         $auth->addChild($waiter, $permission_manageInvoice);
         $auth->addChild($waiter, $permission_manageRequest);
 
