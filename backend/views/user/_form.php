@@ -19,7 +19,7 @@ use console\controllers\RbacController;
     if (Yii::$app->authManager->getAssignment(RbacController::$RoleAdmin, $userID))
     {
         echo $form->field($model, 'status')->textInput();
-    }
+    }?>
 
     <?= $form->field($model, 'email') ?>
 
