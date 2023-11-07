@@ -59,7 +59,7 @@ AppAsset::register($this);
             array_push($menuItems, ['label' => 'Mesas', 'url' => ['/dinner/index']]);
         }
 
-        if (Yii::$app->user->can(RbacController::$PermissionHelpTicket))
+        if (Yii::$app->user->can(RbacController::$PermissionHelpticket))
         {
             array_push($menuItems, ['label' => 'Pedidos de Ajuda', 'url' => ['/helpticket/index']]);
         }

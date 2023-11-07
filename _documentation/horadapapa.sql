@@ -133,7 +133,7 @@ VALUES
     1698959893
   ),
   (
-    'manageHelpTicket',
+    'manageHelpticket',
     2,
     'Pedido de ajuda do cliente',
     NULL,
@@ -219,7 +219,7 @@ VALUES
   ('admin', 'cooker'),
   ('waiter', 'manageDinner'),
   ('client', 'manageFavorite'),
-  ('client', 'manageHelpTicket'),
+  ('client', 'manageHelpticket'),
   ('client', 'manageInvoice'),
   ('waiter', 'manageInvoice'),
   ('cooker', 'managePlate'),
