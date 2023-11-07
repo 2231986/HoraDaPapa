@@ -1,45 +1,38 @@
 <?php
 
-use app\models\Dinner;
 use yii\helpers\Html;
-use yii\helpers\Url;
-use yii\grid\ActionColumn;
-use yii\grid\GridView;
+use yii\widgets\ListView;
 
 /** @var yii\web\View $this */
 /** @var app\models\DinnerSearch $searchModel */
 /** @var yii\data\ActiveDataProvider $dataProvider */
 
-$this->title = 'Dinners';
-$this->params['breadcrumbs'][] = $this->title;
+$this->title = 'Mesas';
 ?>
+
 <div class="dinner-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
+    <?php
+    if ($cleaned)
+    {
+        echo "<p>" . Html::a('Mesas por limpar', ['index', 'cleaned' => 0], ['class' => 'btn btn-primary']) . "</p>";
+    }
+    else
+    {
+        echo "<p>" . Html::a('Mesas limpas', ['index', 'cleaned' => 1], ['class' => 'btn btn-primary']) . "</p>";
+    }
+    ?>
+
     <p>
-        <?= Html::a('Create Dinner', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Criar Mesa', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
-    <?= GridView::widget([
+    <?= ListView::widget([
         'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-
-            'id',
-            'name',
-            'isClean',
-            'date_time',
-            [
-                'class' => ActionColumn::className(),
-                'urlCreator' => function ($action, Dinner $model, $key, $index, $column) {
-                    return Url::toRoute([$action, 'id' => $model->id]);
-                 }
-            ],
-        ],
+        'itemView' => 'view',
     ]); ?>
 
 

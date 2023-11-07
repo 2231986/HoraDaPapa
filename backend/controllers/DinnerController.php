@@ -3,7 +3,7 @@
 namespace backend\controllers;
 
 use app\models\Dinner;
-use app\models\DinnerSearch;
+use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -36,14 +36,30 @@ class DinnerController extends Controller
      *
      * @return string
      */
-    public function actionIndex()
+    public function actionIndex($cleaned = true)
     {
-        $searchModel = new DinnerSearch();
-        $dataProvider = $searchModel->search($this->request->queryParams);
+        $query = null;
+
+        if ($cleaned)
+        {
+            $query = Dinner::find()->where(['isClean' => 1]);
+        }
+        else
+        {
+            $query = Dinner::find()->where(['isClean' => 0]);
+        }
+
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+            'pagination' => [
+                'pageSize' => 20,
+            ],
+        ]);
 
         return $this->render('index', [
-            'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'cleaned' => $cleaned,
         ]);
     }
 
@@ -69,11 +85,15 @@ class DinnerController extends Controller
     {
         $model = new Dinner();
 
-        if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
+        if ($this->request->isPost)
+        {
+            if ($model->load($this->request->post()) && $model->save())
+            {
                 return $this->redirect(['view', 'id' => $model->id]);
             }
-        } else {
+        }
+        else
+        {
             $model->loadDefaultValues();
         }
 
@@ -93,7 +113,8 @@ class DinnerController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
+        if ($this->request->isPost && $model->load($this->request->post()) && $model->save())
+        {
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
@@ -116,6 +137,38 @@ class DinnerController extends Controller
         return $this->redirect(['index']);
     }
 
+    public function actionCleaned($id)
+    {
+        $model = $this->findModel($id);
+
+        if ($model)
+        {
+            if ($model->isClean == 0)
+            {
+                $model->isClean = 1;
+            }
+            else
+            {
+                $model->isClean = 0;
+            }
+
+            if ($model->save())
+            {
+                \Yii::$app->session->setFlash('success', 'O estado foi modificado!');
+            }
+            else
+            {
+                \Yii::$app->session->setFlash('error', 'Não foi possível realizar a atualização de estado!');
+            }
+        }
+        else
+        {
+            \Yii::$app->session->setFlash('error', 'A Mesa não existe!');
+        }
+
+        return $this->redirect(['index']); // Redirect to the index action or another appropriate page
+    }
+
     /**
      * Finds the Dinner model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
@@ -125,7 +178,8 @@ class DinnerController extends Controller
      */
     protected function findModel($id)
     {
-        if (($model = Dinner::findOne(['id' => $id])) !== null) {
+        if (($model = Dinner::findOne(['id' => $id])) !== null)
+        {
             return $model;
         }
 

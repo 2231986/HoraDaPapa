@@ -50,7 +50,6 @@ $this->title = $model->id;
                 'label' => 'Descrição',
                 'attribute' => 'description',
             ],
-
         ],
     ]) ?>
 

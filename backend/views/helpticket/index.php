@@ -17,11 +17,11 @@ $this->title = 'Pedidos de Ajuda';
     <?php
     if ($resolved)
     {
-        echo Html::a('Ver pedidos por resolver', ['index', 'resolved' => 0], ['class' => 'btn btn-primary']);
+        echo "<p>" . Html::a('Ver pedidos por resolver', ['index', 'resolved' => 0], ['class' => 'btn btn-primary']) . "</p>";
     }
     else
     {
-        echo Html::a('Ver pedidos já resolvidos', ['index', 'resolved' => 1], ['class' => 'btn btn-primary']);
+        echo "<p>" . Html::a('Ver pedidos já resolvidos', ['index', 'resolved' => 1], ['class' => 'btn btn-primary']) . "</p>";
     }
     ?>
 

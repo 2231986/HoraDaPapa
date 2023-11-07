@@ -116,7 +116,7 @@ class HelpticketController extends Controller
         }
         else
         {
-            \Yii::$app->session->setFlash('error', 'O Peido de Ajuda não existe');
+            \Yii::$app->session->setFlash('error', 'O Pedido de Ajuda não existe!');
         }
 
         return $this->redirect(['index']); // Redirect to the index action or another appropriate page

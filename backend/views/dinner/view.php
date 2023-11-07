@@ -7,15 +7,15 @@ use yii\widgets\DetailView;
 /** @var app\models\Dinner $model */
 
 $this->title = $model->name;
-$this->params['breadcrumbs'][] = ['label' => 'Dinners', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
+
 <div class="dinner-view">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
+        <?= Html::a('Mudar estado', ['cleaned', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
         <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
         <?= Html::a('Delete', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
@@ -29,10 +29,10 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'id',
-            'name',
-            'isClean',
-            'date_time',
+            [
+                'label' => 'Nome',
+                'attribute' => 'name',
+            ],
         ],
     ]) ?>
 
