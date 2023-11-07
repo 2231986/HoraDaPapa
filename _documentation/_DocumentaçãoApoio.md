@@ -1,3 +1,7 @@
+# Comandos para Configurar a Aplicação
+
+Na pasta do projeto correr no terminal os seguintes comandos por order:
+
 **Inicializa o projeto**
 >php init
 
@@ -5,15 +9,22 @@
 >composer update
 
 **Criar base de dados**
->Nome: horadapapa
+>Criar uma bd chamada `horadapapa`
 
-**Executa migrações**
->php yii migrate
+**Executar as migrações base**
+>yii migrate 2
 
-**Rbac**
+**Criar base de dados**
+>Correr o script da bd `horadapapa.sql`
+
+**Popular dados da BD**
+>Correr o script da bd `registos.sql`
+
+**Executar as migrações de Rbac**
 >php yii migrate --migrationPath=@yii/rbac/migrations
-
 >php yii rbac/init
+
+# Outras informações
 
 **Testes:**
 https://github.com/yiisoft/yii2-app-advanced/blob/master/docs/guide/start-testing.md
