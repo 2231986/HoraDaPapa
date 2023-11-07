@@ -44,10 +44,18 @@ AppAsset::register($this);
 
         $menuItems = [
             ['label' => 'Home', 'url' => ['/site/index']],
-            ['label' => 'Utilizador', 'url' => ["/user/update?id=$userID"]],
         ];
 
         #region MenuItems com permissões
+
+        if (Yii::$app->authManager->getAssignment(RbacController::$RoleAdmin, $userID))
+        {
+            array_push($menuItems, ['label' => 'Utilizadores', 'url' => ["/user"]]);
+        }
+        else
+        {
+            array_push($menuItems, ['label' => 'Utilizador', 'url' => ["/user/update?id=$userID"]]);
+        }
 
         if (Yii::$app->user->can(RbacController::$PermissionPlate))
         {
