@@ -4,7 +4,7 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /** @var yii\web\View $this */
-/** @var app\models\PlateSearch $model */
+/** @var common\models\PlateSearch $model */
 /** @var yii\widgets\ActiveForm $form */
 ?>
 
@@ -24,6 +24,9 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'title') ?>
 
     <?= $form->field($model, 'date_time') ?>
+
+    <?php // echo $form->field($model, 'image_name') 
+    ?>
 
     <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>

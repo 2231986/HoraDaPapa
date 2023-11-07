@@ -2,6 +2,9 @@
 
 namespace backend\controllers;
 
+use Yii;
+use yii\web\ForbiddenHttpException;
+use console\controllers\RbacController;
 use common\models\User;
 use app\models\UserSearch;
 use yii\web\Controller;
@@ -69,11 +72,15 @@ class UserController extends Controller
     {
         $model = new User();
 
-        if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
+        if ($this->request->isPost)
+        {
+            if ($model->load($this->request->post()) && $model->save())
+            {
                 return $this->redirect(['view', 'id' => $model->id]);
             }
-        } else {
+        }
+        else
+        {
             $model->loadDefaultValues();
         }
 
@@ -91,9 +98,21 @@ class UserController extends Controller
      */
     public function actionUpdate($id)
     {
+        $userID = Yii::$app->user->getId();
+
+        if (!Yii::$app->authManager->getAssignment(RbacController::$RoleAdmin, $userID))
+        {
+            //Protege contra a edição de outros utilizadores que não o próprio
+            if ($userID != $id)
+            {
+                throw new ForbiddenHttpException();
+            }
+        }
+
         $model = $this->findModel($id);
 
-        if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
+        if ($this->request->isPost && $model->load($this->request->post()) && $model->save())
+        {
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
@@ -125,7 +144,8 @@ class UserController extends Controller
      */
     protected function findModel($id)
     {
-        if (($model = User::findOne(['id' => $id])) !== null) {
+        if (($model = User::findOne(['id' => $id])) !== null)
+        {
             return $model;
         }
 

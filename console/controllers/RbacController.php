@@ -21,7 +21,7 @@ class RbacController extends Controller
     public static $PermissionPlate = "managePlate";
     public static $PermissionRequest = "manageRequest";
     public static $PermissionInvoice = "manageInvoice";
-    public static $PermissionHelpTicket = "manageHelpTicket";
+    public static $PermissionHelpticket = "manageHelpticket";
     public static $PermissionFavorite = "manageFavorite";
     public static $PermissionDinner = "manageDinner";
     public static $PermissionUser = "manageUser";
@@ -50,9 +50,9 @@ class RbacController extends Controller
         $auth->add($permission_manageInvoice);
 
         //Permission - Realizar um pedido de ajuda
-        $permission_manageHelpTicket = $auth->createPermission(RbacController::$PermissionHelpTicket);
-        $permission_manageHelpTicket->description = 'Pedido de ajuda do cliente';
-        $auth->add($permission_manageHelpTicket);
+        $permission_manageHelpticket = $auth->createPermission(RbacController::$PermissionHelpticket);
+        $permission_manageHelpticket->description = 'Pedido de ajuda do cliente';
+        $auth->add($permission_manageHelpticket);
 
         //Permission - Gerir Favoritos
         $permission_manageFavorite = $auth->createPermission(RbacController::$PermissionFavorite);
@@ -84,7 +84,7 @@ class RbacController extends Controller
         $auth->add($client);
 
         $auth->addChild($client, $permission_manageFavorite);
-        $auth->addChild($client, $permission_manageHelpTicket);
+        $auth->addChild($client, $permission_manageHelpticket);
         $auth->addChild($client, $permission_manageInvoice);
         $auth->addChild($client, $permission_manageRequest);
 
@@ -94,6 +94,7 @@ class RbacController extends Controller
         $auth->add($waiter);
 
         $auth->addChild($waiter, $permission_manageDinner);
+        $auth->addChild($client, $permission_manageHelpticket);
         $auth->addChild($waiter, $permission_manageInvoice);
         $auth->addChild($waiter, $permission_manageRequest);
 

@@ -2,14 +2,14 @@
 
 namespace backend\controllers;
 
-use app\models\HelpTicket;
-use app\models\HelpTicketSearch;
+use app\models\Helpticket;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\data\ActiveDataProvider;
 
 /**
- * HelpTicketController implements the CRUD actions for HelpTicket model.
+ * HelpticketController implements the CRUD actions for Helpticket model.
  */
 class HelpticketController extends Controller
 {
@@ -32,23 +32,39 @@ class HelpticketController extends Controller
     }
 
     /**
-     * Lists all HelpTicket models.
+     * Lists all Helpticket models.
      *
      * @return string
      */
-    public function actionIndex()
+    public function actionIndex($resolved = false)
     {
-        $searchModel = new HelpTicketSearch();
-        $dataProvider = $searchModel->search($this->request->queryParams);
+        $query = null;
+
+        if ($resolved)
+        {
+            $query = Helpticket::find()->where(['needHelp' => 0]);
+        }
+        else
+        {
+            $query = Helpticket::find()->where(['needHelp' => 1]);
+        }
+
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+            'pagination' => [
+                'pageSize' => 20,
+            ],
+        ]);
 
         return $this->render('index', [
-            'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'resolved' => $resolved,
         ]);
     }
 
     /**
-     * Displays a single HelpTicket model.
+     * Displays a single Helpticket model.
      * @param int $id id do ticket
      * @return string
      * @throws NotFoundHttpException if the model cannot be found
@@ -61,49 +77,7 @@ class HelpticketController extends Controller
     }
 
     /**
-     * Creates a new HelpTicket model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
-     * @return string|\yii\web\Response
-     */
-    public function actionCreate()
-    {
-        $model = new HelpTicket();
-
-        if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->id]);
-            }
-        } else {
-            $model->loadDefaultValues();
-        }
-
-        return $this->render('create', [
-            'model' => $model,
-        ]);
-    }
-
-    /**
-     * Updates an existing HelpTicket model.
-     * If update is successful, the browser will be redirected to the 'view' page.
-     * @param int $id id do ticket
-     * @return string|\yii\web\Response
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    public function actionUpdate($id)
-    {
-        $model = $this->findModel($id);
-
-        if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        }
-
-        return $this->render('update', [
-            'model' => $model,
-        ]);
-    }
-
-    /**
-     * Deletes an existing HelpTicket model.
+     * Deletes an existing Helpticket model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param int $id id do ticket
      * @return \yii\web\Response
@@ -116,16 +90,51 @@ class HelpticketController extends Controller
         return $this->redirect(['index']);
     }
 
+    public function actionResolved($id)
+    {
+        $model = $this->findModel($id);
+
+        if ($model)
+        {
+            if ($model->needHelp == 1)
+            {
+                $model->needHelp = 0;
+            }
+            else
+            {
+                $model->needHelp = 1;
+            }
+
+            if ($model->save())
+            {
+                \Yii::$app->session->setFlash('success', 'O estado foi modificado!');
+            }
+            else
+            {
+                \Yii::$app->session->setFlash('error', 'Não foi possível realizar a atualização de estado!');
+            }
+        }
+        else
+        {
+            \Yii::$app->session->setFlash('error', 'O Peido de Ajuda não existe');
+        }
+
+        return $this->redirect(['index']); // Redirect to the index action or another appropriate page
+    }
+
+
+
     /**
-     * Finds the HelpTicket model based on its primary key value.
+     * Finds the Helpticket model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param int $id id do ticket
-     * @return HelpTicket the loaded model
+     * @return Helpticket the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = HelpTicket::findOne(['id' => $id])) !== null) {
+        if (($model = Helpticket::findOne(['id' => $id])) !== null)
+        {
             return $model;
         }
 

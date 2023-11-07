@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use console\controllers\RbacController;
 
 /** @var yii\web\View $this */
 /** @var common\models\User $model */
@@ -12,12 +13,17 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'status')->textInput() ?>
+    <?php
+    $userID =  Yii::$app->user->getId();
 
-    <?= $form->field($model, 'username')->textInput(['autofocus' => true]) ?>
+    if (Yii::$app->authManager->getAssignment(RbacController::$RoleAdmin, $userID))
+    {
+        echo $form->field($model, 'status')->textInput();
+    }
 
     <?= $form->field($model, 'email') ?>
 
+    <?= $form->field($model, 'username')->textInput(['autofocus' => true]) ?>
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>

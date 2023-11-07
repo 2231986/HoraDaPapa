@@ -1,47 +1,33 @@
 <?php
 
-use app\models\HelpTicket;
 use yii\helpers\Html;
-use yii\helpers\Url;
-use yii\grid\ActionColumn;
-use yii\grid\GridView;
+use yii\widgets\ListView;
 
 /** @var yii\web\View $this */
-/** @var app\models\HelpTicketSearch $searchModel */
+/** @var app\models\HelpticketSearch $searchModel */
 /** @var yii\data\ActiveDataProvider $dataProvider */
 
-$this->title = 'Help Tickets';
-$this->params['breadcrumbs'][] = $this->title;
+$this->title = 'Pedidos de Ajuda';
 ?>
-<div class="help-ticket-index">
+
+<div class="helpticket-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <p>
-        <?= Html::a('Create Help Ticket', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
+    <?php
+    if ($resolved)
+    {
+        echo Html::a('Ver pedidos por resolver', ['index', 'resolved' => 0], ['class' => 'btn btn-primary']);
+    }
+    else
+    {
+        echo Html::a('Ver pedidos já resolvidos', ['index', 'resolved' => 1], ['class' => 'btn btn-primary']);
+    }
+    ?>
 
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
-    <?= GridView::widget([
+    <?= ListView::widget([
         'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-
-            'id',
-            'id_user',
-            'needHelp',
-            'description',
-            'date_time',
-            [
-                'class' => ActionColumn::className(),
-                'urlCreator' => function ($action, HelpTicket $model, $key, $index, $column) {
-                    return Url::toRoute([$action, 'id' => $model->id]);
-                 }
-            ],
-        ],
+        'itemView' => 'view',
     ]); ?>
-
 
 </div>
