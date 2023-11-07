@@ -16,7 +16,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'username')->textInput(['autofocus' => true]) ?>
 
-
+    <?= $form->field($model, 'email') ?>
 
 
     <div class="form-group">
