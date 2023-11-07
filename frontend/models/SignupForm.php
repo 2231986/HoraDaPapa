@@ -76,6 +76,8 @@ class SignupForm extends Model
         $userinfo = new UserInfo();
         $userinfo->name = $this->name;
         $userinfo->surname = $this->surname;
+        $userinfo->nif = $this->nif;
+        $userinfo->user_id = $user->id;
         $userinfo->save();
 
 
