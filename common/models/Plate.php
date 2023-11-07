@@ -12,9 +12,12 @@ use Yii;
  * @property float $price preço do prato
  * @property string $title titulo do prato
  * @property string $date_time data
+ * @property string|null $image_name nome da imagem
  *
  * @property Favorite[] $favorites
  * @property Request[] $requests
+ * @property Review[] $reviews
+ * @property Supplier[] $suppliers
  */
 class Plate extends \yii\db\ActiveRecord
 {
@@ -35,7 +38,7 @@ class Plate extends \yii\db\ActiveRecord
             [['description', 'price', 'title'], 'required'],
             [['price'], 'number'],
             [['date_time'], 'safe'],
-            [['description', 'title'], 'string', 'max' => 255],
+            [['description', 'title', 'image_name'], 'string', 'max' => 255],
         ];
     }
 
@@ -50,6 +53,7 @@ class Plate extends \yii\db\ActiveRecord
             'price' => 'preço do prato',
             'title' => 'titulo do prato',
             'date_time' => 'data',
+            'image_name' => 'nome da imagem',
         ];
     }
 
@@ -71,5 +75,25 @@ class Plate extends \yii\db\ActiveRecord
     public function getRequests()
     {
         return $this->hasMany(Request::class, ['plate_id' => 'id']);
+    }
+
+    /**
+     * Gets query for [[Reviews]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getReviews()
+    {
+        return $this->hasMany(Review::class, ['plate_id' => 'id']);
+    }
+
+    /**
+     * Gets query for [[Suppliers]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getSuppliers()
+    {
+        return $this->hasMany(Supplier::class, ['plate_id' => 'id']);
     }
 }

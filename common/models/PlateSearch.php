@@ -18,7 +18,7 @@ class PlateSearch extends Plate
     {
         return [
             [['id'], 'integer'],
-            [['description', 'title', 'date_time'], 'safe'],
+            [['description', 'title', 'date_time', 'image_name'], 'safe'],
             [['price'], 'number'],
         ];
     }
@@ -66,7 +66,8 @@ class PlateSearch extends Plate
         ]);
 
         $query->andFilterWhere(['like', 'description', $this->description])
-            ->andFilterWhere(['like', 'title', $this->title]);
+            ->andFilterWhere(['like', 'title', $this->title])
+            ->andFilterWhere(['like', 'image_name', $this->image_name]);
 
         return $dataProvider;
     }
