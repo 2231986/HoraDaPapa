@@ -2,7 +2,7 @@
 
 namespace backend\modules\api\controllers;
 
-use app\models\Favorite;
+use common\models\Favorite;
 
 class FavoriteController extends APIActiveController
 {

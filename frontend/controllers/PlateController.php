@@ -1,9 +1,9 @@
 <?php
 
-namespace backend\controllers;
+namespace frontend\controllers;
 
-use app\models\Favorite;
-use app\models\FavoriteSearch;
+use common\models\Plate;
+use common\models\PlateSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -11,9 +11,9 @@ use console\controllers\RbacController;
 use yii\filters\AccessControl;
 
 /**
- * FavoriteController implements the CRUD actions for Favorite model.
+ * PlateController implements the CRUD actions for Plate model.
  */
-class FavoriteController extends Controller
+class PlateController extends Controller
 {
     /**
      * @inheritDoc
@@ -28,8 +28,7 @@ class FavoriteController extends Controller
                     'actions' => [
                         'delete' => ['POST'],
                     ],
-                ],
-                //ACF
+                ], //ACF
                 'access' => [
                     'class' => AccessControl::class,
                     'rules' => [
@@ -44,13 +43,13 @@ class FavoriteController extends Controller
     }
 
     /**
-     * Lists all Favorite models.
+     * Lists all Plate models.
      *
      * @return string
      */
     public function actionIndex()
     {
-        $searchModel = new FavoriteSearch();
+        $searchModel = new PlateSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
 
         return $this->render('index', [
@@ -60,8 +59,8 @@ class FavoriteController extends Controller
     }
 
     /**
-     * Displays a single Favorite model.
-     * @param int $id id do favorito
+     * Displays a single Plate model.
+     * @param int $id id do prato
      * @return string
      * @throws NotFoundHttpException if the model cannot be found
      */
@@ -73,13 +72,13 @@ class FavoriteController extends Controller
     }
 
     /**
-     * Creates a new Favorite model.
+     * Creates a new Plate model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return string|\yii\web\Response
      */
     public function actionCreate()
     {
-        $model = new Favorite();
+        $model = new Plate();
 
         if ($this->request->isPost)
         {
@@ -99,9 +98,9 @@ class FavoriteController extends Controller
     }
 
     /**
-     * Updates an existing Favorite model.
+     * Updates an existing Plate model.
      * If update is successful, the browser will be redirected to the 'view' page.
-     * @param int $id id do favorito
+     * @param int $id id do prato
      * @return string|\yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
@@ -120,9 +119,9 @@ class FavoriteController extends Controller
     }
 
     /**
-     * Deletes an existing Favorite model.
+     * Deletes an existing Plate model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param int $id id do favorito
+     * @param int $id id do prato
      * @return \yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
@@ -134,15 +133,15 @@ class FavoriteController extends Controller
     }
 
     /**
-     * Finds the Favorite model based on its primary key value.
+     * Finds the Plate model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param int $id id do favorito
-     * @return Favorite the loaded model
+     * @param int $id id do prato
+     * @return Plate the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Favorite::findOne(['id' => $id])) !== null)
+        if (($model = Plate::findOne(['id' => $id])) !== null)
         {
             return $model;
         }

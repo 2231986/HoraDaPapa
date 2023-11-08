@@ -30,17 +30,21 @@ class SiteController extends Controller
                         'roles' => ['?'],
                     ],
                     [
-                        'actions' => ['logout', 'index'],
+                        'actions' => ['logout'],
                         'allow' => true,
                         'roles' => ['@'],
+                    ],
+                    [
+                        'actions' => ['index'],
+                        'allow' => true,
+                        'roles' => [RbacController::$RoleAdmin, RbacController::$RoleCooker, RbacController::$RoleWaiter],
                     ],
                 ],
             ],
             'verbs' => [
                 'class' => VerbFilter::class,
                 'actions' => [
-                    //Esta linha foi comentada porque o redirect feito no login caso o cliente não tenha permissões não era POST.
-                    //'logout' => ['post'],
+                    'logout' => ['post'],
                 ],
             ],
         ];
@@ -94,20 +98,7 @@ class SiteController extends Controller
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login())
         {
-            $userID = $this->user->id;
-
-            if (
-                Yii::$app->authManager->getAssignment(RbacController::$RoleAdmin, $userID) ||
-                Yii::$app->authManager->getAssignment(RbacController::$RoleCooker, $userID) ||
-                Yii::$app->authManager->getAssignment(RbacController::$RoleWaiter, $userID)
-            )
-            {
-                return $this->goBack();
-            }
-            else
-            {
-                return $this->redirect('logout');
-            }
+            return $this->goBack();
         }
 
         $model->password = '';

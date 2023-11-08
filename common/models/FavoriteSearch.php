@@ -1,10 +1,10 @@
 <?php
 
-namespace app\models;
+namespace common\models;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\Favorite;
+use common\models\Favorite;
 
 /**
  * FavoriteSearch represents the model behind the search form of `app\models\Favorite`.
@@ -50,7 +50,8 @@ class FavoriteSearch extends Favorite
 
         $this->load($params);
 
-        if (!$this->validate()) {
+        if (!$this->validate())
+        {
             // uncomment the following line if you do not want to return any records when validation fails
             // $query->where('0=1');
             return $dataProvider;
