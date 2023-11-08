@@ -35,9 +35,20 @@ class InvoiceController extends Controller
                     'rules' => [
                         [
                             'allow' => true,
-                            'roles' => [RbacController::$RoleClient, RbacController::$RoleWaiter],
+                            'roles' => [RbacController::$RoleAdmin, RbacController::$RoleWaiter],
                         ],
                     ],
+                    'denyCallback' => function ()
+                    {
+                        \Yii::$app->user->logout();
+
+                        echo $this->render('@app/views/site/error', [
+                            'name' => 'Erro na autenticação',
+                            'message' => 'Apenas utilizadores autorizados podem se autenticar no backend!'
+                        ]);
+
+                        die;
+                    },
                 ],
             ]
         );

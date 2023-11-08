@@ -35,9 +35,20 @@ class ReviewController extends Controller
                     'rules' => [
                         [
                             'allow' => true,
-                            'roles' => [RbacController::$RoleAdmin, RbacController::$RoleClient],
+                            'roles' => [RbacController::$RoleAdmin],
                         ],
                     ],
+                    'denyCallback' => function ()
+                    {
+                        \Yii::$app->user->logout();
+
+                        echo $this->render('@app/views/site/error', [
+                            'name' => 'Erro na autenticação',
+                            'message' => 'Apenas utilizadores autorizados podem se autenticar no backend!'
+                        ]);
+
+                        die;
+                    },
                 ],
 
             ]

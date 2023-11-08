@@ -7,6 +7,7 @@ use yii\filters\AccessControl;
 use yii\filters\auth\HttpBearerAuth;
 use yii\rest\ActiveController;
 use console\controllers\RbacController;
+use yii\web\ForbiddenHttpException;
 
 //Guia Autenticação - https://www.yiiframework.com/doc/guide/2.0/en/rest-authentication
 class APIActiveController extends ActiveController
@@ -31,6 +32,10 @@ class APIActiveController extends ActiveController
                     'roles' => [RbacController::$RoleClient],
                 ],
             ],
+            'denyCallback' => function ()
+            {
+                throw new ForbiddenHttpException('Acesso negado!');
+            },
         ];
 
         return $behaviors;

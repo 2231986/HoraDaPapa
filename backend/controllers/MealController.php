@@ -7,6 +7,7 @@ use app\models\MealSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use console\controllers\RbacController;
 
 /**
  * MealController implements the CRUD actions for Meal model.
@@ -26,6 +27,27 @@ class MealController extends Controller
                     'actions' => [
                         'delete' => ['POST'],
                     ],
+                ],
+                //ACF
+                'access' => [
+                    'class' => AccessControl::class,
+                    'rules' => [
+                        [
+                            'allow' => true,
+                            'roles' => [RbacController::$RoleAdmin, RbacController::$RoleWaiter],
+                        ],
+                    ],
+                    'denyCallback' => function ()
+                    {
+                        \Yii::$app->user->logout();
+
+                        echo $this->render('@app/views/site/error', [
+                            'name' => 'Erro na autenticação',
+                            'message' => 'Apenas utilizadores autorizados podem se autenticar no backend!'
+                        ]);
+
+                        die;
+                    },
                 ],
             ]
         );
@@ -69,11 +91,15 @@ class MealController extends Controller
     {
         $model = new Meal();
 
-        if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
+        if ($this->request->isPost)
+        {
+            if ($model->load($this->request->post()) && $model->save())
+            {
                 return $this->redirect(['view', 'id' => $model->id]);
             }
-        } else {
+        }
+        else
+        {
             $model->loadDefaultValues();
         }
 
@@ -93,7 +119,8 @@ class MealController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
+        if ($this->request->isPost && $model->load($this->request->post()) && $model->save())
+        {
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
@@ -125,7 +152,8 @@ class MealController extends Controller
      */
     protected function findModel($id)
     {
-        if (($model = Meal::findOne(['id' => $id])) !== null) {
+        if (($model = Meal::findOne(['id' => $id])) !== null)
+        {
             return $model;
         }
 

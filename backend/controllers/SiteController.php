@@ -40,6 +40,17 @@ class SiteController extends Controller
                         'roles' => [RbacController::$RoleAdmin, RbacController::$RoleCooker, RbacController::$RoleWaiter],
                     ],
                 ],
+                'denyCallback' => function ()
+                {
+                    \Yii::$app->user->logout();
+
+                    echo $this->render('@app/views/site/error', [
+                        'name' => 'Erro na autenticação',
+                        'message' => 'Apenas utilizadores autorizados podem se autenticar no backend!'
+                    ]);
+
+                    die;
+                },
             ],
             'verbs' => [
                 'class' => VerbFilter::class,

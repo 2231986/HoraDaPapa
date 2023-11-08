@@ -7,6 +7,8 @@ use yii\filters\auth\HttpBasicAuth;
 use yii\filters\AccessControl;
 use common\models\User;
 use frontend\models\SignupForm;
+use console\controllers\RbacController;
+use yii\web\ForbiddenHttpException;
 
 class UserController extends \yii\web\Controller
 {
@@ -44,7 +46,7 @@ class UserController extends \yii\web\Controller
                 [
                     'allow' => true,
                     'actions' => ['login'],
-                    'roles' => ['client'],
+                    'roles' => [RbacController::$RoleClient],
                 ],
                 [
                     'allow' => true,
@@ -52,6 +54,10 @@ class UserController extends \yii\web\Controller
                     'roles' => ['?'],
                 ],
             ],
+            'denyCallback' => function ()
+            {
+                throw new ForbiddenHttpException('Acesso negado!');
+            },
         ];
 
         return $behaviors;

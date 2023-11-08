@@ -38,6 +38,17 @@ class FavoriteController extends Controller
                             'roles' => [RbacController::$RoleClient],
                         ],
                     ],
+                    'denyCallback' => function ()
+                    {
+                        \Yii::$app->user->logout();
+
+                        echo $this->render('@app/views/site/error', [
+                            'name' => 'Erro na autenticação',
+                            'message' => 'Apenas clientes podem se autenticar no frontend!'
+                        ]);
+
+                        die;
+                    },
                 ],
             ]
         );

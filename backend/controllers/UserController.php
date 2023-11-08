@@ -39,7 +39,23 @@ class UserController extends Controller
                             'allow' => true,
                             'roles' => '@',
                         ],
+                        [
+                            'allow' => true,
+                            'actions' => ['create', 'delete'],
+                            'roles' => [RbacController::$RoleAdmin],
+                        ],
                     ],
+                    'denyCallback' => function ()
+                    {
+                        \Yii::$app->user->logout();
+
+                        echo $this->render('@app/views/site/error', [
+                            'name' => 'Erro na autenticação',
+                            'message' => 'Apenas utilizadores autorizados podem se autenticar no backend!'
+                        ]);
+
+                        die;
+                    },
                 ],
             ]
         );
@@ -69,6 +85,17 @@ class UserController extends Controller
      */
     public function actionView($id)
     {
+        $userID = Yii::$app->user->getId();
+
+        if (!Yii::$app->authManager->getAssignment(RbacController::$RoleAdmin, $userID))
+        {
+            //Protege contra a visualização de outros utilizadores que não o próprio
+            if ($userID != $id)
+            {
+                throw new ForbiddenHttpException();
+            }
+        }
+
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
