@@ -7,6 +7,8 @@ use app\models\FavoriteSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use console\controllers\RbacController;
+use yii\filters\AccessControl;
 
 /**
  * FavoriteController implements the CRUD actions for Favorite model.
@@ -25,6 +27,16 @@ class FavoriteController extends Controller
                     'class' => VerbFilter::className(),
                     'actions' => [
                         'delete' => ['POST'],
+                    ],
+                ],
+                //ACF
+                'access' => [
+                    'class' => AccessControl::class,
+                    'rules' => [
+                        [
+                            'allow' => true,
+                            'roles' => [RbacController::$RoleClient],
+                        ],
                     ],
                 ],
             ]
@@ -69,11 +81,15 @@ class FavoriteController extends Controller
     {
         $model = new Favorite();
 
-        if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
+        if ($this->request->isPost)
+        {
+            if ($model->load($this->request->post()) && $model->save())
+            {
                 return $this->redirect(['view', 'id' => $model->id]);
             }
-        } else {
+        }
+        else
+        {
             $model->loadDefaultValues();
         }
 
@@ -93,7 +109,8 @@ class FavoriteController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
+        if ($this->request->isPost && $model->load($this->request->post()) && $model->save())
+        {
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
@@ -125,7 +142,8 @@ class FavoriteController extends Controller
      */
     protected function findModel($id)
     {
-        if (($model = Favorite::findOne(['id' => $id])) !== null) {
+        if (($model = Favorite::findOne(['id' => $id])) !== null)
+        {
             return $model;
         }
 

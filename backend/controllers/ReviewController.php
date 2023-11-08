@@ -7,6 +7,8 @@ use app\models\ReviewSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use console\controllers\RbacController;
+use yii\filters\AccessControl;
 
 /**
  * ReviewController implements the CRUD actions for Review model.
@@ -27,6 +29,17 @@ class ReviewController extends Controller
                         'delete' => ['POST'],
                     ],
                 ],
+                //ACF
+                'access' => [
+                    'class' => AccessControl::class,
+                    'rules' => [
+                        [
+                            'allow' => true,
+                            'roles' => [RbacController::$RoleAdmin, RbacController::$RoleClient],
+                        ],
+                    ],
+                ],
+
             ]
         );
     }
@@ -69,11 +82,15 @@ class ReviewController extends Controller
     {
         $model = new Review();
 
-        if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
+        if ($this->request->isPost)
+        {
+            if ($model->load($this->request->post()) && $model->save())
+            {
                 return $this->redirect(['view', 'id' => $model->id]);
             }
-        } else {
+        }
+        else
+        {
             $model->loadDefaultValues();
         }
 
@@ -93,7 +110,8 @@ class ReviewController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
+        if ($this->request->isPost && $model->load($this->request->post()) && $model->save())
+        {
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
@@ -125,7 +143,8 @@ class ReviewController extends Controller
      */
     protected function findModel($id)
     {
-        if (($model = Review::findOne(['id' => $id])) !== null) {
+        if (($model = Review::findOne(['id' => $id])) !== null)
+        {
             return $model;
         }
 

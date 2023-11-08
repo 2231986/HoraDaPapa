@@ -7,6 +7,8 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\data\ActiveDataProvider;
+use console\controllers\RbacController;
+use yii\filters\AccessControl;
 
 /**
  * HelpticketController implements the CRUD actions for Helpticket model.
@@ -25,6 +27,16 @@ class HelpticketController extends Controller
                     'class' => VerbFilter::className(),
                     'actions' => [
                         'delete' => ['POST'],
+                    ],
+                ],
+                //ACF
+                'access' => [
+                    'class' => AccessControl::class,
+                    'rules' => [
+                        [
+                            'allow' => true,
+                            'roles' => [RbacController::$RoleClient, RbacController::$RoleWaiter],
+                        ],
                     ],
                 ],
             ]

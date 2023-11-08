@@ -7,6 +7,8 @@ use common\models\PlateSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use console\controllers\RbacController;
+use yii\filters\AccessControl;
 
 /**
  * PlateController implements the CRUD actions for Plate model.
@@ -25,6 +27,15 @@ class PlateController extends Controller
                     'class' => VerbFilter::className(),
                     'actions' => [
                         'delete' => ['POST'],
+                    ],
+                ], //ACF
+                'access' => [
+                    'class' => AccessControl::class,
+                    'rules' => [
+                        [
+                            'allow' => true,
+                            'roles' => [RbacController::$RoleCooker],
+                        ],
                     ],
                 ],
             ]
