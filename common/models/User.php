@@ -214,4 +214,35 @@ class User extends ActiveRecord implements IdentityInterface
     {
         $this->password_reset_token = null;
     }
+
+    /**
+     * Get the first User Role
+     */
+    public function getRole($id = null)
+    {
+        if ($id == null)
+        {
+            $id = $this->id;
+        }
+
+        $userRole = null;
+        $arrayAuthRoleItems = Yii::$app->authManager->getRolesByUser($id);
+
+        if (count($arrayAuthRoleItems) > 0)
+        {
+            return $userRole = array_values($arrayAuthRoleItems)[0];
+        }
+
+        return $userRole;
+    }
+
+    /**
+     * Get all application Roles
+     */
+    public function getAllRoles()
+    {
+        $auth = Yii::$app->authManager;
+
+        return $auth->getRoles();
+    }
 }

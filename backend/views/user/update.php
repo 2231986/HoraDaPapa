@@ -16,6 +16,8 @@ $this->params['breadcrumbs'][] = 'Update';
 
     <?= $this->render('_form', [
         'model' => $model,
+        'userRoles' => $model->getAllRoles(),
+        'userRole' => $model->getRole(),
     ]) ?>
 
 </div>

@@ -78,12 +78,8 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        $userRole = null;
-        $arrayAuthRoleItems = Yii::$app->authManager->getRolesByUser(Yii::$app->user->getId());
-        if (count($arrayAuthRoleItems) > 0)
-        {
-            $userRole = array_values($arrayAuthRoleItems)[0]->description;
-        }
+        $user = Yii::$app->user->identity;
+        $userRole = $user->getRole();
 
         return $this->render('index', [
             'userRole' => $userRole
