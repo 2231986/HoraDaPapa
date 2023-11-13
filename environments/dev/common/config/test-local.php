@@ -3,7 +3,7 @@
 return [
     'components' => [
         'db' => [
-            'dsn' => 'mysql:host=localhost;dbname=horadapapa',
+            'dsn' => 'mysql:host=localhost;dbname=horadapapatest',
         ],
     ],
 ];

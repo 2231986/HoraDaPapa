@@ -82,7 +82,7 @@ class SiteController extends Controller
         $userRole = $user->getRole();
 
         return $this->render('index', [
-            'userRole' => $userRole
+            'userRole' => $userRole->description
         ]);
     }
 

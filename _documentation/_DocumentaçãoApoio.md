@@ -24,6 +24,9 @@ Na pasta do projeto correr no terminal os seguintes comandos por order:
 >php yii migrate --migrationPath=@yii/rbac/migrations
 >php yii rbac/init
 
+**Executar Testes**
+>php vendor/bin/codecept run -c backend functional LoginCest
+
 # Outras informações
 
 **Testes:**
