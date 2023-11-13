@@ -48,13 +48,16 @@ AppAsset::register($this);
 
         #region MenuItems com permissões
 
-        if (Yii::$app->authManager->getAssignment(RbacController::$RoleAdmin, $userID))
+        if (Yii::$app->user->can(RbacController::$PermissionUser))
         {
-            array_push($menuItems, ['label' => 'Utilizadores', 'url' => ["/user"]]);
-        }
-        else
-        {
-            array_push($menuItems, ['label' => 'Utilizador', 'url' => ["/user/update?id=$userID"]]);
+            if (Yii::$app->authManager->getAssignment(RbacController::$RoleAdmin, $userID))
+            {
+                array_push($menuItems, ['label' => 'Utilizadores', 'url' => ["/user"]]);
+            }
+            else
+            {
+                array_push($menuItems, ['label' => 'Utilizador', 'url' => ["/user/update?id=$userID"]]);
+            }
         }
 
         if (Yii::$app->user->can(RbacController::$PermissionPlate))
@@ -75,11 +78,6 @@ AppAsset::register($this);
         if (Yii::$app->user->can(RbacController::$PermissionInvoice))
         {
             array_push($menuItems, ['label' => 'Faturas', 'url' => ['/invoice/index']]);
-        }
-
-        if (Yii::$app->user->can(RbacController::$PermissionUser))
-        {
-            array_push($menuItems, ['label' => 'Utilizadores', 'url' => ['/user/index']]);
         }
 
         if (Yii::$app->user->can(RbacController::$PermissionSupplier))

@@ -34,6 +34,7 @@ class UserController extends Controller
                 //ACF
                 'access' => [
                     'class' => AccessControl::class,
+                    'only' => ['create', 'delete'],
                     'rules' => [
                         [
                             'allow' => true,
