@@ -80,10 +80,6 @@ class SignupForm extends Model
         $userinfo->user_id = $user->id;
         $userinfo->save();
 
-
-
-
-
         //Adiciona um role
         $auth = \Yii::$app->authManager;
         $authorRole = $auth->getRole(RbacController::$RoleClient);
