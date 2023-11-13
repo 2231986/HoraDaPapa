@@ -94,6 +94,7 @@ class RbacController extends Controller
         $auth->addChild($client, $permission_manageInvoice);
         $auth->addChild($client, $permission_manageRequest);
         $auth->addChild($client, $permission_manageReview);
+        $auth->addChild($client, $permission_manageUser);
 
         //Role - Garçon
         $waiter = $auth->createRole(RbacController::$RoleWaiter);
@@ -104,6 +105,7 @@ class RbacController extends Controller
         $auth->addChild($waiter, $permission_manageHelpticket);
         $auth->addChild($waiter, $permission_manageInvoice);
         $auth->addChild($waiter, $permission_manageRequest);
+        $auth->addChild($waiter, $permission_manageUser);
 
         //Role - Cozinheiro
         $cooker = $auth->createRole(RbacController::$RoleCooker);
@@ -113,6 +115,7 @@ class RbacController extends Controller
         $auth->addChild($cooker, $permission_managePlate);
         $auth->addChild($cooker, $permission_manageRequest);
         $auth->addChild($cooker, $permission_manageSupplier);
+        $auth->addChild($cooker, $permission_manageUser);
 
         //Role - Admin
         $admin = $auth->createRole(RbacController::$RoleAdmin);

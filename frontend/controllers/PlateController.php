@@ -39,8 +39,6 @@ class PlateController extends Controller
                     ],
                     'denyCallback' => function ()
                     {
-                        \Yii::$app->user->logout();
-
                         echo $this->render('@app/views/site/error', [
                             'name' => 'Erro na autenticação',
                             'message' => 'Apenas clientes podem se autenticar no frontend!'

@@ -34,22 +34,20 @@ class UserController extends Controller
                 //ACF
                 'access' => [
                     'class' => AccessControl::class,
-                    'only' => ['create', 'delete'],
                     'rules' => [
                         [
                             'allow' => true,
-                            'roles' => '@',
+                            'actions' => ['view', 'update'],
+                            'roles' => [RbacController::$RoleAdmin, RbacController::$RoleWaiter, RbacController::$RoleCooker],
                         ],
                         [
                             'allow' => true,
-                            'actions' => ['create', 'delete'],
+                            'actions' => ['index', 'create', 'delete'],
                             'roles' => [RbacController::$RoleAdmin],
-                        ],
+                        ]
                     ],
                     'denyCallback' => function ()
                     {
-                        \Yii::$app->user->logout();
-
                         echo $this->render('@app/views/site/error', [
                             'name' => 'Erro na autenticação',
                             'message' => 'Apenas utilizadores autorizados podem se autenticar no backend!'
