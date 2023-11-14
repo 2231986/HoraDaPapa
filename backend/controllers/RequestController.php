@@ -3,12 +3,12 @@
 namespace backend\controllers;
 
 use app\models\Request;
-use app\models\RequestSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use console\controllers\RbacController;
 use yii\filters\AccessControl;
+use yii\data\ActiveDataProvider;
 
 /**
  * RequestController implements the CRUD actions for Request model.
@@ -59,11 +59,27 @@ class RequestController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new RequestSearch();
-        $dataProvider = $searchModel->search($this->request->queryParams);
+        if (\Yii::$app->user->can(RbacController::$RoleCooker))
+        {
+            $query = Request::find()->where(['isCooked' => 0]);
+        }
+        else if (\Yii::$app->user->can(RbacController::$RoleWaiter))
+        {
+            $query = Request::find()->where(['isDelivered' => 0]);
+        }
+        else
+        {
+            $query = Request::find()->where(['!=', 'isCooked', 1])->orWhere(['!=', 'isDelivered', 1]);
+        }
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+            'pagination' => [
+                'pageSize' => 20,
+            ],
+        ]);
 
         return $this->render('index', [
-            'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
     }
@@ -140,6 +156,70 @@ class RequestController extends Controller
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
+    }
+
+    public function actionCooked($id)
+    {
+        $model = $this->findModel($id);
+
+        if ($model)
+        {
+            if ($model->isCooked == 0)
+            {
+                $model->isCooked = 1;
+            }
+            else
+            {
+                $model->isCooked = 0;
+            }
+
+            if ($model->save())
+            {
+                \Yii::$app->session->setFlash('success', 'O estado foi modificado!');
+            }
+            else
+            {
+                \Yii::$app->session->setFlash('error', 'Não foi possível realizar a atualização de estado!');
+            }
+        }
+        else
+        {
+            \Yii::$app->session->setFlash('error', 'O Pedido não existe!');
+        }
+
+        return $this->redirect(['index']); // Redirect to the index action or another appropriate page
+    }
+
+    public function actionDelivered($id)
+    {
+        $model = $this->findModel($id);
+
+        if ($model)
+        {
+            if ($model->isDelivered == 0)
+            {
+                $model->isDelivered = 1;
+            }
+            else
+            {
+                $model->isDelivered = 0;
+            }
+
+            if ($model->save())
+            {
+                \Yii::$app->session->setFlash('success', 'O estado foi modificado!');
+            }
+            else
+            {
+                \Yii::$app->session->setFlash('error', 'Não foi possível realizar a atualização de estado!');
+            }
+        }
+        else
+        {
+            \Yii::$app->session->setFlash('error', 'O Pedido não existe!');
+        }
+
+        return $this->redirect(['index']); // Redirect to the index action or another appropriate page
     }
 
     /**

@@ -2,21 +2,32 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+use console\controllers\RbacController;
 
 /** @var yii\web\View $this */
 /** @var app\models\Request $model */
 
-$this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Requests', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
 <div class="request-view">
 
-    <h1><?= Html::encode($this->title) ?></h1>
-
     <p>
-        <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+        <?php
+        if (\Yii::$app->user->can(RbacController::$RoleCooker))
+        {
+            echo Html::a('Cozinhar', ['cooked', 'id' => $model->id], ['class' => 'btn btn-primary']);
+        }
+        else if (\Yii::$app->user->can(RbacController::$RoleWaiter))
+        {
+            echo Html::a('Entregar', ['delivered', 'id' => $model->id], ['class' => 'btn btn-primary']);
+        }
+        else
+        {
+            echo Html::a('Cozinhar', ['Cooked', 'id' => $model->id], ['class' => 'btn btn-primary']);
+            echo Html::a('Entregar', ['Delivered', 'id' => $model->id], ['class' => 'btn btn-primary']);
+        }
+        ?>
+
         <?= Html::a('Delete', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'data' => [
@@ -29,15 +40,11 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'id',
-            'meal_id',
+            //'meal.dinner.name',
+            'plate.title',
             'observation',
-            'plate_id',
-            'isCooked',
-            'isDelivered',
-            'user_id',
+            'user.username',
             'date_time',
-            'price',
         ],
     ]) ?>
 

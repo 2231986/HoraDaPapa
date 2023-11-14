@@ -4,47 +4,24 @@ use app\models\Request;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\grid\ActionColumn;
-use yii\grid\GridView;
+use yii\widgets\ListView;
 
 /** @var yii\web\View $this */
 /** @var app\models\RequestSearch $searchModel */
 /** @var yii\data\ActiveDataProvider $dataProvider */
 
-$this->title = 'Requests';
-$this->params['breadcrumbs'][] = $this->title;
+$this->title = 'Pedidos';
 ?>
 <div class="request-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <p>
-        <?= Html::a('Create Request', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
+    <?php // echo $this->render('_search', ['model' => $searchModel]); 
+    ?>
 
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
-    <?= GridView::widget([
+    <?= ListView::widget([
         'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-
-            'id',
-            'meal_id',
-            'observation',
-            'plate_id',
-            'isCooked',
-            //'isDelivered',
-            //'user_id',
-            //'date_time',
-            //'price',
-            [
-                'class' => ActionColumn::className(),
-                'urlCreator' => function ($action, Request $model, $key, $index, $column) {
-                    return Url::toRoute([$action, 'id' => $model->id]);
-                 }
-            ],
-        ],
+        'itemView' => 'view',
     ]); ?>
 
 

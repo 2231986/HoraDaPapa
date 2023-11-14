@@ -3,6 +3,8 @@
 namespace app\models;
 
 use Yii;
+use common\models\Plate;
+use common\models\User;
 
 /**
  * This is the model class for table "request".
