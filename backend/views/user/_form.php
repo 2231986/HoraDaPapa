@@ -22,9 +22,10 @@ use yii\helpers\ArrayHelper;
         echo $form->field($model, 'status')->textInput();
     } ?>
 
+    <?= $form->field($model, 'username')->textInput(['autofocus' => true]) ?>
+
     <?= $form->field($model, 'email') ?>
 
-    <?= $form->field($model, 'username')->textInput(['autofocus' => true]) ?>
 
     <?php
 
@@ -35,7 +36,7 @@ use yii\helpers\ArrayHelper;
     }
     else //create
     {
-        $defaulSelected = RbacController::$RoleAdmin;
+        $defaulSelected = RbacController::$RoleClient;
     }
 
     echo $form->field($model, 'role')->dropDownList(

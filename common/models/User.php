@@ -245,4 +245,12 @@ class User extends ActiveRecord implements IdentityInterface
 
         return $auth->getRoles();
     }
+
+    /**
+     * Get UserInfo
+     */
+    public function getUserInfo()
+    {
+        return $this->hasOne(UserInfo::class, ['user_id' => 'id']);
+    }
 }

@@ -45,10 +45,10 @@ class UserInfo extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'user_id' => 'id do user',
-            'nif' => 'número fiscal do cliente',
-            'name' => 'nome do cliente',
-            'surname' => 'último nome do cliente',
+            'user_id' => 'Identificador',
+            'nif' => 'Número Fiscal',
+            'name' => 'Nome',
+            'surname' => 'Apelido',
         ];
     }
 
