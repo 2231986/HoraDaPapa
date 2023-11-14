@@ -42,9 +42,7 @@ AppAsset::register($this);
 
         $userID = Yii::$app->user->getId();
 
-        $menuItems = [
-            ['label' => 'Home', 'url' => ['/site/index']],
-        ];
+        $menuItems = [];
 
         #region MenuItems com permissões
 
