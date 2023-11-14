@@ -122,9 +122,12 @@ class RbacController extends Controller
         $admin->description = 'Administrador';
         $auth->add($admin);
 
-        $auth->addChild($admin, $cooker);
-        $auth->addChild($admin, $waiter);
-        $auth->addChild($admin, $client);
+        $auth->addChild($admin, $permission_managePlate);
+        $auth->addChild($admin, $permission_manageRequest);
+        $auth->addChild($admin, $permission_manageInvoice);
+        $auth->addChild($admin, $permission_manageHelpticket);
+        $auth->addChild($admin, $permission_manageFavorite);
+        $auth->addChild($admin, $permission_manageDinner);
         $auth->addChild($admin, $permission_manageUser);
         $auth->addChild($admin, $permission_manageSupplier);
         $auth->addChild($admin, $permission_manageReview);
