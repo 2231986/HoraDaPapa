@@ -6,7 +6,7 @@ use yii\helpers\Html;
 /** @var app\models\Supplier $model */
 
 $this->title = 'Create Supplier';
-$this->params['breadcrumbs'][] = ['label' => 'Suppliers', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Fornecedores', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="supplier-create">
@@ -15,6 +15,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?= $this->render('_form', [
         'model' => $model,
+        'plates' =>  $plates,
     ]) ?>
 
 </div>

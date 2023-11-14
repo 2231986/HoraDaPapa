@@ -10,36 +10,35 @@ use yii\grid\GridView;
 /** @var app\models\ReviewSearch $searchModel */
 /** @var yii\data\ActiveDataProvider $dataProvider */
 
-$this->title = 'Reviews';
+$this->title = 'Avaliações';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="review-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <p>
-        <?= Html::a('Create Review', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
-
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+    <?php // echo $this->render('_search', ['model' => $searchModel]); 
+    ?>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-
-            'id',
-            'user_id',
-            'plate_id',
-            'description',
-            'value',
-            //'date_time',
             [
-                'class' => ActionColumn::className(),
-                'urlCreator' => function ($action, Review $model, $key, $index, $column) {
-                    return Url::toRoute([$action, 'id' => $model->id]);
-                 }
+                'label' => 'Cliente',
+                'attribute' => 'user.username',
+            ],
+            'plate.title',
+            'value',
+            'date_time',
+            [
+                'class' => ActionColumn::class,
+                'template' => '{view}',
+                'urlCreator' => function ($action, Review $model, $key, $index, $column)
+                {
+                    return Url::toRoute(['view', 'id' => $model->id]);
+                },
             ],
         ],
     ]); ?>

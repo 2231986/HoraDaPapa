@@ -48,12 +48,12 @@ class Plate extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'id do prato',
-            'description' => 'descrição do prato',
-            'price' => 'preço do prato',
-            'title' => 'titulo do prato',
-            'date_time' => 'data',
-            'image_name' => 'nome da imagem',
+            'id' => 'Identificador',
+            'description' => 'Descrição',
+            'price' => 'Preço',
+            'title' => 'Prato',
+            'date_time' => 'Data',
+            'image_name' => 'Imagem',
         ];
     }
 

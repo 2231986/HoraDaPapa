@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use common\models\Plate;
 
 /**
  * This is the model class for table "supplier".
@@ -33,7 +34,7 @@ class Supplier extends \yii\db\ActiveRecord
             [['plate_id', 'name', 'nif'], 'required'],
             [['plate_id'], 'integer'],
             [['name'], 'string', 'max' => 255],
-            [['nif'], 'string', 'max' => 9],
+            [['nif'], 'string', 'min' => 9, 'max' => 9],
             [['plate_id'], 'exist', 'skipOnError' => true, 'targetClass' => Plate::class, 'targetAttribute' => ['plate_id' => 'id']],
         ];
     }
@@ -44,10 +45,10 @@ class Supplier extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'id do fornecedor',
-            'plate_id' => 'id do prato',
-            'name' => 'nome do fornecedor',
-            'nif' => 'número fiscal da empresa',
+            'id' => 'Identificador',
+            'plate_id' => 'Prato',
+            'name' => 'Fornecedor',
+            'nif' => 'NIF',
         ];
     }
 

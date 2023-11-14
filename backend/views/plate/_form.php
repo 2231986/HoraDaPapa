@@ -18,8 +18,6 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'date_time')->textInput() ?>
-
     <?= $form->field($model, 'image_name')->textInput(['maxlength' => true]) ?>
 
     <div class="form-group">

@@ -12,7 +12,10 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'plate_id')->textInput() ?>
+    <?= $form->field($model, 'plate_id')->dropDownList(
+        \yii\helpers\ArrayHelper::map($plates, 'id', 'title'),
+        ['prompt' => 'Selecionar Prato']
+    ); ?>
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 

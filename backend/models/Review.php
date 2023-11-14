@@ -3,6 +3,9 @@
 namespace app\models;
 
 use Yii;
+use common\models\User;
+use common\models\Plate;
+
 
 /**
  * This is the model class for table "review".
@@ -48,12 +51,12 @@ class Review extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'id da review',
-            'user_id' => 'id do utilizador',
-            'plate_id' => 'id do prato',
-            'description' => 'descrição da review',
-            'value' => 'valor da review',
-            'date_time' => 'data',
+            'id' => 'Identificador',
+            'user_id' => 'Cliente',
+            'plate_id' => 'Prato',
+            'description' => 'Descrição',
+            'value' => 'Valor',
+            'date_time' => 'Data',
         ];
     }
 
