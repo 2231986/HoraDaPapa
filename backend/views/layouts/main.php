@@ -65,6 +65,11 @@ AppAsset::register($this);
             array_push($menuItems, ['label' => 'Pratos', 'url' => ['/plate/index']]);
         }
 
+        if (Yii::$app->user->can(RbacController::$PermissionRequest))
+        {
+            array_push($menuItems, ['label' => 'Pedidos', 'url' => ['/request/index']]);
+        }
+
         if (Yii::$app->user->can(RbacController::$PermissionDinner))
         {
             array_push($menuItems, ['label' => 'Mesas', 'url' => ['/dinner/index']]);
