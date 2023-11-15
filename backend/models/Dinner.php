@@ -43,10 +43,10 @@ class Dinner extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'id da mesa',
-            'name' => 'nome da mesa',
-            'isClean' => 'estado da mesa',
-            'date_time' => 'date',
+            'id' => 'Identificador',
+            'name' => 'Nome',
+            'isClean' => 'Estado',
+            'date_time' => 'Data',
         ];
     }
 

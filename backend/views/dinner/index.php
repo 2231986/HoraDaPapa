@@ -8,11 +8,10 @@ use yii\widgets\ListView;
 /** @var yii\data\ActiveDataProvider $dataProvider */
 
 $this->title = 'Mesas';
+
 ?>
 
 <div class="dinner-index">
-
-    <h1><?= Html::encode($this->title) ?></h1>
 
     <?php
     if ($cleaned)
@@ -29,11 +28,9 @@ $this->title = 'Mesas';
         <?= Html::a('Criar Mesa', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
-
     <?= ListView::widget([
         'dataProvider' => $dataProvider,
         'itemView' => 'view',
     ]); ?>
-
 
 </div>

@@ -70,7 +70,6 @@ class DinnerController extends Controller
             $query = Dinner::find()->where(['isClean' => 0]);
         }
 
-
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
             'pagination' => [

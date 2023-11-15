@@ -12,8 +12,6 @@ $this->title = 'Pedidos de Ajuda';
 
 <div class="helpticket-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
-
     <?php
     if ($resolved)
     {

@@ -10,15 +10,13 @@ use yii\grid\GridView;
 /** @var common\models\PlateSearch $searchModel */
 /** @var yii\data\ActiveDataProvider $dataProvider */
 
-$this->title = 'Plates';
+$this->title = 'Pratos';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="plate-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
-
     <p>
-        <?= Html::a('Create Plate', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Criar Prato', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); 

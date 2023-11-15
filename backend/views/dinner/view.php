@@ -29,6 +29,7 @@ $this->title = $model->name;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
+            'id',
             [
                 'label' => 'Nome',
                 'attribute' => 'name',
