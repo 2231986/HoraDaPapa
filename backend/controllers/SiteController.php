@@ -78,12 +78,7 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        $user = Yii::$app->user->identity;
-        $userRole = $user->getRole();
-
-        return $this->render('index', [
-            'userRole' => $userRole->description
-        ]);
+        return $this->render('index');
     }
 
     /**
