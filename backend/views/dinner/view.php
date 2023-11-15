@@ -6,13 +6,12 @@ use yii\widgets\DetailView;
 /** @var yii\web\View $this */
 /** @var app\models\Dinner $model */
 
-$this->title = $model->name;
 \yii\web\YiiAsset::register($this);
 ?>
 
 <div class="dinner-view">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <h1><?= Html::encode($model->name) ?></h1>
 
     <p>
         <?= Html::a('Mudar estado', ['cleaned', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
