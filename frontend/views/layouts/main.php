@@ -37,9 +37,9 @@ AppAsset::register($this);
             ],
         ]);
         $menuItems = [
-            ['label' => 'Menu principal', 'url' => ['/site/index']],
             ['label' => 'Acerca de nós', 'url' => ['/site/about']],
-            ['label' => 'Contactos', 'url' => ['/site/contact']],
+            ['label' => 'Reserva', 'url' => ['/site/contact']],
+            ['label' => 'Pratos', 'url' => ["/plate"]],
         ];
         if (Yii::$app->user->isGuest)
         {
@@ -48,7 +48,9 @@ AppAsset::register($this);
         else
         {
             array_push($menuItems, ['label' => 'Favoritos', 'url' => ["/favorite"]]);
-            array_push($menuItems, ['label' => 'Pratos', 'url' => ["/plate"]]);
+
+            $userID = Yii::$app->user->getId();
+            array_push($menuItems, ['label' => 'Utilizador', 'url' => ["/user/update?id=$userID"]]);
         }
 
         echo Nav::widget([

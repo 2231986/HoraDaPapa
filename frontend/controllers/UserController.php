@@ -2,18 +2,20 @@
 
 namespace frontend\controllers;
 
-use common\models\Plate;
-use common\models\PlateSearch;
+use Yii;
+use yii\web\ForbiddenHttpException;
+use console\controllers\RbacController;
+use common\models\User;
+use app\models\UserSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use console\controllers\RbacController;
 use yii\filters\AccessControl;
 
 /**
- * PlateController implements the CRUD actions for Plate model.
+ * UserController implements the CRUD actions for User model.
  */
-class PlateController extends Controller
+class UserController extends Controller
 {
     /**
      * @inheritDoc
@@ -35,51 +37,72 @@ class PlateController extends Controller
                     'rules' => [
                         [
                             'allow' => true,
-                            'roles' => ['?', '@'],
+                            'actions' => ['view', 'update'],
+                            'roles' => [RbacController::$RoleClient],
                         ],
                     ],
+                    'denyCallback' => function ()
+                    {
+                        echo $this->render('@app/views/site/error', [
+                            'name' => 'Erro na autenticação',
+                            'message' => 'Apenas clientes podem se autenticar no frontend!'
+                        ]);
+
+                        die;
+                    },
                 ],
             ]
         );
     }
 
     /**
-     * Lists all Plate models.
+     * Lists all User models.
      *
      * @return string
      */
     public function actionIndex()
     {
-        $searchModel = new PlateSearch();
+        $searchModel = new UserSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
+            'dataProvider' => $dataProvider
         ]);
     }
 
     /**
-     * Displays a single Plate model.
-     * @param int $id id do prato
+     * Displays a single User model.
+     * @param int $id
      * @return string
      * @throws NotFoundHttpException if the model cannot be found
      */
     public function actionView($id)
     {
+        $userID = Yii::$app->user->getId();
+
+        if (!Yii::$app->authManager->getAssignment(RbacController::$RoleAdmin, $userID))
+        {
+            //Protege contra a visualização de outros utilizadores que não o próprio
+            if ($userID != $id)
+            {
+                throw new ForbiddenHttpException();
+            }
+        }
+
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
     }
 
     /**
-     * Creates a new Plate model.
+     * Creates a new User model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return string|\yii\web\Response
      */
     public function actionCreate()
     {
-        $model = new Plate();
+        $model = new User();
 
         if ($this->request->isPost)
         {
@@ -99,14 +122,25 @@ class PlateController extends Controller
     }
 
     /**
-     * Updates an existing Plate model.
+     * Updates an existing User model.
      * If update is successful, the browser will be redirected to the 'view' page.
-     * @param int $id id do prato
+     * @param int $id
      * @return string|\yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
     public function actionUpdate($id)
     {
+        $userID = Yii::$app->user->getId();
+
+        if (!Yii::$app->authManager->getAssignment(RbacController::$RoleAdmin, $userID))
+        {
+            //Protege contra a edição de outros utilizadores que não o próprio
+            if ($userID != $id)
+            {
+                throw new ForbiddenHttpException();
+            }
+        }
+
         $model = $this->findModel($id);
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save())
@@ -120,9 +154,9 @@ class PlateController extends Controller
     }
 
     /**
-     * Deletes an existing Plate model.
+     * Deletes an existing User model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param int $id id do prato
+     * @param int $id
      * @return \yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
@@ -134,15 +168,15 @@ class PlateController extends Controller
     }
 
     /**
-     * Finds the Plate model based on its primary key value.
+     * Finds the User model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param int $id id do prato
-     * @return Plate the loaded model
+     * @param int $id
+     * @return User the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Plate::findOne(['id' => $id])) !== null)
+        if (($model = User::findOne(['id' => $id])) !== null)
         {
             return $model;
         }
