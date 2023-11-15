@@ -1,6 +1,7 @@
 <?php
 
 use console\controllers\RbacController;
+use yii\helpers\Url;
 
 $user =  Yii::$app->user->getIdentity();
 
@@ -15,12 +16,12 @@ if (Yii::$app->user->can(RbacController::$PermissionUser))
 {
     if (Yii::$app->authManager->getAssignment(RbacController::$RoleAdmin, $userID))
     {
-        $userProfileLink = "./user";
+        $userProfileLink = "/user";
         array_push($menuItems, ['label' => 'Utilizadores', 'url' => [$userProfileLink]]);
     }
     else
     {
-        $userProfileLink = "./user/update?id=$userID";
+        $userProfileLink = "/user/update?id=$userID";
         array_push($menuItems, ['label' => 'Utilizador', 'url' => [$userProfileLink]]);
     }
 }
@@ -79,7 +80,7 @@ if (Yii::$app->user->can(RbacController::$PermissionReview))
                 <img src="<?= $assetDir ?>/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
             </div>
             <div class="info">
-                <a href="<?= $userProfileLink ?>" class="d-block"> <?= $user->username ?></a>
+                <a href="<?= Url::toRoute($userProfileLink) ?>" class="d-block"> <?= $user->username ?></a>
             </div>
         </div>
 
