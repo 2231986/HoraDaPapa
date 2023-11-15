@@ -8,7 +8,7 @@ $this->params['breadcrumbs'] = [['label' => $this->title]];
         <div class="col-lg-6">
             <?= \hail812\adminlte\widgets\Alert::widget([
                 'type' => 'success',
-                'body' => '<h3>' . 'Bem-vindo!</br>' . $userRole . '</h3>',
+                'body' => '<h3>' . 'Bem-vindo!</h3>',
             ]) ?>
 
             <?= \hail812\adminlte\widgets\Callout::widget([

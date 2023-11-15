@@ -25,15 +25,5 @@ $this->params['breadcrumbs'] = [['label' => $this->title]];
             or try using the search form.
         </p>
 
-        <form class="search-form" style="margin-right: 190px;">
-            <div class="input-group">
-                <input type="text" name="search" class="form-control" placeholder="Search">
-
-                <div class="input-group-append">
-                    <button type="submit" name="submit" class="btn btn-danger"><i class="fas fa-search"></i>
-                    </button>
-                </div>
-            </div>
-        </form>
     </div>
 </div>
