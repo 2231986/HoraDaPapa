@@ -9,6 +9,7 @@ use common\models\User;
 use frontend\models\SignupForm;
 use console\controllers\RbacController;
 use yii\web\ForbiddenHttpException;
+use backend\modules\api\ApiResponse;
 
 class UserController extends \yii\web\Controller
 {
@@ -34,7 +35,7 @@ class UserController extends \yii\web\Controller
                     return $user;
                 }
 
-                return $this->asJson(["response" => "Falha ao Autenticar!"]);
+                return $this->asJson(ApiResponse::error([null, 'Falha ao Autenticar!']));
             },
         ];
 
@@ -46,7 +47,7 @@ class UserController extends \yii\web\Controller
                 [
                     'allow' => true,
                     'actions' => ['login'],
-                    'roles' => [RbacController::$RoleClient],
+                    'roles' => [RbacController::$RoleAdmin, RbacController::$RoleClient],
                 ],
                 [
                     'allow' => true,
@@ -84,7 +85,7 @@ class UserController extends \yii\web\Controller
     {
         $token = $this->user->auth_key;
 
-        return $this->asJson(["response" => $token]);
+        return $this->asJson(ApiResponse::success(['token' => $token]));
     }
 
     public function actionRegister()
@@ -94,9 +95,10 @@ class UserController extends \yii\web\Controller
 
         if ($model->signup())
         {
-            return $this->asJson(["response" => "Utilizador criado com sucesso!"]);
+            Yii::$app->getResponse()->setStatusCode(201); // Created
+            return ApiResponse::success($model);
         }
 
-        return $this->asJson(["response" => $model->errors]);
+        return $this->asJson(ApiResponse::error([$model->errors]));
     }
 }

@@ -8,10 +8,16 @@ use yii\filters\auth\HttpBearerAuth;
 use yii\rest\ActiveController;
 use console\controllers\RbacController;
 use yii\web\ForbiddenHttpException;
+use backend\modules\api\ApiResponse;
 
 //Guia Autenticação - https://www.yiiframework.com/doc/guide/2.0/en/rest-authentication
 class APIActiveController extends ActiveController
 {
+    public static function getApiUser()
+    {
+        return Yii::$app->user->identity;
+    }
+
     public function behaviors()
     {
         $behaviors = parent::behaviors();
@@ -29,7 +35,7 @@ class APIActiveController extends ActiveController
             'rules' => [
                 [
                     'allow' => true,
-                    'roles' => [RbacController::$RoleClient],
+                    'roles' => [RbacController::$RoleAdmin, RbacController::$RoleClient],
                 ],
             ],
             'denyCallback' => function ()
@@ -67,7 +73,7 @@ class APIActiveController extends ActiveController
 
         if ($exception !== null)
         {
-            return ['response' => 'Endpoint não encontrado'];
+            return ApiResponse::error([null, 'Endpoint não encontrado!']);
         }
     }
 }
