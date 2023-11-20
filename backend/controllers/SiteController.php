@@ -98,7 +98,20 @@ class SiteController extends Controller
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login())
         {
-            return $this->goBack();
+            $userID = $this->user->id;
+
+            if (
+                Yii::$app->authManager->getAssignment(RbacController::$RoleAdmin, $userID) ||
+                Yii::$app->authManager->getAssignment(RbacController::$RoleCooker, $userID) ||
+                Yii::$app->authManager->getAssignment(RbacController::$RoleWaiter, $userID)
+            )
+            {
+                return $this->goBack();
+            }
+            else
+            {
+                \Yii::$app->user->logout();
+            }
         }
 
         $model->password = '';

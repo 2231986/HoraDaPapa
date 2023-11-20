@@ -4,6 +4,12 @@ use console\controllers\RbacController;
 use yii\helpers\Url;
 
 $user =  Yii::$app->user->getIdentity();
+if ($user == null) //Martelada para não rebentar quando entra na sidebar sem login!
+{
+    $redirectUrl = Yii::$app->urlManager->createUrl(['site/login']);
+    header("Location: $redirectUrl");
+    exit;
+}
 
 $menuItems = [];
 
