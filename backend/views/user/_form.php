@@ -26,7 +26,7 @@ use yii\helpers\ArrayHelper;
             User::STATUS_DELETED => 'Apagado',
         ];
 
-        echo Html::dropDownList('status', $user->status, $statusOptions, ['class' => 'form-control']);
+        echo $form->field($user, 'status')->dropDownList($statusOptions, ['class' => 'form-control']);
     } ?>
 
     <?= $form->field($user, 'username')->textInput(['autofocus' => true]) ?>
