@@ -1,5 +1,6 @@
 <?php
 
+use common\models\User;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use console\controllers\RbacController;
@@ -19,7 +20,13 @@ use yii\helpers\ArrayHelper;
 
     if (Yii::$app->authManager->getAssignment(RbacController::$RoleAdmin, $userID))
     {
-        echo $form->field($model, 'status')->textInput();
+        $statusOptions = [
+            User::STATUS_ACTIVE =>  'Ativo',
+            User::STATUS_INACTIVE => 'Inativo',
+            User::STATUS_DELETED => 'Apagado',
+        ];
+
+        echo Html::dropDownList('status', $model->status, $statusOptions, ['class' => 'form-control']);
     } ?>
 
     <?= $form->field($model, 'username')->textInput(['autofocus' => true]) ?>
