@@ -7,6 +7,7 @@ use yii\web\ForbiddenHttpException;
 use console\controllers\RbacController;
 use common\models\User;
 use app\models\UserSearch;
+use common\models\UserInfo;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -95,8 +96,11 @@ class UserController extends Controller
             }
         }
 
+        $user = $this->findModel($id);
+
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'user' => $user,
+            'userInfo' =>  $user->getUserInfo()->one(),
         ]);
     }
 
@@ -107,22 +111,27 @@ class UserController extends Controller
      */
     public function actionCreate()
     {
-        $model = new User();
+        $user = new User();
+        $userInfo = new UserInfo();
 
         if ($this->request->isPost)
         {
-            if ($model->load($this->request->post()) && $model->save())
+            if (
+                $user->load($this->request->post()) && $user->save() &&
+                $userInfo->load($this->request->post()) && $userInfo->save()
+            )
             {
-                return $this->redirect(['view', 'id' => $model->id]);
+                return $this->redirect(['view', 'id' => $user->id]);
             }
         }
         else
         {
-            $model->loadDefaultValues();
+            $user->loadDefaultValues();
         }
 
         return $this->render('create', [
-            'model' => $model,
+            'user' => $user,
+            'userInfo' => $userInfo,
         ]);
     }
 
@@ -146,15 +155,24 @@ class UserController extends Controller
             }
         }
 
-        $model = $this->findModel($id);
+        $user = $this->findModel($id);
+        $userInfo =  $user->getUserInfo()->one();
 
-        if ($this->request->isPost && $model->load($this->request->post()) && $model->save())
+        if (
+            $this->request->isPost &&
+            $user->load($this->request->post()) && $user->save() &&
+            $userInfo->load($this->request->post()) && $userInfo->save()
+        )
         {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['view', 'id' => $user->id]);
         }
 
+        // var_dump($user->getUserInfo());
+        // die;
+
         return $this->render('update', [
-            'model' => $model,
+            'user' => $user,
+            'userInfo' =>  $userInfo,
         ]);
     }
 
@@ -181,9 +199,9 @@ class UserController extends Controller
      */
     protected function findModel($id)
     {
-        if (($model = User::findOne(['id' => $id])) !== null)
+        if (($user = User::findOne(['id' => $id])) !== null)
         {
-            return $model;
+            return $user;
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');

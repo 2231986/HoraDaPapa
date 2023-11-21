@@ -7,7 +7,7 @@ use console\controllers\RbacController;
 use yii\helpers\ArrayHelper;
 
 /** @var yii\web\View $this */
-/** @var common\models\User $model */
+/** @var common\models\User $user */
 /** @var yii\widgets\ActiveForm $form */
 ?>
 
@@ -26,13 +26,12 @@ use yii\helpers\ArrayHelper;
             User::STATUS_DELETED => 'Apagado',
         ];
 
-        echo Html::dropDownList('status', $model->status, $statusOptions, ['class' => 'form-control']);
+        echo Html::dropDownList('status', $user->status, $statusOptions, ['class' => 'form-control']);
     } ?>
 
-    <?= $form->field($model, 'username')->textInput(['autofocus' => true]) ?>
+    <?= $form->field($user, 'username')->textInput(['autofocus' => true]) ?>
 
-    <?= $form->field($model, 'email') ?>
-
+    <?= $form->field($user, 'email') ?>
 
     <?php
 
@@ -46,13 +45,19 @@ use yii\helpers\ArrayHelper;
         $defaulSelected = RbacController::$RoleClient;
     }
 
-    echo $form->field($model, 'role')->dropDownList(
+    echo $form->field($user, 'role')->dropDownList(
         ArrayHelper::map($userRoles, 'name', 'description'),
         [
             'value' => $defaulSelected,
         ]
     );
     ?>
+
+    <?= $form->field($userInfo, 'name') ?>
+
+    <?= $form->field($userInfo, 'surname') ?>
+
+    <?= $form->field($userInfo, 'nif') ?>
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
