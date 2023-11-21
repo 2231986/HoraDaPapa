@@ -57,7 +57,6 @@ class User extends ActiveRecord implements IdentityInterface
         return [
             ['status', 'default', 'value' => self::STATUS_INACTIVE],
             ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_INACTIVE, self::STATUS_DELETED]],
-            //['role', 'required'],
             ['email', 'required'],
             ['username', 'required'],
         ];
@@ -216,6 +215,21 @@ class User extends ActiveRecord implements IdentityInterface
     public function removePasswordResetToken()
     {
         $this->password_reset_token = null;
+    }
+
+    /**
+     * Adiciona ou atualiza o Role do Cliente
+     */
+    public function saveRole($role)
+    {
+        $authManager = \Yii::$app->authManager;
+
+        // Remove existing roles
+        $authManager->revokeAll($this->id);
+
+        // Add a new role
+        $newRole = $authManager->getRole(is_string($role) ? $role : $role->name);
+        return $authManager->assign($newRole, $this->id);
     }
 
     /**

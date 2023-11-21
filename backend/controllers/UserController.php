@@ -116,10 +116,21 @@ class UserController extends Controller
 
         if ($this->request->isPost)
         {
-            if (
-                $user->load($this->request->post()) && $user->save() &&
-                $userInfo->load($this->request->post()) && $userInfo->save()
-            )
+            $post = $this->request->post();
+
+            $result_userLoad = $user->load($post);
+            $user->setPassword("12345678"); //TODO: Eventualmente arranjar uma filosofia diferente para gerar a password
+            $user->generateAuthKey();
+            $user->generateEmailVerificationToken();
+            $result_userSave = $user->save();
+
+            $user->saveRole($post["User"]["role"]);
+
+            $result_userInfoLoad =  $userInfo->load($post);
+            $userInfo->user_id = $user->id;
+            $result_userInfoSave = $userInfo->save();
+
+            if ($result_userLoad && $result_userSave && $result_userInfoLoad && $result_userInfoSave)
             {
                 return $this->redirect(['view', 'id' => $user->id]);
             }
@@ -158,17 +169,17 @@ class UserController extends Controller
         $user = $this->findModel($id);
         $userInfo =  $user->getUserInfo()->one();
 
+        $post = $this->request->post();
+
         if (
             $this->request->isPost &&
-            $user->load($this->request->post()) && $user->save() &&
-            $userInfo->load($this->request->post()) && $userInfo->save()
+            $user->load($post) && $user->save() &&
+            $userInfo->load($post) && $userInfo->save() &&
+            $user->saveRole($post["User"]["role"])
         )
         {
             return $this->redirect(['view', 'id' => $user->id]);
         }
-
-        // var_dump($user->getUserInfo());
-        // die;
 
         return $this->render('update', [
             'user' => $user,
