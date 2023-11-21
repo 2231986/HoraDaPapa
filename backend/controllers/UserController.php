@@ -196,7 +196,14 @@ class UserController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        $authManager = \Yii::$app->authManager;
+        $authManager->revokeAll($id); // Remover roles
+
+        $userInfo = UserInfo::findOne($id);
+        $userInfo->delete(); // Remover UserInfo
+
+        $user = $this->findModel($id);
+        $user->delete(); // Remover Info
 
         return $this->redirect(['index']);
     }
