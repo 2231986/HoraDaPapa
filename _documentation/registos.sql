@@ -18,48 +18,48 @@ VALUES
     (
         1,
         'admin',
-        'Et94XhAxGuaiunEaS2Ao-LXJw_WgMlml',
+        '1Et94XhAxGuaiunEaS2Ao-LXJw_WgMlml',
         '$2y$13$zdNqQXgm.zBqs2RjoLfxj.p.a5q.pLJpG/dgZkhgE7SLXYX9aEe9K',
         NULL,
         'admin@horadapapa.com',
         10,
         1699399854,
         1699399854,
-        'dQX9Pdx_dkFjXYvmgdiapLNE3MH9GZmG_1699399854'
+        '1dQX9Pdx_dkFjXYvmgdiapLNE3MH9GZmG_1699399854'
     ),
     (
         2,
         'cooker',
-        'Et94XhAxGuaiunEaS2Ao-LXJw_WgMlml',
+        '2Et94XhAxGuaiunEaS2Ao-LXJw_WgMlml',
         '$2y$13$zdNqQXgm.zBqs2RjoLfxj.p.a5q.pLJpG/dgZkhgE7SLXYX9aEe9K',
         NULL,
         'cooker@horadapapa.com',
         10,
         1699399854,
         1699399854,
-        'dQX9Pdx_dkFjXYvmgdiapLNE3MH9GZmG_1699399854'
+        '2dQX9Pdx_dkFjXYvmgdiapLNE3MH9GZmG_1699399854'
     ),
     (
         3,
         'waiter',
-        'Et94XhAxGuaiunEaS2Ao-LXJw_WgMlml',
+        '3Et94XhAxGuaiunEaS2Ao-LXJw_WgMlml',
         '$2y$13$zdNqQXgm.zBqs2RjoLfxj.p.a5q.pLJpG/dgZkhgE7SLXYX9aEe9K',
         NULL,
         'waiter@horadapapa.com',
         10,
         1699399854,
         1699399854,
-        'dQX9Pdx_dkFjXYvmgdiapLNE3MH9GZmG_1699399854'
+        '3dQX9Pdx_dkFjXYvmgdiapLNE3MH9GZmG_1699399854'
     ),
     (
         4,
         'client',
-        'Et94XhAxGuaiunEaS2Ao-LXJw_WgMlml',
+        '4Et94XhAxGuaiunEaS2Ao-LXJw_WgMlml',
         '$2y$13$zdNqQXgm.zBqs2RjoLfxj.p.a5q.pLJpG/dgZkhgE7SLXYX9aEe9K',
         NULL,
         'client@horadapapa.com',
         10,
         1699399854,
         1699399854,
-        'dQX9Pdx_dkFjXYvmgdiapLNE3MH9GZmG_1699399854'
+        '4dQX9Pdx_dkFjXYvmgdiapLNE3MH9GZmG_1699399854'
     );
