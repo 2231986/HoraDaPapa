@@ -11,9 +11,9 @@ $this->title = 'Página Inicial';
     <div class="container my-5 py-5">
         <div class="row align-items-center g-5">
             <div class="col-lg-6 text-center text-lg-start">
-                <h1 class="display-3 text-white animated slideInLeft">Enjoy Our<br>Delicious Meal</h1>
-                <p class="text-white animated slideInLeft mb-4 pb-2">Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit. Aliqu diam amet diam et eos. Clita erat ipsum et lorem et sit, sed stet lorem sit clita duo justo magna dolore erat amet</p>
-                <a href="" class="btn btn-primary py-sm-3 px-sm-5 me-3 animated slideInLeft">Book A Table</a>
+                <h1 class="display-3 text-white animated slideInLeft">Deguste as<br>nossas papas.</h1>
+                <p class="text-white animated slideInLeft mb-4 pb-2">Encontre os seu pratos favoritos</p>
+                <a href="" class="btn btn-primary py-sm-3 px-sm-5 me-3 animated slideInLeft">Reserve</a>
             </div>
             <div class="col-lg-6 text-center text-lg-end overflow-hidden">
                 <img class="img-fluid" src="img/hero.png" alt="">
@@ -32,8 +32,8 @@ $this->title = 'Página Inicial';
             <div class="d-flex align-items-center border-start border-5 border-primary px-3">
                 <h1 class="flex-shrink-0 display-5 text-primary mb-0" data-toggle="counter-up">15</h1>
                 <div class="ps-4">
-                    <p class="mb-0">Dias de</p>
-                    <h6 class="text-uppercase mb-0">Experiência</h6>
+                    <p class="mb-0">especialidades da</p>
+                    <h6 class="text-uppercase mb-0">casa</h6>
                 </div>
             </div>
         </div>
@@ -41,8 +41,8 @@ $this->title = 'Página Inicial';
             <div class="d-flex align-items-center border-start border-5 border-primary px-3">
                 <h1 class="flex-shrink-0 display-5 text-primary mb-0" data-toggle="counter-up">2</h1>
                 <div class="ps-4">
-                    <p class="mb-0">Mushy</p>
-                    <h6 class="text-uppercase mb-0">Awards!</h6>
+                    <p class="mb-0">Estrelas</p>
+                    <h6 class="text-uppercase mb-0">Michelin!</h6>
                 </div>
             </div>
         </div>
@@ -54,8 +54,8 @@ $this->title = 'Página Inicial';
 <div class="container-xxl pt-5 pb-3">
     <div class="container">
         <div class="text-center wow fadeInUp" data-wow-delay="0.1s" style="visibility: visible; animation-delay: 0.1s; animation-name: fadeInUp;">
-            <h5 class="section-title ff-secondary text-center text-primary fw-normal">Os nossos pratos</h5>
-            <h1 class="mb-5">Mais Populares!</h1>
+            <h5 class="section-title ff-secondary text-center text-primary fw-normal">A nossa equipa</h5>
+            <h1 class="mb-5">Os nossos chef's!</h1>
         </div>
         <div class="row g-4">
             <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s" style="visibility: visible; animation-delay: 0.1s; animation-name: fadeInUp;">
@@ -63,7 +63,7 @@ $this->title = 'Página Inicial';
                     <div class="rounded-circle overflow-hidden m-4">
                         <img class="img-fluid" src="img/team-1.jpg" alt="">
                     </div>
-                    <h5 class="mb-0">Full Name</h5>
+                    <h5 class="mb-0">Joao Galamba</h5>
                     <small>Designation</small>
                     <div class="d-flex justify-content-center mt-3">
                         <a class="btn btn-square btn-primary mx-1" href=""><i class="fab fa-facebook-f"></i></a>
@@ -77,7 +77,7 @@ $this->title = 'Página Inicial';
                     <div class="rounded-circle overflow-hidden m-4">
                         <img class="img-fluid" src="img/team-2.jpg" alt="">
                     </div>
-                    <h5 class="mb-0">Full Name</h5>
+                    <h5 class="mb-0">Antonio Costa</h5>
                     <small>Designation</small>
                     <div class="d-flex justify-content-center mt-3">
                         <a class="btn btn-square btn-primary mx-1" href=""><i class="fab fa-facebook-f"></i></a>
@@ -91,7 +91,7 @@ $this->title = 'Página Inicial';
                     <div class="rounded-circle overflow-hidden m-4">
                         <img class="img-fluid" src="img/team-3.jpg" alt="">
                     </div>
-                    <h5 class="mb-0">Full Name</h5>
+                    <h5 class="mb-0">Fernando Medina</h5>
                     <small>Designation</small>
                     <div class="d-flex justify-content-center mt-3">
                         <a class="btn btn-square btn-primary mx-1" href=""><i class="fab fa-facebook-f"></i></a>
@@ -105,7 +105,7 @@ $this->title = 'Página Inicial';
                     <div class="rounded-circle overflow-hidden m-4">
                         <img class="img-fluid" src="img/team-4.jpg" alt="">
                     </div>
-                    <h5 class="mb-0">Full Name</h5>
+                    <h5 class="mb-0">Carlos Moedas</h5>
                     <small>Designation</small>
                     <div class="d-flex justify-content-center mt-3">
                         <a class="btn btn-square btn-primary mx-1" href=""><i class="fab fa-facebook-f"></i></a>
@@ -128,38 +128,38 @@ $this->title = 'Página Inicial';
         <div class="col-md-6 bg-dark d-flex align-items-center">
             <div class="p-5 wow fadeInUp" data-wow-delay="0.2s" style="visibility: visible; animation-delay: 0.2s; animation-name: fadeInUp;">
                 <h5 class="section-title ff-secondary text-start text-primary fw-normal">Reservation</h5>
-                <h1 class="text-white mb-4">Book A Table Online</h1>
+                <h1 class="text-white mb-4">Reserve a sua mesa</h1>
                 <form>
                     <div class="row g-3">
                         <div class="col-md-6">
                             <div class="form-floating">
-                                <input type="text" class="form-control" id="name" placeholder="Your Name">
+                                <input type="text" class="form-control" id="name" placeholder="Nome">
                                 <label for="name">Your Name</label>
                             </div>
                         </div>
 
                         <div class="col-md-6">
                             <div class="form-floating">
-                                <input type="email" class="form-control" id="email" placeholder="Your Email">
+                                <input type="email" class="form-control" id="email" placeholder="Email">
                                 <label for="email">Your Email</label>
                             </div>
                         </div>
 
                         <div class="col-md-12">
                             <div class="form-floating">
-                                <input type="text" class="form-control" id="name" placeholder="Subject">
+                                <input type="text" class="form-control" id="name" placeholder="Assunto">
                                 <label for="subject">Subject</label>
                             </div>
                         </div>
 
                         <div class="col-12">
                             <div class="form-floating">
-                                <textarea class="form-control" placeholder="Special Request" id="message" style="height: 100px"></textarea>
+                                <textarea class="form-control" placeholder="Pedido" id="message" style="height: 100px"></textarea>
                                 <label for="message">Special Request</label>
                             </div>
                         </div>
                         <div class="col-12">
-                            <button class="btn btn-primary w-100 py-3" type="submit">Book Now</button>
+                            <button class="btn btn-primary w-100 py-3" type="submit">Registe</button>
                         </div>
                     </div>
                 </form>
@@ -170,7 +170,7 @@ $this->title = 'Página Inicial';
 
 <div class="site-index">
     <div class="jumbotron text-center">
-        <h1>Hora da Papa</h1>
+
         <p class="lead">Descubra nosso delicioso cardápio e desfrute de uma maravilhosa experiência gastronômica.</p>
         <div class="col-md-12 text-center">
             <?= Html::img('https://hips.hearstapps.com/edc.h-cdn.co/assets/16/28/3200x1550/gallery-1468508286-ce-la-vi-restaurant-indoor.jpg?resize=1100:*', ['class' => 'center-img', 'alt' => 'Your Image']) ?>
