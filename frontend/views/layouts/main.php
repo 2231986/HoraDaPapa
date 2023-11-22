@@ -22,6 +22,17 @@ AppAsset::register($this);
     <?php $this->registerCsrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
+    <?php
+    use yii\helpers\Url;
+
+    // Registering the CSS file in your layout
+    $this->registerCssFile(Url::to('@web/css/styles.css'));
+
+    // Registering the JS file in your layout
+    $this->registerJsFile(Url::to('@web/js/script.js'), ['depends' => [\yii\web\JqueryAsset::class]]);
+
+    ?>
+
 </head>
 
 <body class="d-flex flex-column h-100">
@@ -37,7 +48,7 @@ AppAsset::register($this);
             ],
         ]);
         $menuItems = [
-            ['label' => 'Acerca de nós', 'url' => ['/site/about']],
+            ['label' => 'Sobre nós', 'url' => ['/site/about']],
             ['label' => 'Reserva', 'url' => ['/site/contact']],
             ['label' => 'Pratos', 'url' => ["/plate"]],
         ];
