@@ -19,22 +19,15 @@ AppAsset::register($this);
 <head>
     <meta charset="<?= Yii::$app->charset ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
     <?php $this->registerCsrfMetaTags() ?>
+
     <title><?= Html::encode($this->title) ?></title>
+
     <?php $this->head() ?>
-    <?php
-    use yii\helpers\Url;
-
-    // Registering the CSS file in your layout
-    $this->registerCssFile(Url::to('@web/css/site.css'));
-
-    // Registering the JS file in your layout
-    $this->registerJsFile(Url::to('@web/js/script.js'), ['depends' => [\yii\web\JqueryAsset::class]]);
-
-    ?>
 
     <!-- Favicon -->
-    <link href="img/favicon.ico" rel="icon">
+    <link href="./favicon.ico" rel="icon">
 
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -45,13 +38,40 @@ AppAsset::register($this);
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
 
-    <!-- Libraries Stylesheet -->
-    <link href="lib/animate/animate.min.css" rel="stylesheet">
-    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
-    <link href="lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
+    <!-- Outros JS -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script async src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
 
-    <!-- Customized Bootstrap Stylesheet -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <?php
+
+    use yii\helpers\Url;
+
+    // Registering the CSS file in your layout
+    $this->registerCssFile(Url::to('@web/css/site.css'));
+
+    // Libraries Stylesheet
+    $this->registerCssFile(Url::to('@web/lib/animate/animate.min.css'));
+    $this->registerCssFile(Url::to('@web/lib/owlcarousel/assets/owl.carousel.min.css'));
+    $this->registerCssFile(Url::to('@web/lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css'));
+
+    // Customized Bootstrap Stylesheet
+    $this->registerCssFile(Url::to('@web/css/bootstrap.min.css'));
+
+    // Registering the JS file in your layout
+    $this->registerJsFile(Url::to('@web/js/script.js'), ['depends' => [\yii\web\JqueryAsset::class]]);
+
+    // JavaScript Libraries
+    $this->registerJsFile(Url::to('@web/lib/wow/wow.min.js'));
+    $this->registerJsFile(Url::to('@web/lib/easing/easing.min.js'));
+    $this->registerJsFile(Url::to('@web/lib/waypoints/waypoints.min.js'));
+    $this->registerJsFile(Url::to('@web/lib/counterup/counterup.min.js'));
+    $this->registerJsFile(Url::to('@web/lib/owlcarousel/owl.carousel.min.js'));
+    $this->registerJsFile(Url::to('@web/lib/tempusdominus/js/moment.min.js'));
+    $this->registerJsFile(Url::to('@web/lib/tempusdominus/js/moment-timezone.min.js'));
+    $this->registerJsFile(Url::to('@web/lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js'));
+
+    ?>
+
 </head>
 
 <body class="d-flex flex-column h-100">
