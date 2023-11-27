@@ -3,6 +3,10 @@
 namespace common\models;
 
 use Yii;
+use app\models\Supplier;
+use app\models\Review;
+use app\models\Request;
+use common\models\Favorite;
 
 /**
  * This is the model class for table "plate".
@@ -13,11 +17,12 @@ use Yii;
  * @property string $title titulo do prato
  * @property string $date_time data
  * @property string|null $image_name nome da imagem
+ * @property int $supplier_id id do fornecedor
  *
  * @property Favorite[] $favorites
  * @property Request[] $requests
  * @property Review[] $reviews
- * @property Supplier[] $suppliers
+ * @property Supplier $supplier
  */
 class Plate extends \yii\db\ActiveRecord
 {
@@ -35,10 +40,12 @@ class Plate extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['description', 'price', 'title'], 'required'],
+            [['description', 'price', 'title', 'supplier_id'], 'required'],
             [['price'], 'number'],
             [['date_time'], 'safe'],
+            [['supplier_id'], 'integer'],
             [['description', 'title', 'image_name'], 'string', 'max' => 255],
+            [['supplier_id'], 'exist', 'skipOnError' => true, 'targetClass' => Supplier::class, 'targetAttribute' => ['supplier_id' => 'id']],
         ];
     }
 
@@ -88,12 +95,12 @@ class Plate extends \yii\db\ActiveRecord
     }
 
     /**
-     * Gets query for [[Suppliers]].
+     * Gets query for [[Supplier]].
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getSuppliers()
+    public function getSupplier()
     {
-        return $this->hasMany(Supplier::class, ['plate_id' => 'id']);
+        return $this->hasOne(Supplier::class, ['id' => 'supplier_id']);
     }
 }

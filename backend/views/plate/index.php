@@ -34,6 +34,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'title',
             'date_time',
             //'image_name',
+            'supplier.name',
             [
                 'class' => ActionColumn::className(),
                 'urlCreator' => function ($action, Plate $model, $key, $index, $column)

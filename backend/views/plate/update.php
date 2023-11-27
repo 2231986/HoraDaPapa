@@ -3,11 +3,11 @@
 use yii\helpers\Html;
 
 /** @var yii\web\View $this */
-/** @var common\models\Plate $model */
+/** @var common\models\Plate $plate */
 
-$this->title = 'Update Plate: ' . $model->title;
+$this->title = 'Update Plate: ' . $plate->title;
 $this->params['breadcrumbs'][] = ['label' => 'Plates', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->title, 'url' => ['view', 'id' => $model->id]];
+$this->params['breadcrumbs'][] = ['label' => $plate->title, 'url' => ['view', 'id' => $plate->id]];
 $this->params['breadcrumbs'][] = 'Update';
 ?>
 <div class="plate-update">
@@ -15,7 +15,8 @@ $this->params['breadcrumbs'][] = 'Update';
     <h1><?= Html::encode($this->title) ?></h1>
 
     <?= $this->render('_form', [
-        'model' => $model,
+        'plate' => $plate,
+        'supplier' => $supplier,
     ]) ?>
 
 </div>

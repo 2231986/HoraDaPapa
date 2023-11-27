@@ -35,6 +35,8 @@ $this->params['breadcrumbs'][] = $this->title;
             'title',
             'date_time',
             'image_name',
+            'supplier.name',
+            'supplier.nif',
         ],
     ]) ?>
 

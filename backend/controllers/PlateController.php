@@ -2,6 +2,7 @@
 
 namespace backend\controllers;
 
+use app\models\Supplier;
 use common\models\Plate;
 use common\models\PlateSearch;
 use yii\web\Controller;
@@ -87,22 +88,23 @@ class PlateController extends Controller
      */
     public function actionCreate()
     {
-        $model = new Plate();
+        $plate = new Plate();
 
         if ($this->request->isPost)
         {
-            if ($model->load($this->request->post()) && $model->save())
+            if ($plate->load($this->request->post()) && $plate->save())
             {
-                return $this->redirect(['view', 'id' => $model->id]);
+                return $this->redirect(['view', 'id' => $plate->id]);
             }
         }
         else
         {
-            $model->loadDefaultValues();
+            $plate->loadDefaultValues();
         }
 
         return $this->render('create', [
-            'model' => $model,
+            'plate' => $plate,
+            'supplier' => Supplier::find()->select(['name'])->indexBy('id')->column(),
         ]);
     }
 
@@ -115,15 +117,16 @@ class PlateController extends Controller
      */
     public function actionUpdate($id)
     {
-        $model = $this->findModel($id);
+        $plate = $this->findModel($id);
 
-        if ($this->request->isPost && $model->load($this->request->post()) && $model->save())
+        if ($this->request->isPost && $plate->load($this->request->post()) && $plate->save())
         {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['view', 'id' => $plate->id]);
         }
 
         return $this->render('update', [
-            'model' => $model,
+            'plate' => $plate,
+            'supplier' => Supplier::find()->select(['name'])->indexBy('id')->column(),
         ]);
     }
 
@@ -150,9 +153,9 @@ class PlateController extends Controller
      */
     protected function findModel($id)
     {
-        if (($model = Plate::findOne(['id' => $id])) !== null)
+        if (($plate = Plate::findOne(['id' => $id])) !== null)
         {
-            return $model;
+            return $plate;
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
