@@ -34,7 +34,14 @@ $this->params['breadcrumbs'][] = $this->title;
             'title',
             'date_time',
             //'image_name',
-            'supplier.name',
+            [
+                'attribute' => 'supplier_id',
+                'format' => 'raw',
+                'value' => function ($model)
+                {
+                    return Html::a($model->supplier->name, Url::toRoute(['supplier/view', 'id' => $model->supplier_id]));
+                },
+            ],
             [
                 'class' => ActionColumn::className(),
                 'urlCreator' => function ($action, Plate $model, $key, $index, $column)
