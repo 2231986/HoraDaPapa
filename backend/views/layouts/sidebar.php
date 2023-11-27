@@ -67,6 +67,11 @@ if (Yii::$app->user->can(RbacController::$PermissionReview))
     array_push($menuItems, ['label' => 'Avaliações', 'url' => ['/review/index']]);
 }
 
+if (Yii::$app->user->can(RbacController::$PermissionMeal))
+{
+    array_push($menuItems, ['label' => 'Refeições', 'url' => ['/meal/index']]);
+}
+
 #endregion MenuItems com permissões
 
 ?>

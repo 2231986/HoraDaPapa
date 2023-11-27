@@ -38,11 +38,12 @@ class MealSearch extends Meal
      *
      * @return ActiveDataProvider
      */
-    public function search($params)
+    public function search($params, $query)
     {
-        $query = Meal::find();
-
-        // add conditions that should always apply here
+        if ($query == null)
+        {
+            $query = Meal::find();
+        }
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -50,7 +51,8 @@ class MealSearch extends Meal
 
         $this->load($params);
 
-        if (!$this->validate()) {
+        if (!$this->validate())
+        {
             // uncomment the following line if you do not want to return any records when validation fails
             // $query->where('0=1');
             return $dataProvider;

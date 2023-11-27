@@ -15,6 +15,17 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="meal-index">
 
+    <?php
+    if ($checkout)
+    {
+        echo "<p>" . Html::a('Ver refeições abertas', ['index', 'checkout' => 0], ['class' => 'btn btn-primary']) . "</p>";
+    }
+    else
+    {
+        echo "<p>" . Html::a('Ver refeições fechadas', ['index', 'checkout' => 1], ['class' => 'btn btn-primary']) . "</p>";
+    }
+    ?>
+
     <p>
         <?= Html::a('Create Meal', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
@@ -27,10 +38,14 @@ $this->params['breadcrumbs'][] = $this->title;
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-
-            'id',
-            'dinner_table_id',
-            'checkout',
+            [
+                'label' => 'Número de Mesa',
+                'attribute' => 'dinner.id',
+            ],
+            [
+                'label' => 'Nome de Mesa',
+                'attribute' => 'dinner.name',
+            ],
             'date_time',
             [
                 'class' => ActionColumn::className(),

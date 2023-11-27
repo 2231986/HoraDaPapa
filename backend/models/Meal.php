@@ -45,10 +45,10 @@ class Meal extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'id da refeição',
-            'dinner_table_id' => 'id da mesa',
-            'checkout' => 'estado do pagamento',
-            'date_time' => 'data de criação',
+            'id' => 'ID',
+            'dinner_table_id' => 'Mesa',
+            'checkout' => 'Pagamento',
+            'date_time' => 'Data',
         ];
     }
 
@@ -57,7 +57,7 @@ class Meal extends \yii\db\ActiveRecord
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getDinnerTable()
+    public function getDinner()
     {
         return $this->hasOne(Dinner::class, ['id' => 'dinner_table_id']);
     }

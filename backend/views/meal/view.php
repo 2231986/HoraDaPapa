@@ -2,6 +2,8 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+use yii\helpers\Url;
+use yii\grid\GridView;
 
 /** @var yii\web\View $this */
 /** @var app\models\Meal $model */
@@ -24,8 +26,11 @@ $this->params['breadcrumbs'][] = $this->title;
                 'method' => 'post',
             ],
         ]) ?>
+
+        <?= Html::a('Criar Fatura', ['invoice', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
     </p>
 
+    <!-- Detalhe da refeição -->
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
@@ -35,5 +40,10 @@ $this->params['breadcrumbs'][] = $this->title;
             'date_time',
         ],
     ]) ?>
+
+    <!-- Detalhe dos pedidos feitos -->
+    <?= GridView::widget([
+        'dataProvider' => $platesDataProvider,
+    ]); ?>
 
 </div>

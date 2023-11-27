@@ -8,6 +8,8 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use console\controllers\RbacController;
+use yii\data\ActiveDataProvider;
+use yii\filters\AccessControl;
 
 /**
  * MealController implements the CRUD actions for Meal model.
@@ -56,14 +58,26 @@ class MealController extends Controller
      *
      * @return string
      */
-    public function actionIndex()
+    public function actionIndex($checkout = false)
     {
+        $query = null;
+
+        if ($checkout)
+        {
+            $query = Meal::find()->where(['checkout' => 1]);
+        }
+        else
+        {
+            $query = Meal::find()->where(['checkout' => 0]);
+        }
+
         $searchModel = new MealSearch();
-        $dataProvider = $searchModel->search($this->request->queryParams);
+        $dataProvider = $searchModel->search($this->request->queryParams, $query);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'checkout' => $checkout,
         ]);
     }
 
@@ -75,8 +89,15 @@ class MealController extends Controller
      */
     public function actionView($id)
     {
+        $meal =  $this->findModel($id);
+
+        $platesDataProvider = new ActiveDataProvider([
+            'query' => $meal->getRequests(),
+        ]);
+
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $meal,
+            'platesDataProvider' => $platesDataProvider,
         ]);
     }
 

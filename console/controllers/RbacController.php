@@ -27,6 +27,7 @@ class RbacController extends Controller
     public static $PermissionUser = "manageUser";
     public static $PermissionSupplier = "manageSupplier";
     public static $PermissionReview = "manageReview";
+    public static $PermissionMeal = "manageMeal";
 
     public function actionInit()
     {
@@ -80,6 +81,11 @@ class RbacController extends Controller
         $permission_manageReview->description = 'Gere todos os fornecedores';
         $auth->add($permission_manageReview);
 
+        //Permission - Gerir Refeições
+        $permission_manageMeal = $auth->createPermission(RbacController::$PermissionMeal);
+        $permission_manageMeal->description = 'Gere as refeições dos clientes';
+        $auth->add($permission_manageMeal);
+
         //endregion Permissions
 
         //region Roles  
@@ -106,6 +112,7 @@ class RbacController extends Controller
         $auth->addChild($waiter, $permission_manageInvoice);
         $auth->addChild($waiter, $permission_manageRequest);
         $auth->addChild($waiter, $permission_manageUser);
+        $auth->addChild($waiter, $permission_manageMeal);
 
         //Role - Cozinheiro
         $cooker = $auth->createRole(RbacController::$RoleCooker);
@@ -131,6 +138,7 @@ class RbacController extends Controller
         $auth->addChild($admin, $permission_manageUser);
         $auth->addChild($admin, $permission_manageSupplier);
         $auth->addChild($admin, $permission_manageReview);
+        $auth->addChild($admin, $permission_manageMeal);
 
         //endregion Roles
 
