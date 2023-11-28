@@ -96,7 +96,7 @@ class UserController extends \yii\web\Controller
         if ($model->signup())
         {
             Yii::$app->getResponse()->setStatusCode(201); // Created
-            return ApiResponse::success($model);
+            return $this->asJson(ApiResponse::success($model));
         }
 
         return $this->asJson(ApiResponse::error([$model->errors]));
