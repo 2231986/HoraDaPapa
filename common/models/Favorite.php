@@ -71,4 +71,30 @@ class Favorite extends \yii\db\ActiveRecord
     {
         return $this->hasOne(User::class, ['id' => 'user_id']);
     }
+
+    public function getTodayFavorites()
+    {
+        return self::find()
+            ->where(['>=', 'date_time', date('Y-m-d 00:00:00')])
+            ->andWhere(['<=', 'date_time', date('Y-m-d 23:59:59')])->all();
+    }
+
+    public function getFavoritesRatio()
+    {
+        $todayFavoritesCount = self::find()
+            ->where(['>=', 'date_time', date('Y-m-d 00:00:00')])
+            ->andWhere(['<=', 'date_time', date('Y-m-d 23:59:59')])
+            ->count();
+
+        $yesterdayFavoritesCount = self::find()
+            ->where(['>=', 'date_time', date('Y-m-d 00:00:00', strtotime('-1 day'))])
+            ->andWhere(['<=', 'date_time', date('Y-m-d 23:59:59', strtotime('-1 day'))])
+            ->count();
+
+        $todayRatio = $todayFavoritesCount > 0 ? $todayFavoritesCount : 1;
+        $yesterdayRatio = $yesterdayFavoritesCount > 0 ? $yesterdayFavoritesCount : 1;
+        $ratioDifference = ($todayRatio - $yesterdayRatio) / $yesterdayRatio * 100;
+
+        return $ratioDifference;
+    }
 }

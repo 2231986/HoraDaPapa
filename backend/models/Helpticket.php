@@ -63,4 +63,11 @@ class Helpticket extends \yii\db\ActiveRecord
     {
         return $this->hasOne(User::class, ['id' => 'id_user']);
     }
+
+    public function getTodayTickets()
+    {
+        return self::find()
+            ->where(['>=', 'date_time', date('Y-m-d 00:00:00')])
+            ->andWhere(['<=', 'date_time', date('Y-m-d 23:59:59')])->all();
+    }
 }

@@ -270,4 +270,34 @@ class User extends ActiveRecord implements IdentityInterface
     {
         return $this->hasOne(UserInfo::class, ['user_id' => 'id']);
     }
+
+    public function getUserClients()
+    {
+        $authManager = \Yii::$app->authManager;
+
+        // Get user IDs assigned to the specific role
+        $userIds = $authManager->getUserIdsByRole(RbacController::$RoleClient);
+
+        // Fetch users based on user IDs
+        return self::find()->where(['id' => $userIds])->all();
+    }
+
+    public function getUserStaff()
+    {
+        $authManager = \Yii::$app->authManager;
+
+        // Get user IDs assigned to the specified roles
+        $userIds = [];
+        $roleNames = [RbacController::$RoleAdmin, RbacController::$RoleCooker, RbacController::$RoleWaiter];
+        foreach ($roleNames as $roleName)
+        {
+            $userIds = array_merge($userIds, $authManager->getUserIdsByRole($roleName));
+        }
+
+        // Remove duplicate user IDs
+        $userIds = array_unique($userIds);
+
+        // Fetch users based on user IDs
+        return self::find()->where(['id' => $userIds])->all();
+    }
 }

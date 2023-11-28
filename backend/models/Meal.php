@@ -81,4 +81,11 @@ class Meal extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Request::class, ['meal_id' => 'id']);
     }
+
+    public function getTodayMeals()
+    {
+        return self::find()
+            ->where(['>=', 'date_time', date('Y-m-d 00:00:00')])
+            ->andWhere(['<=', 'date_time', date('Y-m-d 23:59:59')])->all();
+    }
 }
