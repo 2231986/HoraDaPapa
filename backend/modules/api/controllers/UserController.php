@@ -17,6 +17,9 @@ class UserController extends \yii\web\Controller
     {
         $behaviors = parent::behaviors();
 
+        //Configure JSON output
+        $behaviors['contentNegotiator']['formats']['text/html'] = \yii\web\Response::FORMAT_JSON;
+
         /* Debug */
         // var_dump($_SERVER['PHP_AUTH_USER']);
         // var_dump($_SERVER['PHP_AUTH_PW']);
