@@ -12,7 +12,9 @@ return [
     'basePath' => dirname(__DIR__),
     'controllerNamespace' => 'backend\controllers',
     'bootstrap' => ['log'],
-    'modules' => ['api' => ['class' => 'backend\modules\api\ModuleAPI']],
+    'modules' => ['parsers' => [
+        'application/json' => 'yii\web\JsonParser',
+    ], 'api' => ['class' => 'backend\modules\api\ModuleAPI']],
     'components' => [
         'request' => [
             'csrfParam' => '_csrf-backend',
@@ -40,6 +42,7 @@ return [
         ],
         'urlManager' => [
             'enablePrettyUrl' => true,
+            'enableStrictParsing' => true,
             'showScriptName' => false,
             'rules' => [
                 [
@@ -50,6 +53,14 @@ return [
 
                     ],
                 ],
+                ['class' => 'yii\rest\UrlRule', 'controller' => 'api/review'],
+                ['class' => 'yii\rest\UrlRule', 'controller' => 'api/request'],
+                ['class' => 'yii\rest\UrlRule', 'controller' => 'api/plate'],
+                ['class' => 'yii\rest\UrlRule', 'controller' => 'api/meal'],
+                ['class' => 'yii\rest\UrlRule', 'controller' => 'api/invoice'],
+                ['class' => 'yii\rest\UrlRule', 'controller' => 'api/helpticket'],
+                ['class' => 'yii\rest\UrlRule', 'controller' => 'api/favorite'],
+                ['class' => 'yii\rest\UrlRule', 'controller' => 'api/dinner'],
             ],
         ],
     ],
