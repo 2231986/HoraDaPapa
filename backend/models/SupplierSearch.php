@@ -17,7 +17,7 @@ class SupplierSearch extends Supplier
     public function rules()
     {
         return [
-            [['id', 'plate_id'], 'integer'],
+            [['id'], 'integer'],
             [['name', 'nif'], 'safe'],
         ];
     }
@@ -50,7 +50,8 @@ class SupplierSearch extends Supplier
 
         $this->load($params);
 
-        if (!$this->validate()) {
+        if (!$this->validate())
+        {
             // uncomment the following line if you do not want to return any records when validation fails
             // $query->where('0=1');
             return $dataProvider;
@@ -58,8 +59,7 @@ class SupplierSearch extends Supplier
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'id' => $this->id,
-            'plate_id' => $this->plate_id,
+            'id' => $this->id
         ]);
 
         $query->andFilterWhere(['like', 'name', $this->name])

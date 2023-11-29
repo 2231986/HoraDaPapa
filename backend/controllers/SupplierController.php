@@ -4,7 +4,6 @@ namespace backend\controllers;
 
 use app\models\Supplier;
 use app\models\SupplierSearch;
-use common\models\Plate;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -104,8 +103,7 @@ class SupplierController extends Controller
         }
 
         return $this->render('create', [
-            'model' => $model,
-            'plates' => Plate::find()->all(),
+            'model' => $model
         ]);
     }
 
@@ -126,8 +124,7 @@ class SupplierController extends Controller
         }
 
         return $this->render('update', [
-            'model' => $model,
-            'plates' => Plate::find()->all(),
+            'model' => $model
         ]);
     }
 
