@@ -9,7 +9,7 @@ use common\models\User;
  * This is the model class for table "help_ticket".
  *
  * @property int $id id do ticket
- * @property int $id_user id utilizador que fez ticket
+ * @property int $user_id id utilizador que fez ticket
  * @property int $needHelp estado da ajuda
  * @property string $description descrição do pedido de ajuda
  * @property string $date_time data
@@ -32,11 +32,11 @@ class Helpticket extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id_user', 'needHelp', 'description'], 'required'],
-            [['id_user', 'needHelp'], 'integer'],
+            [['user_id', 'needHelp', 'description'], 'required'],
+            [['user_id', 'needHelp'], 'integer'],
             [['date_time'], 'safe'],
             [['description'], 'string', 'max' => 255],
-            [['id_user'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['id_user' => 'id']],
+            [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['user_id' => 'id']],
         ];
     }
 
@@ -47,7 +47,7 @@ class Helpticket extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'id do ticket',
-            'id_user' => 'id utilizador que fez ticket',
+            'user_id' => 'id utilizador que fez ticket',
             'needHelp' => 'estado da ajuda',
             'description' => 'descrição do pedido de ajuda',
             'date_time' => 'data',
@@ -61,7 +61,7 @@ class Helpticket extends \yii\db\ActiveRecord
      */
     public function getUser()
     {
-        return $this->hasOne(User::class, ['id' => 'id_user']);
+        return $this->hasOne(User::class, ['id' => 'user_id']);
     }
 
     public function getTodayTickets()

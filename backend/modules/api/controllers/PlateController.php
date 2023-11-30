@@ -3,6 +3,7 @@
 namespace backend\modules\api\controllers;
 
 use common\models\Plate;
+use yii\web\NotFoundHttpException;
 
 class PlateController extends APIActiveController
 {
@@ -25,6 +26,13 @@ class PlateController extends APIActiveController
 
 	public function actionView($id)
 	{
-		return Plate::find()->select(['id', 'description', 'price'])->where(['id' => $id])->one();
+		$model = Plate::find()->select(['id', 'description', 'price'])->where(['id' => $id])->one();
+
+		if ($model === null)
+		{
+			throw new NotFoundHttpException('Model not found.');
+		}
+
+		return $model;
 	}
 }

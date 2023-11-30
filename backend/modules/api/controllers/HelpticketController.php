@@ -6,6 +6,7 @@ use Yii;
 use app\models\Helpticket;
 use yii\web\NotFoundHttpException;
 use backend\modules\api\ApiResponse;
+use console\controllers\RbacController;
 
 class HelpticketController extends APIActiveController
 {
@@ -16,6 +17,7 @@ class HelpticketController extends APIActiveController
 		$verbs = parent::verbs();
 		$verbs =  [
 			'index' => ['GET'],
+			'view' => ['GET'],
 			'create' => ['POST'],
 			'delete' => ['DELETE'],
 		];
@@ -24,10 +26,19 @@ class HelpticketController extends APIActiveController
 
 	public function actionIndex()
 	{
-		return Helpticket::find()
-			->select(['id', 'description'])
-			->where(['id_user' => APIActiveController::getApiUser()->id])
-			->all();
+		$query = Helpticket::find()->select(['id', 'description']);
+
+		if (!APIActiveController::isApiUserAdmin())
+		{
+			$query->where(['user_id' => APIActiveController::getApiUser()->id]);
+		}
+
+		return $query->all();
+	}
+
+	public function actionView($id)
+	{
+		return $this->findModel($id);
 	}
 
 	public function actionCreate()
@@ -57,7 +68,14 @@ class HelpticketController extends APIActiveController
 
 	protected function findModel($id)
 	{
-		$model = Helpticket::findOne($id);
+		$query = Helpticket::find()->select(['id', 'description'])->where(['id' => $id]);
+
+		if (!APIActiveController::isApiUserAdmin())
+		{
+			$query->andWhere(['user_id' => APIActiveController::getApiUser()->id]);
+		}
+
+		$model = $query->one();
 
 		if ($model === null)
 		{

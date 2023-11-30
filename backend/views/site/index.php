@@ -146,17 +146,15 @@ $this->title = 'Página Principal';
         <div class="col-md-4 col-sm-6 col-12">
             <?php
 
-            $userModel = new User();
-
             echo \hail812\adminlte\widgets\SmallBox::widget([
-                'title' => count($userModel->getUserClients()),
+                'title' => count(User::getUserClients()),
                 'text' => 'Clientes',
                 'icon' => 'fas fa-user-plus',
                 'theme' => 'gradient-success'
             ]);
 
             echo \hail812\adminlte\widgets\SmallBox::widget([
-                'title' => count($userModel->getUserStaff()),
+                'title' => count(User::getUserStaff()),
                 'text' => 'Funcionários',
                 'icon' => 'fas fa-user-plus',
                 'theme' => 'gradient-success'

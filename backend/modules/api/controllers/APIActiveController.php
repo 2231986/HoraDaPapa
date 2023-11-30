@@ -9,6 +9,7 @@ use yii\rest\ActiveController;
 use console\controllers\RbacController;
 use yii\web\ForbiddenHttpException;
 use backend\modules\api\ApiResponse;
+use common\models\User;
 
 //Guia Autenticação - https://www.yiiframework.com/doc/guide/2.0/en/rest-authentication
 class APIActiveController extends ActiveController
@@ -16,6 +17,21 @@ class APIActiveController extends ActiveController
     public static function getApiUser()
     {
         return Yii::$app->user->identity;
+    }
+
+    public static function isApiUserAdmin()
+    {
+        $user = APIActiveController::getApiUser();
+        $role = $user->getRole();
+
+        if ($role == RbacController::$RoleAdmin)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 
     public function behaviors()

@@ -271,7 +271,7 @@ class User extends ActiveRecord implements IdentityInterface
         return $this->hasOne(UserInfo::class, ['user_id' => 'id']);
     }
 
-    public function getUserClients()
+    public static function getUserClients()
     {
         $authManager = \Yii::$app->authManager;
 
@@ -282,7 +282,7 @@ class User extends ActiveRecord implements IdentityInterface
         return self::find()->where(['id' => $userIds])->all();
     }
 
-    public function getUserStaff()
+    public static function getUserStaff()
     {
         $authManager = \Yii::$app->authManager;
 
