@@ -6,9 +6,9 @@
 /* @var $exception Exception */
 
 use yii\helpers\Html;
+use yii\helpers\Url;
 
 $this->title = $name;
-$this->params['breadcrumbs'] = [['label' => $this->title]];
 ?>
 <div class="error-page">
     <div class="error-content" style="margin-left: auto;">
@@ -19,10 +19,8 @@ $this->params['breadcrumbs'] = [['label' => $this->title]];
         </p>
 
         <p>
-            The above error occurred while the Web server was processing your request.
-            Please contact us if you think this is a server error. Thank you.
-            Meanwhile, you may <?= Html::a('return to dashboard', Yii::$app->homeUrl); ?>
-            or try using the search form.
+            Ocorreu um erro, poderá voltar para a <?= Html::a('Página Principal', Yii::$app->homeUrl); ?>
+            ou voltar para a <?= Html::a('Página de Login', Url::toRoute(['site/login'])) ?>
         </p>
 
     </div>
