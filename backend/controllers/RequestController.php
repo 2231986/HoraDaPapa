@@ -40,11 +40,22 @@ class RequestController extends Controller
                     ],
                     'denyCallback' => function ()
                     {
-                        echo $this->render('@app/views/site/error', [
-                            'name' => 'Erro na autenticação',
-                            'message' => 'Apenas utilizadores autorizados podem se autenticar no backend!'
-                        ]);
-
+                        if (\Yii::$app->user->isGuest)
+                        {
+                            $this->layout = 'no_layout';
+                            echo $this->render('@app/views/site/error', [
+                                'name' => 'Erro na autenticação',
+                                'message' => 'Apenas utilizadores autorizados podem se autenticar no backend!'
+                            ]);
+                        }
+                        else
+                        {
+                            echo $this->render('@app/views/site/error', [
+                                'name' => 'Erro na autenticação',
+                                'message' => 'Apenas utilizadores autorizados podem se autenticar no backend!'
+                            ]);
+                            return $this->render('error_logged_in', ['exception' => $exception]);
+                        }
                         die;
                     },
                 ],

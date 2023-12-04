@@ -42,11 +42,22 @@ class SiteController extends Controller
                 ],
                 'denyCallback' => function ()
                 {
-                    echo $this->render('@app/views/site/error', [
-                        'name' => 'Erro na autenticação',
-                        'message' => 'Apenas utilizadores autorizados podem se autenticar no backend!'
-                    ]);
-
+                    if (\Yii::$app->user->isGuest)
+                    {
+                        $this->layout = 'no_layout';
+                        echo $this->render('@app/views/site/error', [
+                            'name' => 'Erro na autenticação',
+                            'message' => 'Apenas utilizadores autorizados podem se autenticar no backend!'
+                        ]);
+                    }
+                    else
+                    {
+                        echo $this->render('@app/views/site/error', [
+                            'name' => 'Erro na autenticação',
+                            'message' => 'Apenas utilizadores autorizados podem se autenticar no backend!'
+                        ]);
+                        return $this->render('error_logged_in', ['exception' => $exception]);
+                    }
                     die;
                 },
             ],
@@ -66,7 +77,9 @@ class SiteController extends Controller
     {
         return [
             'error' => [
-                'class' => \yii\web\ErrorAction::class,
+                'class' => 'yii\web\ErrorAction',
+                'view' => '@app/views/site/error.php',
+                'layout' => '@app/views/layouts/no_layout.php'
             ],
         ];
     }
@@ -79,6 +92,11 @@ class SiteController extends Controller
     public function actionIndex()
     {
         return $this->render('index');
+    }
+
+    public function actionError()
+    {
+        throw new \yii\base\Exception('Test error');
     }
 
     /**
