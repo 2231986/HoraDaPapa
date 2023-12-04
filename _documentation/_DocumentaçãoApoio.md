@@ -32,13 +32,27 @@ Na pasta do projeto correr no terminal os seguintes comandos por order:
 **Testes:**
 https://github.com/yiisoft/yii2-app-advanced/blob/master/docs/guide/start-testing.md
 
+Dependências:
+- JDK
+- Selenium
+- Driver do Browser
+
+Correr o Selenium em `standalone`
+```bat
+"C:\Program Files\Java\jdk-21\bin\java.exe" -jar selenium-server-4.15.0.jar standalone
+pause
+```
+
 >php vendor/bin/codecept run
 
 >php vendor/bin/codecept run -- -c common
 
 >php vendor/bin/codecept run -- -c frontend
 
+>php vendor/bin/codecept run -- -c frontend acceptance
+
 >php vendor/bin/codecept run -- -c backend
+
 
 **GII**
 >http://localhost/HoraDaPapa/backend/web/gii
