@@ -45,17 +45,23 @@ return [
             'showScriptName' => false,
             'rules' => [
                 [
-                    'class' => 'yii\rest\UrlRule', 'controller' => 'api/user', 'pluralize' => false,
-                    'extraPatterns' => [
+                    'class' => 'yii\rest\UrlRule', 'controller' => 'api/user', 'pluralize' => false, 'extraPatterns' => [
                         'GET login' => 'login',
                         'POST register' => 'register',
-
                     ],
                 ],
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'api/review'],
-                ['class' => 'yii\rest\UrlRule', 'controller' => 'api/request'],
+                [
+                    'class' => 'yii\rest\UrlRule', 'controller' => 'api/request', 'extraPatterns' => [
+                        'POST meal/<mealid:\d+>/plate/<plateid:\d+>' => 'create',
+                    ],
+                ],
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'api/plate'],
-                ['class' => 'yii\rest\UrlRule', 'controller' => 'api/meal'],
+                [
+                    'class' => 'yii\rest\UrlRule', 'controller' => 'api/meal',  'extraPatterns' => [
+                        'POST {id}/invoice' => 'invoice',
+                    ],
+                ],
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'api/invoice'],
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'api/helpticket'],
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'api/favorite'],

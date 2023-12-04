@@ -10,28 +10,9 @@ use PhpMqtt\Client\ConnectionSettings;
 // Guia para criar MQTT - https://www.emqx.com/en/blog/how-to-use-mqtt-in-php
 class Mosquitto extends Component
 {
-    private function initializeMqttClient()
+    public static  function getTopic($userID)
     {
-        $server = '127.0.0.1'; // Set your MQTT server address here
-        $port = 1883; // Set your MQTT server port here
-        $clientId = 'client_' . rand(0, 100); // Ensure a unique client ID
-        $username = 'admin'; // Add your MQTT username here
-        $password = '123'; // Add your MQTT password here
-        $mqtt_version = MqttClient::MQTT_3_1_1;
-
-        $mqtt = new MqttClient($server, $port, $clientId, $mqtt_version);
-
-        $connectionSettings = (new ConnectionSettings())
-            ->setUsername($username)
-            ->setPassword($password)
-            ->setKeepAliveInterval(60)
-            ->setLastWillTopic('emqx/test/last-will')
-            ->setLastWillMessage('client disconnect')
-            ->setLastWillQualityOfService(1);
-
-        $mqtt->connect($connectionSettings, true);
-
-        return $mqtt;
+        return  'topic_' + $userID;
     }
 
     // Como usar? - "Yii::$app->Mosquitto->publish();"
@@ -59,5 +40,29 @@ class Mosquitto extends Component
         {
             printf("Received message on topic [%s]: %s\n", $t, $m);
         }, 0);
+    }
+
+    private function initializeMqttClient()
+    {
+        $server = '127.0.0.1'; // Set your MQTT server address here
+        $port = 1883; // Set your MQTT server port here
+        $clientId = 'client_' . rand(0, 100); // Ensure a unique client ID
+        $username = 'admin'; // Add your MQTT username here
+        $password = '123'; // Add your MQTT password here
+        $mqtt_version = MqttClient::MQTT_3_1_1;
+
+        $mqtt = new MqttClient($server, $port, $clientId, $mqtt_version);
+
+        $connectionSettings = (new ConnectionSettings())
+            ->setUsername($username)
+            ->setPassword($password)
+            ->setKeepAliveInterval(60)
+            ->setLastWillTopic('emqx/test/last-will')
+            ->setLastWillMessage('client disconnect')
+            ->setLastWillQualityOfService(1);
+
+        $mqtt->connect($connectionSettings, true);
+
+        return $mqtt;
     }
 }

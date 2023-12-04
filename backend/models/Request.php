@@ -39,9 +39,9 @@ class Request extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['meal_id', 'observation', 'plate_id', 'user_id', 'price'], 'required'],
+            [['meal_id', 'plate_id', 'user_id', 'price'], 'required'],
             [['meal_id', 'plate_id', 'isCooked', 'isDelivered', 'user_id'], 'integer'],
-            [['date_time'], 'safe'],
+            [['date_time', 'observation'], 'safe'],
             [['price'], 'number'],
             [['observation'], 'string', 'max' => 255],
             [['meal_id'], 'exist', 'skipOnError' => true, 'targetClass' => Meal::class, 'targetAttribute' => ['meal_id' => 'id']],
