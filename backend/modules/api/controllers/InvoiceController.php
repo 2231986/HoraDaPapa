@@ -30,7 +30,7 @@ class InvoiceController extends APIActiveController
 		{
 			$userId = APIActiveController::getApiUser()->id;
 
-			return Invoice::find()->with([
+			return Invoice::find()->andWhere(['invoice.user_id' => $userId])->with([
 				'meal' => function ($query) use ($userId)
 				{
 					$query->with([
@@ -54,7 +54,7 @@ class InvoiceController extends APIActiveController
 		{
 			$userId = APIActiveController::getApiUser()->id;
 
-			return Invoice::find()->andWhere(['invoice.id' => $id])->with([
+			return Invoice::find()->andWhere(['invoice.id' => $id])->andWhere(['invoice.user_id' => $userId])->with([
 				'meal' => function ($query) use ($userId)
 				{
 					$query->with([
