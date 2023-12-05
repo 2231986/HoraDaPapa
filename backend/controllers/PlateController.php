@@ -54,7 +54,6 @@ class PlateController extends Controller
                                 'name' => 'Erro na autenticação',
                                 'message' => 'Apenas utilizadores autorizados podem se autenticar no backend!'
                             ]);
-                            return $this->render('error_logged_in', ['exception' => $exception]);
                         }
                         die;
                     },
