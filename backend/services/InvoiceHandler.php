@@ -26,37 +26,39 @@ class InvoiceHandler
             throw new HttpException(403, 'Checkout is already paid.');
         }
 
-        $requests = $meal->getRequests()->all();
-
-        $invoiceTotalPrice = 0;
-        foreach ($requests as $request)
+        $requests = null;
+        if ($userID != null)
         {
-            $invoiceTotalPrice += $request->price;
+            $requests =  $meal->getRequestsByUser($userID);
+            $invoiceTotalPrice = $meal->getMealCurrentPaidedAmountByUser($userID);
         }
-
-        $userInfo = UserInfo::findOne($userID);
-        $userInfoNIF = "999999999";
-        if ($userInfo->nif)
+        else
         {
-            $userInfoNIF = $userInfo->nif;
+            $requests =  $meal->getRequests();
+            $invoiceTotalPrice = $meal->getMealTotalPaymentAmount();
         }
 
         $invoice = new Invoice();
         $invoice->meal_id = $mealID;
+        $invoice->user_id = $userID;
         $invoice->price = $invoiceTotalPrice;
-        $invoice->nif = $userInfoNIF;
 
         $invoice->save();
 
-        //TODO: implementar este campo apenas quando todos os clientes tiverem pago as suas respetivas frações
-        //$meal->checkout = 1;
+        if ($meal->getMealRemainingPaymentAmount() <= 0)
+        {
+            $meal->checkout = 1;
+        }
         $meal->save();
 
         $dinner = Dinner::findOne($meal->dinner_table_id);
         $dinner->isClean = 0;
         $dinner->save();
 
-        \Yii::$app->Mosquitto->publish(Mosquitto::getTopic($userID), 'Fatura Emitida!');
+        if ($userID != null)
+        {
+            \Yii::$app->Mosquitto->publish(Mosquitto::getTopic($userID), 'Fatura Emitida!');
+        }
 
         return [
             'dinner' => $dinner,

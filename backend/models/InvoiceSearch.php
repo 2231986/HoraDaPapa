@@ -19,7 +19,7 @@ class InvoiceSearch extends Invoice
         return [
             [['id', 'meal_id'], 'integer'],
             [['price'], 'number'],
-            [['date_time', 'nif'], 'safe'],
+            [['date_time'], 'safe'],
         ];
     }
 
@@ -51,7 +51,8 @@ class InvoiceSearch extends Invoice
 
         $this->load($params);
 
-        if (!$this->validate()) {
+        if (!$this->validate())
+        {
             // uncomment the following line if you do not want to return any records when validation fails
             // $query->where('0=1');
             return $dataProvider;
@@ -64,8 +65,6 @@ class InvoiceSearch extends Invoice
             'meal_id' => $this->meal_id,
             'date_time' => $this->date_time,
         ]);
-
-        $query->andFilterWhere(['like', 'nif', $this->nif]);
 
         return $dataProvider;
     }

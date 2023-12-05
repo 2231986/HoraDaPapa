@@ -2,6 +2,8 @@
 
 namespace app\models;
 
+use common\models\User;
+
 use Yii;
 
 /**
@@ -11,7 +13,6 @@ use Yii;
  * @property float $price preço final
  * @property int $meal_id id da refeição
  * @property string $date_time data
- * @property string|null $nif número fiscal do cliente
  *
  * @property Meal $meal
  */
@@ -33,10 +34,10 @@ class Invoice extends \yii\db\ActiveRecord
         return [
             [['price', 'meal_id'], 'required'],
             [['price'], 'number'],
-            [['meal_id'], 'integer'],
+            [['meal_id', 'user_id'], 'integer'],
             [['date_time'], 'safe'],
-            [['nif'], 'string', 'max' => 255],
             [['meal_id'], 'exist', 'skipOnError' => true, 'targetClass' => Meal::class, 'targetAttribute' => ['meal_id' => 'id']],
+            [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['user_id' => 'id']],
         ];
     }
 
@@ -46,11 +47,10 @@ class Invoice extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'id da fatura',
-            'price' => 'preço final',
-            'meal_id' => 'id da refeição',
-            'date_time' => 'data',
-            'nif' => 'número fiscal do cliente',
+            'id' => 'Número de fatura',
+            'price' => 'Total',
+            'meal_id' => 'Número de refeição',
+            'date_time' => 'Data',
         ];
     }
 
@@ -62,5 +62,15 @@ class Invoice extends \yii\db\ActiveRecord
     public function getMeal()
     {
         return $this->hasOne(Meal::class, ['id' => 'meal_id']);
+    }
+
+    /**
+     * Gets query for [[Userl]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getUser()
+    {
+        return $this->hasOne(User::class, ['id' => 'user_id']);
     }
 }

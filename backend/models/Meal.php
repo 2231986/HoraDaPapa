@@ -82,10 +82,75 @@ class Meal extends \yii\db\ActiveRecord
         return $this->hasMany(Request::class, ['meal_id' => 'id']);
     }
 
+    public function getRequestsByUser($userID)
+    {
+        return $this->getRequests()->andWhere(['user_id' => $userID])->all();
+    }
+
     public function getTodayMeals()
     {
         return self::find()
             ->where(['>=', 'date_time', date('Y-m-d 00:00:00')])
             ->andWhere(['<=', 'date_time', date('Y-m-d 23:59:59')])->all();
+    }
+
+    /**
+     * Obtem o valor total a pagar pela refeição
+     */
+    public function getMealTotalPaymentAmount()
+    {
+        $requests = $this->getRequests()->all();
+
+        $invoiceTotalPrice = 0;
+
+        foreach ($requests as $request)
+        {
+            $invoiceTotalPrice += $request->price;
+        }
+
+        return $invoiceTotalPrice;
+    }
+
+    /**
+     * Obtem o valor total a pagar pela refeição por utilizador
+     */
+    public function getMealCurrentPaidedAmountByUser($userID)
+    {
+        $requests = $this->getRequests()->andWhere(['user_id' => $userID])->all();
+
+        $invoiceTotalPrice = 0;
+
+        foreach ($requests as $request)
+        {
+            $invoiceTotalPrice += $request->price;
+        }
+
+        return $invoiceTotalPrice;
+    }
+
+    /**
+     * Obtem o valor total que já foi pago pela refeição
+     */
+    public function getMealCurrentPaidedAmount()
+    {
+        $paidedAmount = Invoice::find()
+            ->select(['SUM(price) as total_price'])
+            ->where(['meal_id' => $this->id])
+            ->scalar();
+
+        return $paidedAmount;
+    }
+
+    /**
+     * Obtem o valor em falta a pagar pela refeição
+     */
+    public function getMealRemainingPaymentAmount()
+    {
+        $currentPaidedAmount = $this->getMealCurrentPaidedAmount();
+        $mealTotalPaymentAmount = $this->getMealTotalPaymentAmount();
+
+        $remainingPaymentAmount = $mealTotalPaymentAmount - $currentPaidedAmount;
+
+        return $remainingPaymentAmount;
     }
 }

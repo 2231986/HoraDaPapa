@@ -9,6 +9,9 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use console\controllers\RbacController;
 use yii\filters\AccessControl;
+use app\models\Meal;
+use app\services\InvoiceHandler;
+use common\models\User;
 
 /**
  * InvoiceController implements the CRUD actions for Invoice model.
@@ -54,7 +57,6 @@ class InvoiceController extends Controller
                                 'name' => 'Erro na autenticação',
                                 'message' => 'Apenas utilizadores autorizados podem se autenticar no backend!'
                             ]);
-                            return $this->render('error_logged_in', ['exception' => $exception]);
                         }
                         die;
                     },
@@ -103,9 +105,14 @@ class InvoiceController extends Controller
 
         if ($this->request->isPost)
         {
-            if ($model->load($this->request->post()) && $model->save())
+            if ($model->load($this->request->post()))
             {
-                return $this->redirect(['view', 'id' => $model->id]);
+                if ($model->meal_id > 0)
+                {
+                    $invoice = InvoiceHandler::GenerateInvoice($model->meal_id, $model->user_id);
+
+                    return $this->redirect(['invoice/view', 'id' => $invoice["invoice"]->getAttribute('id')]);
+                }
             }
         }
         else
@@ -115,6 +122,8 @@ class InvoiceController extends Controller
 
         return $this->render('create', [
             'model' => $model,
+            'meals' => Meal::find()->where(['checkout' => 0])->all(),
+            'users' => User::getUserClients(),
         ]);
     }
 

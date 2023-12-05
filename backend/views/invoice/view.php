@@ -27,7 +27,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 },
             ],
             'date_time',
-            'nif',
+            'user.userInfo.nif',
             [
                 'label' => 'Nome da mesa',
                 'attribute' => 'meal.dinner.name',

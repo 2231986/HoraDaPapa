@@ -175,7 +175,7 @@ class MealController extends Controller
 
     public function actionInvoice($id)
     {
-        $invoice = InvoiceHandler::GenerateInvoice($id, \Yii::$app->user->getId());
+        $invoice = InvoiceHandler::GenerateInvoice($id, null);
 
         return $this->redirect(['invoice/view', 'id' => $invoice["invoice"]->getAttribute('id')]);
     }

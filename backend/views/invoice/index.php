@@ -37,7 +37,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 },
             ],
             'date_time',
-            'nif',
+            'user.userInfo.nif',
             [
                 'class' => ActionColumn::className(),
                 'urlCreator' => function ($action, Invoice $model, $key, $index, $column)
