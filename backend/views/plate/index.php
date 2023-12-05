@@ -5,6 +5,7 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\grid\ActionColumn;
 use yii\grid\GridView;
+use common\helpers\FormatterHelper;
 
 /** @var yii\web\View $this */
 /** @var common\models\PlateSearch $searchModel */
@@ -30,7 +31,14 @@ $this->params['breadcrumbs'][] = $this->title;
 
             'id',
             'description',
-            'price',
+            [
+                'attribute' => 'price',
+                'label' => 'Preço',
+                'value' => function ($model)
+                {
+                    return FormatterHelper::formatCurrency($model->price);
+                },
+            ],
             'title',
             'date_time',
             //'image_name',

@@ -5,6 +5,7 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\grid\ActionColumn;
 use yii\grid\GridView;
+use common\helpers\FormatterHelper;
 
 /** @var yii\web\View $this */
 /** @var app\models\InvoiceSearch $searchModel */
@@ -27,10 +28,14 @@ $this->params['breadcrumbs'][] = $this->title;
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-
-            'id',
-            'price',
-            'meal_id',
+            [
+                'attribute' => 'price',
+                'label' => 'Preço',
+                'value' => function ($model)
+                {
+                    return FormatterHelper::formatCurrency($model->price);
+                },
+            ],
             'date_time',
             'nif',
             [
@@ -38,10 +43,10 @@ $this->params['breadcrumbs'][] = $this->title;
                 'urlCreator' => function ($action, Invoice $model, $key, $index, $column)
                 {
                     return Url::toRoute([$action, 'id' => $model->id]);
-                }
+                },
+                'template' => '{view} {delete}',
             ],
         ],
     ]); ?>
-
 
 </div>

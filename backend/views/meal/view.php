@@ -27,7 +27,12 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
         ]) ?>
 
-        <?= Html::a('Criar Fatura', ['invoice', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+        <?php
+        if (!$model->checkout)
+        {
+            echo Html::a('Criar Fatura', ['invoice', 'id' => $model->id], ['class' => 'btn btn-primary']);
+        }
+        ?>
     </p>
 
     <!-- Detalhe da refeição -->

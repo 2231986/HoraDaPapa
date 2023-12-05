@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+use common\helpers\FormatterHelper;
 
 /** @var yii\web\View $this */
 /** @var common\models\Plate $model */
@@ -31,7 +32,14 @@ $this->params['breadcrumbs'][] = $this->title;
         'attributes' => [
             'id',
             'description',
-            'price',
+            [
+                'attribute' => 'price',
+                'label' => 'Preço',
+                'value' => function ($model)
+                {
+                    return FormatterHelper::formatCurrency($model->price);
+                },
+            ],
             'title',
             'date_time',
             'image_name',

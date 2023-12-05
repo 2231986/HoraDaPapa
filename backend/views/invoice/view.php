@@ -1,7 +1,8 @@
 <?php
 
-use yii\helpers\Html;
+use common\helpers\FormatterHelper;
 use yii\widgets\DetailView;
+use yii\grid\GridView;
 
 /** @var yii\web\View $this */
 /** @var app\models\Invoice $model */
@@ -11,29 +12,50 @@ $this->params['breadcrumbs'][] = ['label' => 'Invoices', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
+
 <div class="invoice-view">
-
-    <h1><?= Html::encode($this->title) ?></h1>
-
-    <p>
-        <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->id], [
-            'class' => 'btn btn-danger',
-            'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
-                'method' => 'post',
-            ],
-        ]) ?>
-    </p>
 
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'id',
-            'price',
-            'meal_id',
+            [
+                'attribute' => 'price',
+                'label' => 'Total',
+                'value' => function ($model)
+                {
+                    return FormatterHelper::formatCurrency($model->price);
+                },
+            ],
             'date_time',
             'nif',
+            [
+                'label' => 'Nome da mesa',
+                'attribute' => 'meal.dinner.name',
+            ],
+            [
+                'label' => 'Requests',
+                'format' => 'html',
+                'value' => function ($model)
+                {
+                    return GridView::widget([
+                        'dataProvider' => new \yii\data\ArrayDataProvider([
+                            'allModels' => $model->meal->requests,
+                        ]),
+                        'columns' => [
+                            'plate.title',
+                            [
+                                'attribute' => 'price',
+                                'label' => 'Preço',
+                                'value' => function ($model)
+                                {
+                                    return FormatterHelper::formatCurrency($model->price);
+                                },
+                            ],
+                            'observation',
+                        ],
+                    ]);
+                },
+            ],
         ],
     ]) ?>
 

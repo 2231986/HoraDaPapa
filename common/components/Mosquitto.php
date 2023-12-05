@@ -12,7 +12,7 @@ class Mosquitto extends Component
 {
     public static  function getTopic($userID)
     {
-        return  'topic_' + $userID;
+        return  'topic_' . $userID;
     }
 
     // Como usar? - "Yii::$app->Mosquitto->publish();"

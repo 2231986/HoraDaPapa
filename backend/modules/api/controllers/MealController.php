@@ -2,12 +2,8 @@
 
 namespace backend\modules\api\controllers;
 
-use app\models\Dinner;
-use app\models\Invoice;
 use app\models\Meal;
-use app\models\Request;
-use common\components\Mosquitto;
-use yii\web\NotFoundHttpException;
+use app\services\InvoiceHandler;
 
 class MealController extends APIActiveController
 {
@@ -59,49 +55,6 @@ class MealController extends APIActiveController
 
 	public function actionInvoice($id)
 	{
-		$meal = Meal::findOne($id);
-
-		if (!$meal)
-		{
-			throw new NotFoundHttpException('Meal not found.');
-		}
-
-		$requests = $meal->getRequests()->all();
-
-		$invoiceTotalPrice = 0;
-		foreach ($requests as $request)
-		{
-			$invoiceTotalPrice += $request->price;
-		}
-
-		$userInfo = APIActiveController::getApiUser()->getUserInfo()->one();
-		$userInfoNIF = "999999999";
-		if ($userInfo->nif)
-		{
-			$userInfoNIF = $userInfo->nif;
-		}
-
-		$invoice = new Invoice();
-		$invoice->meal_id = $id;
-		$invoice->price = $invoiceTotalPrice;
-		$invoice->nif = $userInfoNIF;
-
-		$invoice->save();
-
-		$meal->checkout = 1;
-		$meal->save();
-
-		$dinner = Dinner::findOne($meal->dinner_table_id);
-		$dinner->isClean = 0;
-		$dinner->save();
-
-		\Yii::$app->Mosquitto->publish(Mosquitto::getTopic(APIActiveController::getApiUser()->id), 'Fatura Emitida!');
-
-		return [
-			'dinner' => $dinner,
-			'meal' => $meal,
-			'invoice' => $invoice,
-			'requests' => $requests,
-		];
+		return InvoiceHandler::GenerateInvoice($id, APIActiveController::getApiUser()->id);
 	}
 }

@@ -1,5 +1,6 @@
 <?php
 
+use common\helpers\FormatterHelper;
 use yii\helpers\Html;
 use yii\grid\GridView;
 
@@ -26,7 +27,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 [
                     //'header' => 'Image',
                     'format' => 'raw',
-                    'value' => function ($model) {
+                    'value' => function ($model)
+                    {
                         return Html::img('@web/img/menu-8.jpg', ['class' => 'img-fluid rounded', 'style' => 'max-width: 80px;']);
                     },
                 ],
@@ -34,10 +36,11 @@ $this->params['breadcrumbs'][] = $this->title;
                     //'header' => 'Title',
                     //'attribute' => 'title',
                     'format' => 'raw',
-                    'value' => function ($model) {
+                    'value' => function ($model)
+                    {
                         return '<h5 class="d-flex justify-content-between border-bottom pb-2">' .
                             Html::encode($model->title) .
-                            '<span class="text-primary">' . $model->price . '</span></h5>' .
+                            '<span class="text-primary">' . FormatterHelper::formatCurrency($model->price) . '</span></h5>' .
                             '<small class="fst-italic">' . Html::encode($model->description) . '</small>';
                     },
                 ],

@@ -2,6 +2,7 @@
 
 namespace backend\controllers;
 
+use app\services\InvoiceHandler;
 use app\models\Meal;
 use app\models\MealSearch;
 use yii\web\Controller;
@@ -171,6 +172,13 @@ class MealController extends Controller
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
+    }
+
+    public function actionInvoice($id)
+    {
+        $invoice = InvoiceHandler::GenerateInvoice($id, \Yii::$app->user->getId());
+
+        return $this->redirect(['invoice/view', 'id' => $invoice["invoice"]->getAttribute('id')]);
     }
 
     /**
