@@ -134,9 +134,8 @@ class Meal extends \yii\db\ActiveRecord
     public function getMealCurrentPaidedAmount()
     {
         $paidedAmount = Invoice::find()
-            ->select(['SUM(price) as total_price'])
             ->where(['meal_id' => $this->id])
-            ->scalar();
+            ->sum('price');
 
         return $paidedAmount;
     }

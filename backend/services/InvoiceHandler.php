@@ -29,12 +29,12 @@ class InvoiceHandler
         $requests = null;
         if ($userID != null)
         {
-            $requests =  $meal->getRequestsByUser($userID);
+            $requests = $meal->getRequestsByUser($userID);
             $invoiceTotalPrice = $meal->getMealCurrentPaidedAmountByUser($userID);
         }
         else
         {
-            $requests =  $meal->getRequests();
+            $requests = $meal->getRequests();
             $invoiceTotalPrice = $meal->getMealTotalPaymentAmount();
         }
 
