@@ -46,7 +46,7 @@ class Mosquitto extends Component
     {
         $server = '127.0.0.1'; // Set your MQTT server address here
         $port = 1883; // Set your MQTT server port here
-        $clientId = 'client_' . rand(0, 100); // Ensure a unique client ID
+        $clientId = 'client_horadapapa_api'; // Ensure a unique client ID
         $username = 'admin'; // Add your MQTT username here
         $password = '123'; // Add your MQTT password here
         $mqtt_version = MqttClient::MQTT_3_1_1;
