@@ -105,7 +105,7 @@ class Meal extends \yii\db\ActiveRecord
 
         foreach ($requests as $request)
         {
-            $invoiceTotalPrice += $request->price;
+            $invoiceTotalPrice += ($request->price * $request->quantity);
         }
 
         return $invoiceTotalPrice;
@@ -122,7 +122,7 @@ class Meal extends \yii\db\ActiveRecord
 
         foreach ($requests as $request)
         {
-            $invoiceTotalPrice += $request->price;
+            $invoiceTotalPrice += ($request->price * $request->quantity);
         }
 
         return $invoiceTotalPrice;

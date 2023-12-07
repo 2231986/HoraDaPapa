@@ -40,8 +40,8 @@ class Request extends \yii\db\ActiveRecord
     {
         return [
             [['meal_id', 'plate_id', 'user_id', 'price'], 'required'],
-            [['meal_id', 'plate_id', 'isCooked', 'isDelivered', 'user_id'], 'integer'],
-            [['date_time', 'observation'], 'safe'],
+            [['meal_id', 'plate_id', 'isCooked', 'isDelivered', 'user_id', 'quantity'], 'integer'],
+            [['date_time', 'observation', 'quantity'], 'safe'],
             [['price'], 'number'],
             [['observation'], 'string', 'max' => 255],
             [['meal_id'], 'exist', 'skipOnError' => true, 'targetClass' => Meal::class, 'targetAttribute' => ['meal_id' => 'id']],
@@ -56,15 +56,16 @@ class Request extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'id do pedido',
-            'meal_id' => 'id da refeição',
-            'observation' => 'comentários extra',
-            'plate_id' => 'id do prato',
-            'isCooked' => 'estado do cozinheiro',
-            'isDelivered' => 'estado do garçon',
-            'user_id' => 'id do utilizador',
-            'date_time' => 'data',
-            'price' => 'preço do prato',
+            'id' => 'ID do pedido',
+            'meal_id' => 'ID da refeição',
+            'observation' => 'Comentários',
+            'plate_id' => 'ID do prato',
+            'isCooked' => 'Estado de confeção',
+            'isDelivered' => 'Estado de entrega',
+            'user_id' => 'ID do utilizador',
+            'date_time' => 'Data',
+            'price' => 'Preço do prato',
+            'quantity' => 'Quantidade',
         ];
     }
 

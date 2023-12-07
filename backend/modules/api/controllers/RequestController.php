@@ -77,9 +77,17 @@ class RequestController extends APIActiveController
 		$request->plate_id = $plate->id;
 		$request->price = $plate->price;
 
-		if (\Yii::$app->request->isPost && \Yii::$app->request->post('observation') != null)
+		if (\Yii::$app->request->isPost)
 		{
-			$request->observation = \Yii::$app->request->post('observation');
+			if (\Yii::$app->request->post('observation') != null)
+			{
+				$request->observation = \Yii::$app->request->post('observation');
+			}
+
+			if (\Yii::$app->request->post('quantity') != null)
+			{
+				$request->quantity = \Yii::$app->request->post('quantity');
+			}
 		}
 
 		if ($request->save())

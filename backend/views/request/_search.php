@@ -25,13 +25,20 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'isCooked') ?>
 
-    <?php // echo $form->field($model, 'isDelivered') ?>
+    <?php // echo $form->field($model, 'isDelivered') 
+    ?>
 
-    <?php // echo $form->field($model, 'user_id') ?>
+    <?php // echo $form->field($model, 'user_id') 
+    ?>
 
-    <?php // echo $form->field($model, 'date_time') ?>
+    <?php // echo $form->field($model, 'date_time') 
+    ?>
 
-    <?php // echo $form->field($model, 'price') ?>
+    <?php // echo $form->field($model, 'price') 
+    ?>
+
+    <?php // echo $form->field($model, 'quantity') 
+    ?>
 
     <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>

@@ -43,6 +43,7 @@ use console\controllers\RbacController;
             //'meal.dinner.name',
             'plate.title',
             'observation',
+            'quantity',
             'user.username',
             'date_time',
         ],
