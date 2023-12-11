@@ -88,7 +88,7 @@ class PlateController extends APIActiveController
 
 	protected function findModel($id)
 	{
-		$model = Plate::find()->select(['id', 'description', 'price'])->where(['id' => $id])->one();
+		$model = Plate::find()->select(['*'])->where(['id' => $id])->one();
 
 		if ($model === null)
 		{
