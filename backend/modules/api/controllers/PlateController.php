@@ -23,7 +23,7 @@ class PlateController extends APIActiveController
 
 	public function actionIndex()
 	{
-		return Plate::find()->select('id, description, price')->all();
+		return Plate::find()->select('*')->all();
 	}
 
 	public function actionView($id)
