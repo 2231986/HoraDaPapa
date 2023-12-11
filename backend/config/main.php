@@ -50,22 +50,41 @@ return [
                         'POST register' => 'register',
                     ],
                 ],
-                ['class' => 'yii\rest\UrlRule', 'controller' => 'api/review'],
+                [
+                    'class' => 'yii\rest\UrlRule', 'controller' => 'api/review'
+                ],
                 [
                     'class' => 'yii\rest\UrlRule', 'controller' => 'api/request', 'extraPatterns' => [
                         'POST meal/<mealid:\d+>/plate/<plateid:\d+>' => 'create',
                     ],
                 ],
-                ['class' => 'yii\rest\UrlRule', 'controller' => 'api/plate'],
+                [
+                    'class' => 'yii\rest\UrlRule', 'controller' => 'api/plate', 'extraPatterns' => [
+                        'GET clean' => 'clean',
+                        'POST {id}/favorite' => 'addfavorite',
+                        'DELETE {id}/favorite' => 'removefavorite',
+                    ],
+                ],
                 [
                     'class' => 'yii\rest\UrlRule', 'controller' => 'api/meal',  'extraPatterns' => [
                         'POST {id}/invoice' => 'invoice',
                     ],
                 ],
-                ['class' => 'yii\rest\UrlRule', 'controller' => 'api/invoice'],
-                ['class' => 'yii\rest\UrlRule', 'controller' => 'api/helpticket'],
-                ['class' => 'yii\rest\UrlRule', 'controller' => 'api/favorite'],
-                ['class' => 'yii\rest\UrlRule', 'controller' => 'api/dinner'],
+                [
+                    'class' => 'yii\rest\UrlRule', 'controller' => 'api/invoice'
+                ],
+                [
+                    'class' => 'yii\rest\UrlRule', 'controller' => 'api/helpticket'
+                ],
+                [
+                    'class' => 'yii\rest\UrlRule', 'controller' => 'api/favorite'
+                ],
+                [
+                    'class' => 'yii\rest\UrlRule', 'controller' => 'api/dinner', 'extraPatterns' => [
+                        'GET clean' => 'clean',
+                        'POST {id}/start' => 'start',
+                    ],
+                ],
             ],
         ],
     ],

@@ -18,6 +18,7 @@ class HelpticketController extends APIActiveController
 		$verbs =  [
 			'index' => ['GET'],
 			'view' => ['GET'],
+			'update' => ['PUT'],
 			'create' => ['POST'],
 			'delete' => ['DELETE'],
 		];
@@ -46,9 +47,41 @@ class HelpticketController extends APIActiveController
 		$model = new Helpticket();
 		$model->load(Yii::$app->getRequest()->getBodyParams(), '');
 
+		$model->user_id = APIActiveController::getApiUser()->id;
+		$model->needHelp = 1;
+
+
 		if ($model->save())
 		{
 			Yii::$app->getResponse()->setStatusCode(201); // Created
+			return ApiResponse::success($model);
+		}
+		else
+		{
+			return ApiResponse::error([$model->errors]);
+		}
+	}
+
+	public function actionUpdate($id)
+	{
+		$model = $this->findModel($id);
+
+		// Ensure that the user updating the helpticket is the owner (if not an admin)
+		if (!APIActiveController::isApiUserAdmin() && $model->user_id !== APIActiveController::getApiUser()->id)
+		{
+			Yii::$app->getResponse()->setStatusCode(403);
+			return ApiResponse::error(['You do not have permission to update this helpticket.']);
+		}
+
+		// Get the updated description from the PUT data
+		$newDescription = Yii::$app->request->getBodyParam('description');
+
+		// Update only the description field
+		$model->description = $newDescription;
+
+		if ($model->save())
+		{
+			Yii::$app->getResponse()->setStatusCode(200);
 			return ApiResponse::success($model);
 		}
 		else
@@ -68,7 +101,7 @@ class HelpticketController extends APIActiveController
 
 	protected function findModel($id)
 	{
-		$query = Helpticket::find()->select(['id', 'description'])->where(['id' => $id]);
+		$query = Helpticket::find()->select(['*'])->where(['id' => $id]);
 
 		if (!APIActiveController::isApiUserAdmin())
 		{
