@@ -83,9 +83,10 @@ class UserController extends \yii\web\Controller
 
     public function actionLogin()
     {
+        $userID = $this->user->id;
         $token = $this->user->auth_key;
 
-        return $this->asJson(ApiResponse::success(['token' => $token]));
+        return $this->asJson(ApiResponse::success(['userID' => $userID, 'token' => $token]));
     }
 
     public function actionRegister()
