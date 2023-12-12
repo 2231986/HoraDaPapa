@@ -1,0 +1,40 @@
+{
+	"info": {
+		"_postman_id": "eeb43fc7-a4dc-4f82-a240-335d97cc7e3b",
+		"name": "Favorite",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "6462296"
+	},
+	"item": [
+		{
+			"name": "FavoriteGetAll",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "1Et94XhAxGuaiunEaS2Ao-LXJw_WgMlm"
+					}
+				},
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost/HoraDaPapa/backend/web/api/favorites"
+			},
+			"response": []
+		},
+		{
+			"name": "FavoriteGet",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "1Et94XhAxGuaiunEaS2Ao-LXJw_WgMlm"
+					}
+				},
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost/HoraDaPapa/backend/web/api/favorites/1"
+			},
+			"response": []
+		}
+	]
+}

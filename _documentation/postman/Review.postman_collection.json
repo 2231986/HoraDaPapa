@@ -1,0 +1,115 @@
+{
+	"info": {
+		"_postman_id": "470f4e7e-31e8-46b0-aa36-c382189f89d5",
+		"name": "Review",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "6462296"
+	},
+	"item": [
+		{
+			"name": "ReviewGetAll",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "1Et94XhAxGuaiunEaS2Ao-LXJw_WgMlm"
+					}
+				},
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost/HoraDaPapa/backend/web/api/reviews"
+			},
+			"response": []
+		},
+		{
+			"name": "ReviewsGet",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "1Et94XhAxGuaiunEaS2Ao-LXJw_WgMlm"
+					}
+				},
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost/HoraDaPapa/backend/web/api/reviews/1"
+			},
+			"response": []
+		},
+		{
+			"name": "ReviewCreate",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "1Et94XhAxGuaiunEaS2Ao-LXJw_WgMlm"
+					}
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "plate_id",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "description",
+							"value": "achei muito bom a comida",
+							"type": "text"
+						},
+						{
+							"key": "value",
+							"value": "5",
+							"type": "text"
+						}
+					]
+				},
+				"url": "http://localhost/HoraDaPapa/backend/web/api/reviews"
+			},
+			"response": []
+		},
+		{
+			"name": "ReviewEdit",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "1Et94XhAxGuaiunEaS2Ao-LXJw_WgMlm"
+					}
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "value",
+							"value": "7",
+							"type": "text"
+						}
+					]
+				},
+				"url": "http://localhost/HoraDaPapa/backend/web/api/reviews/7"
+			},
+			"response": []
+		},
+		{
+			"name": "ReviewDelete",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "1Et94XhAxGuaiunEaS2Ao-LXJw_WgMlm"
+					}
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": "http://localhost/HoraDaPapa/backend/web/api/reviews/3"
+			},
+			"response": []
+		}
+	]
+}

@@ -1,0 +1,59 @@
+{
+	"info": {
+		"_postman_id": "adf1f493-70b8-4086-be24-0fdc758d732f",
+		"name": "Meal",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "6462296"
+	},
+	"item": [
+		{
+			"name": "MealGetAll",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "1Et94XhAxGuaiunEaS2Ao-LXJw_WgMlm"
+					}
+				},
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost/HoraDaPapa/backend/web/api/meals"
+			},
+			"response": []
+		},
+		{
+			"name": "MealGet",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "1Et94XhAxGuaiunEaS2Ao-LXJw_WgMlm"
+					}
+				},
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost/HoraDaPapa/backend/web/api/meals/1"
+			},
+			"response": []
+		},
+		{
+			"name": "MealCreateInvoice",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "1Et94XhAxGuaiunEaS2Ao-LXJw_WgMlm"
+					}
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"url": "http://localhost/HoraDaPapa/backend/web/api/meals/1/invoice"
+			},
+			"response": []
+		}
+	]
+}

@@ -1,0 +1,59 @@
+{
+	"info": {
+		"_postman_id": "ffe7f95d-cf7f-4728-aa4a-e2b4948ea778",
+		"name": "Request",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "6462296"
+	},
+	"item": [
+		{
+			"name": "RequestCreate",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "1Et94XhAxGuaiunEaS2Ao-LXJw_WgMlm"
+					}
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"url": "http://localhost/HoraDaPapa/backend/web/api/requests/meal/1/plate/1"
+			},
+			"response": []
+		},
+		{
+			"name": "RequestGetAll",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "1Et94XhAxGuaiunEaS2Ao-LXJw_WgMlm"
+					}
+				},
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost/HoraDaPapa/backend/web/api/requests"
+			},
+			"response": []
+		},
+		{
+			"name": "RequestGet",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "1Et94XhAxGuaiunEaS2Ao-LXJw_WgMlm"
+					}
+				},
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost/HoraDaPapa/backend/web/api/requests/1"
+			},
+			"response": []
+		}
+	]
+}

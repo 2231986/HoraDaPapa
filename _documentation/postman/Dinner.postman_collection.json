@@ -1,0 +1,44 @@
+{
+	"info": {
+		"_postman_id": "786ab7fb-7d81-4589-a153-7e20519884b5",
+		"name": "Dinner",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "6462296"
+	},
+	"item": [
+		{
+			"name": "DinnerGetAll",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "1Et94XhAxGuaiunEaS2Ao-LXJw_WgMlm"
+					}
+				},
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost/HoraDaPapa/backend/web/api/dinners/clean"
+			},
+			"response": []
+		},
+		{
+			"name": "DinnerStart",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "1Et94XhAxGuaiunEaS2Ao-LXJw_WgMlm"
+					}
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"url": "http://localhost/HoraDaPapa/backend/web/api/dinners/1/start"
+			},
+			"response": []
+		}
+	]
+}

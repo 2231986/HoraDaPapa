@@ -1,0 +1,90 @@
+{
+	"info": {
+		"_postman_id": "94ca72a1-422c-4a13-b36f-d63932592d64",
+		"name": "HelpTicket",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "6462296"
+	},
+	"item": [
+		{
+			"name": "HelpTicketGetAll",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "1Et94XhAxGuaiunEaS2Ao-LXJw_WgMlm"
+					}
+				},
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost/HoraDaPapa/backend/web/api/helptickets"
+			},
+			"response": []
+		},
+		{
+			"name": "HelpTicketCreate",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "1Et94XhAxGuaiunEaS2Ao-LXJw_WgMlm"
+					}
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "description",
+							"value": "preciso de ajuda",
+							"type": "text"
+						}
+					]
+				},
+				"url": "http://localhost/HoraDaPapa/backend/web/api/helptickets"
+			},
+			"response": []
+		},
+		{
+			"name": "HelpTicketEdit",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "1Et94XhAxGuaiunEaS2Ao-LXJw_WgMlm"
+					}
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "description",
+							"value": "preciso de ajuda",
+							"type": "text"
+						}
+					]
+				},
+				"url": "http://localhost/HoraDaPapa/backend/web/api/helptickets/1"
+			},
+			"response": []
+		},
+		{
+			"name": "HelpTicketDelete",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "1Et94XhAxGuaiunEaS2Ao-LXJw_WgMlm"
+					}
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": "http://localhost/HoraDaPapa/backend/web/api/helptickets/3"
+			},
+			"response": []
+		}
+	]
+}

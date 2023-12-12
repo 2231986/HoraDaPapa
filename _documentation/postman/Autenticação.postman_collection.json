@@ -1,0 +1,55 @@
+{
+	"info": {
+		"_postman_id": "7b899a6b-ec9d-4b97-abc3-06e2af21c67f",
+		"name": "Autenticação",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "6462296"
+	},
+	"item": [
+		{
+			"name": "UserLogin",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": {
+						"username": "admin",
+						"password": "12345678"
+					}
+				},
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost/HoraDaPapa/backend/web/api/user/login"
+			},
+			"response": []
+		},
+		{
+			"name": "UserRegister",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "username",
+							"value": "Alfredo5",
+							"type": "text"
+						},
+						{
+							"key": "email",
+							"value": "alfredo5@horapapa.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "12345678",
+							"type": "text"
+						}
+					]
+				},
+				"url": "http://localhost/HoraDaPapa/backend/web/api/user/register"
+			},
+			"response": []
+		}
+	]
+}

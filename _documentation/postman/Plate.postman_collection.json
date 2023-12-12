@@ -1,0 +1,70 @@
+{
+	"info": {
+		"_postman_id": "e5b81696-6ccc-4cd7-88ec-f22d825b1a9b",
+		"name": "Plate",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "6462296"
+	},
+	"item": [
+		{
+			"name": "PlateGetAll",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "1Et94XhAxGuaiunEaS2Ao-LXJw_WgMlm"
+					}
+				},
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost/HoraDaPapa/backend/web/api/plates"
+			},
+			"response": []
+		},
+		{
+			"name": "PlateGet",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "1Et94XhAxGuaiunEaS2Ao-LXJw_WgMlm"
+					}
+				},
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost/HoraDaPapa/backend/web/api/plates/1"
+			},
+			"response": []
+		},
+		{
+			"name": "PlateAddFavorite",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "1Et94XhAxGuaiunEaS2Ao-LXJw_WgMlm"
+					}
+				},
+				"method": "POST",
+				"header": [],
+				"url": "http://localhost/HoraDaPapa/backend/web/api/plates/1/favorite"
+			},
+			"response": []
+		},
+		{
+			"name": "PlateRemoveFavorite",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "1Et94XhAxGuaiunEaS2Ao-LXJw_WgMlm"
+					}
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": "http://localhost/HoraDaPapa/backend/web/api/plates/1/favorite"
+			},
+			"response": []
+		}
+	]
+}
