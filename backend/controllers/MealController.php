@@ -2,7 +2,7 @@
 
 namespace backend\controllers;
 
-use app\services\InvoiceHandler;
+use app\handlers\InvoiceHandler;
 use app\models\Meal;
 use app\models\MealSearch;
 use yii\web\Controller;

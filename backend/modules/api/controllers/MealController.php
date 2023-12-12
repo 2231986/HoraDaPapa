@@ -3,7 +3,7 @@
 namespace backend\modules\api\controllers;
 
 use app\models\Meal;
-use app\services\InvoiceHandler;
+use app\handlers\InvoiceHandler;
 
 class MealController extends APIActiveController
 {

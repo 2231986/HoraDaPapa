@@ -1,12 +1,11 @@
 <?php
 
-namespace app\services;
+namespace app\handlers;
 
 use app\models\Meal;
 use app\models\Dinner;
 use app\models\Invoice;
 use common\components\Mosquitto;
-use common\models\UserInfo;
 use yii\web\NotFoundHttpException;
 use yii\web\HttpException;
 
