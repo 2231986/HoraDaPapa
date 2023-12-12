@@ -11,7 +11,7 @@ use yii\widgets\ActiveForm;
 
 <div class="plate-form">
 
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]) ?>
 
     <?= $form->field($plate, 'description')->textInput(['maxlength' => true]) ?>
 
@@ -19,7 +19,11 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($plate, 'title')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($plate, 'image_name')->textInput(['maxlength' => true]) ?>
+    <?php if ($plate->image_name) : ?>
+        <?= Html::img(Yii::getAlias('@web/uploads/') . $plate->image_name, ['height' => '250px', 'width' => '250px', 'class' => 'img-thumbnail', 'alt' => 'Uploaded Image']) ?>
+    <?php endif; ?>
+
+    <?= $form->field($uploadForm, 'imageFile')->fileInput(); ?>
 
     <?= $form->field($plate, 'supplier_id')->dropDownList($supplier, ['prompt' => 'Select Supplier']) ?>
 

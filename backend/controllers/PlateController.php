@@ -2,6 +2,7 @@
 
 namespace backend\controllers;
 
+use Yii;
 use app\models\Supplier;
 use common\models\Plate;
 use common\models\PlateSearch;
@@ -11,6 +12,8 @@ use yii\filters\VerbFilter;
 use console\controllers\RbacController;
 use yii\filters\AccessControl;
 use common\components\Mosquitto;
+use backend\models\UploadForm;
+use yii\web\UploadedFile;
 
 /**
  * PlateController implements the CRUD actions for Plate model.
@@ -100,12 +103,31 @@ class PlateController extends Controller
     public function actionCreate()
     {
         $plate = new Plate();
+        $uploadedImage = new UploadForm();
 
-        if ($this->request->isPost)
+        if ($this->request->isPost && $plate->load($this->request->post()))
         {
-            if ($plate->load($this->request->post()) && $plate->save())
+            $uploadedImage->imageFile = UploadedFile::getInstance($uploadedImage, 'imageFile');
+            if ($uploadedImage->imageFile)
             {
+                if ($generatedName = $uploadedImage->upload())
+                {
+                    $plate->image_name = $generatedName;
+                }
+                else
+                {
+                    Yii::error('Error uploading image: ' . print_r($uploadedImage->errors, true));
+                }
+            }
+
+            if ($plate->save())
+            {
+                $this->alertClients($plate);
                 return $this->redirect(['view', 'id' => $plate->id]);
+            }
+            else
+            {
+                Yii::error('Error saving plate: ' . print_r($plate->errors, true));
             }
         }
         else
@@ -115,6 +137,7 @@ class PlateController extends Controller
 
         return $this->render('create', [
             'plate' => $plate,
+            'uploadForm' => $uploadedImage,
             'supplier' => Supplier::find()->select(['name'])->indexBy('id')->column(),
         ]);
     }
@@ -129,16 +152,38 @@ class PlateController extends Controller
     public function actionUpdate($id)
     {
         $plate = $this->findModel($id);
+        $uploadedImage = new UploadForm();
 
-        if ($this->request->isPost && $plate->load($this->request->post()) && $plate->save())
+        if ($this->request->isPost && $plate->load($this->request->post()))
         {
-            $this->alertClients($plate);
+            $uploadedImage->imageFile = UploadedFile::getInstance($uploadedImage, 'imageFile');
+            if ($uploadedImage->imageFile)
+            {
+                if ($generatedName = $uploadedImage->upload())
+                {
+                    $uploadedImage->deleteImage($plate->image_name);
+                    $plate->image_name = $generatedName;
+                }
+                else
+                {
+                    Yii::error('Error uploading image: ' . print_r($uploadedImage->errors, true));
+                }
+            }
 
-            return $this->redirect(['view', 'id' => $plate->id]);
+            if ($plate->save())
+            {
+                $this->alertClients($plate);
+                return $this->redirect(['view', 'id' => $plate->id]);
+            }
+            else
+            {
+                Yii::error('Error saving plate: ' . print_r($plate->errors, true));
+            }
         }
 
         return $this->render('update', [
             'plate' => $plate,
+            'uploadForm' => $uploadedImage,
             'supplier' => Supplier::find()->select(['name'])->indexBy('id')->column(),
         ]);
     }
