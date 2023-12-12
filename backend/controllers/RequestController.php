@@ -9,6 +9,7 @@ use yii\filters\VerbFilter;
 use console\controllers\RbacController;
 use yii\filters\AccessControl;
 use yii\data\ActiveDataProvider;
+use common\components\Mosquitto;
 
 /**
  * RequestController implements the CRUD actions for Request model.
@@ -185,7 +186,8 @@ class RequestController extends Controller
 
             if ($model->save())
             {
-                \Yii::$app->session->setFlash('success', 'O estado foi modificado!');
+                \Yii::$app->session->setFlash('success', 'O estado foi modificado para cozinhado!');
+                \Yii::$app->Mosquitto->publish(Mosquitto::getTopic($model->user_id), 'O estado foi modificado para cozinhado!');
             }
             else
             {
@@ -217,7 +219,8 @@ class RequestController extends Controller
 
             if ($model->save())
             {
-                \Yii::$app->session->setFlash('success', 'O estado foi modificado!');
+                \Yii::$app->session->setFlash('success', 'O estado foi modificado para entregue!');
+                \Yii::$app->Mosquitto->publish(Mosquitto::getTopic($model->user_id), 'O estado foi modificado para entregue!');
             }
             else
             {

@@ -10,6 +10,7 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use console\controllers\RbacController;
 use yii\filters\AccessControl;
+use common\components\Mosquitto;
 
 /**
  * PlateController implements the CRUD actions for Plate model.
@@ -131,6 +132,8 @@ class PlateController extends Controller
 
         if ($this->request->isPost && $plate->load($this->request->post()) && $plate->save())
         {
+            $this->alertClients($plate);
+
             return $this->redirect(['view', 'id' => $plate->id]);
         }
 
@@ -169,5 +172,18 @@ class PlateController extends Controller
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+    private function alertClients($plate)
+    {
+        $favorites = $plate->getFavorites()->all();
+
+        if ($favorites != null)
+        {
+            foreach ($favorites as $key => $value)
+            {
+                \Yii::$app->Mosquitto->publish(Mosquitto::getTopic($value->user_id), "O $plate->title foi atualizado!");
+            }
+        }
     }
 }
