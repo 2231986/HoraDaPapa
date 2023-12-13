@@ -42,7 +42,16 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             'title',
             'date_time',
-            'image_name',
+            [
+                'attribute' => 'image_name',
+                'format' => 'html', // Set the format to HTML to allow rendering HTML tags
+                'visible' => !empty($model->image_name), // Only show if image_name is not empty
+                'value' => function ($model)
+                {
+                    $imageUrl = Yii::getAlias('@web/uploads/') . $model->image_name;
+                    return Html::img($imageUrl, ['height' => '250px', 'width' => '250px', 'class' => 'img-thumbnail', 'alt' => 'Image']);
+                },
+            ],
             'supplier.name',
             'supplier.nif',
         ],
