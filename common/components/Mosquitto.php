@@ -30,6 +30,8 @@ class Mosquitto extends Component
             // retain
             true
         );
+
+        $mqtt->disconnect();
     }
 
     public function subscribe($topic)
@@ -40,6 +42,8 @@ class Mosquitto extends Component
         {
             printf("Received message on topic [%s]: %s\n", $t, $m);
         }, 0);
+
+        $mqtt->disconnect();
     }
 
     private function initializeMqttClient()
