@@ -68,6 +68,8 @@ return [
                 [
                     'class' => 'yii\rest\UrlRule', 'controller' => 'api/meal',  'extraPatterns' => [
                         'POST {id}/invoice' => 'invoice',
+                        'GET {id}/requests' => 'requests',
+                        'POST meal/<mealid:\d+>/plate/<plateid:\d+>' => 'addplate',
                     ],
                 ],
                 [
