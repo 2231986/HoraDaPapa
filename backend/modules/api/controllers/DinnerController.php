@@ -49,7 +49,7 @@ class DinnerController extends APIActiveController
 			$meal->save();
 		}
 
-		return $dinner;
+		return $meal;
 	}
 
 	public function actionView($id)
