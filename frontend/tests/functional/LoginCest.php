@@ -4,6 +4,8 @@ namespace frontend\tests\functional;
 
 use frontend\tests\FunctionalTester;
 use common\fixtures\UserFixture;
+use console\controllers\RbacController;
+use common\models\User;
 
 class LoginCest
 {
@@ -26,6 +28,12 @@ class LoginCest
 
     public function _before(FunctionalTester $I)
     {
+        $user = User::find()->where(['id' => 4])->one();
+
+        $auth = \Yii::$app->authManager;
+        $role = $auth->getRole(RbacController::$RoleClient);
+        $auth->assign($role,  $user->id);
+
         $I->amOnRoute('site/login');
     }
 
