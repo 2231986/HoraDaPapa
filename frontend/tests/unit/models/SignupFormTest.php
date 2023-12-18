@@ -15,6 +15,8 @@ class SignupFormTest extends \Codeception\Test\Unit
 
     public function _before()
     {
+        \Yii::$app->db->createCommand()->truncateTable('auth_assignment')->execute();
+
         $this->tester->haveFixtures([
             'user' => [
                 'class' => UserFixture::class,
