@@ -110,7 +110,7 @@ class UserController extends Controller
 
         return $this->render('view', [
             'user' => $user,
-            'userInfo' =>  $user->getUserInfo()->one(),
+            'userInfo' =>  $user->getUserInfo(),
         ]);
     }
 
@@ -177,7 +177,7 @@ class UserController extends Controller
         }
 
         $user = $this->findModel($id);
-        $userInfo =  $user->getUserInfo()->one();
+        $userInfo =  $user->getUserInfo();
 
         $post = $this->request->post();
 

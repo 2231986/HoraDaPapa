@@ -21,7 +21,8 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::a('Create Favorite', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+    <?php // echo $this->render('_search', ['model' => $searchModel]); 
+    ?>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
@@ -35,9 +36,10 @@ $this->params['breadcrumbs'][] = $this->title;
             'user_id',
             [
                 'class' => ActionColumn::className(),
-                'urlCreator' => function ($action, Favorite $model, $key, $index, $column) {
+                'urlCreator' => function ($action, $model, $key, $index, $column)
+                {
                     return Url::toRoute([$action, 'id' => $model->id]);
-                 }
+                }
             ],
         ],
     ]); ?>

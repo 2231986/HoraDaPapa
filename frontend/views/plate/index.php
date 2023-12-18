@@ -8,14 +8,13 @@ use yii\grid\GridView;
 /** @var common\models\PlateSearch $searchModel */
 /** @var yii\data\ActiveDataProvider $dataProvider */
 
-$this->title = 'Plates';
-$this->params['breadcrumbs'][] = $this->title;
+$this->title = 'Pratos';
 ?>
 <div class="container-xxl py-5">
     <div class="container">
         <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
             <h5 class="section-title ff-secondary text-center text-primary fw-normal">Food Menu</h5>
-            <h1 class="mb-5">Most Popular Items</h1>
+            <h1 class="mb-5">Todos os nossos pratos</h1>
         </div>
 
         <?= GridView::widget([
@@ -25,11 +24,17 @@ $this->params['breadcrumbs'][] = $this->title;
             'tableOptions' => ['class' => 'table table-striped'], // Apply Bootstrap table class
             'columns' => [
                 [
-                    //'header' => 'Image',
-                    'format' => 'raw',
+                    'format' => 'html', // Set the format to HTML to allow rendering HTML tags
                     'value' => function ($model)
                     {
-                        return Html::img('@web/img/menu-8.jpg', ['class' => 'img-fluid rounded', 'style' => 'max-width: 80px;']);
+                        $imageUrl = Yii::$app->params['imagePath'] . $model->image_name;
+
+                        if ($model->image_name == null)
+                        {
+                            $imageUrl = Yii::getAlias('@web/img/nopic.jpg');
+                        }
+
+                        return Html::img($imageUrl, ['height' => '250px', 'width' => '250px', 'class' => 'img-thumbnail', 'alt' => 'Image']);
                     },
                 ],
                 [

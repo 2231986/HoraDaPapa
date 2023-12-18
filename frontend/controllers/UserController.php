@@ -141,15 +141,23 @@ class UserController extends Controller
             }
         }
 
-        $model = $this->findModel($id);
+        $user = $this->findModel($id);
+        $userInfo =  $user->getUserInfo();
 
-        if ($this->request->isPost && $model->load($this->request->post()) && $model->save())
+        $post = $this->request->post();
+
+        if (
+            $this->request->isPost &&
+            $user->load($post) && $user->save() &&
+            $userInfo->load($post) && $userInfo->save()
+        )
         {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['view', 'id' => $user->id]);
         }
 
         return $this->render('update', [
-            'model' => $model,
+            'user' => $user,
+            'userInfo' =>  $userInfo,
         ]);
     }
 

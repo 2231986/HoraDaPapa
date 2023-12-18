@@ -102,7 +102,7 @@ BackendAsset::register($this);
             array_push($menuItems, ['label' => 'Favoritos', 'url' => ["/favorite"]]);
 
             $userID = Yii::$app->user->getId();
-            array_push($menuItems, ['label' => 'Utilizador', 'url' => ["/user/update?id=$userID"]]);
+            array_push($menuItems, ['label' => 'Utilizador', 'url' => ["/user/view?id=$userID"]]);
         }
 
         echo Nav::widget([
