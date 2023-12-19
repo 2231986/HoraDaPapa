@@ -15,21 +15,19 @@ class HelpticketTest extends \Codeception\Test\Unit
 
     public function testHelpticketValidation()
     {
-        // Create a new user for testing
         $user = new User();
-        $user->setAttributes([
-            'id' => 1,
-            'username' => 'testuser',
-            'email' => 'test@example.com',
-            'password_hash' => 'hashedpassword',
-        ]);
-        $user->save();
+        $user->username = "client";
+        $user->email = "client@horadapapa.com";
+        $user->setPassword("12345678");
+        $user->generateAuthKey();
+        $user->generateEmailVerificationToken();
+        $this->assertTrue($user->save(), 'User criado');
 
         $helpticket = new Helpticket();
 
         // Test with valid data
         $helpticket->setAttributes([
-            'user_id' => 1,
+            'user_id' => $user->id,
             'needHelp' => 1,
             'description' => 'Need assistance',
         ]);
@@ -58,6 +56,49 @@ class HelpticketTest extends \Codeception\Test\Unit
         $this->assertEquals(1, $helpticket->user_id, 'User ID attribute assigned correctly');
         $this->assertEquals(1, $helpticket->needHelp, 'NeedHelp attribute assigned correctly');
         $this->assertEquals('Urgent help needed', $helpticket->description, 'Description attribute assigned correctly');
+    }
+
+    public function testHelpticketCRUD()
+    {
+        $user = new User();
+        $user->username = "client";
+        $user->email = "client@horadapapa.com";
+        $user->setPassword("12345678");
+        $user->generateAuthKey();
+        $user->generateEmailVerificationToken();
+        $this->assertTrue($user->save(), 'User criado');
+
+        // Create a new helpticket
+        $helpticket = new Helpticket([
+            'user_id' =>  $user->id,
+            'needHelp' => 1,
+            'description' => 'New Help Request',
+        ]);
+
+        $this->assertTrue($helpticket->save(), 'Helpticket saved successfully');
+
+        // Read the helpticket from the database
+        $savedHelpticket = Helpticket::findOne($helpticket->id);
+
+        $this->assertNotNull($savedHelpticket, 'Helpticket found in the database');
+        $this->assertEquals('New Help Request', $savedHelpticket->description, 'Description is correct');
+
+        // Update the helpticket
+        $savedHelpticket->description = 'Updated Help Request';
+        $savedHelpticket->save();
+
+        // Read the updated helpticket from the database
+        $updatedHelpticket = Helpticket::findOne($savedHelpticket->id);
+
+        $this->assertEquals('Updated Help Request', $updatedHelpticket->description, 'Helpticket description updated successfully');
+
+        // Delete the helpticket
+        $updatedHelpticket->delete();
+
+        // Try to find the deleted helpticket
+        $deletedHelpticket = Helpticket::findOne($updatedHelpticket->id);
+
+        $this->assertNull($deletedHelpticket, 'Helpticket deleted successfully');
     }
 
     public function testHelpticketGetTodayTickets()
