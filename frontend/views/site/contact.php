@@ -17,33 +17,13 @@ $this->title = 'Reserva';
 ?>
 
 <div class="site-contact">
-    <h1><?= Html::encode($this->title) ?></h1>
 
-    <p>
-        If you have business inquiries or other questions, please fill out the following form to contact us. Thank you.
-    </p>
-
-    <div class="row">
-        <div class="col-lg-5">
-            <?php $form = ActiveForm::begin(['id' => 'contact-form']); ?>
-
-            <?= $form->field($model, 'name')->textInput(['autofocus' => true]) ?>
-
-            <?= $form->field($model, 'email') ?>
-
-            <?= $form->field($model, 'subject') ?>
-
-            <?= $form->field($model, 'body')->textarea(['rows' => 6]) ?>
-
-            <?= $form->field($model, 'verifyCode')->widget(Captcha::class, [
-                'template' => '<div class="row"><div class="col-lg-3">{image}</div><div class="col-lg-6">{input}</div></div>',
-            ]) ?>
-
-            <div class="form-group">
-                <?= Html::submitButton('Submit', ['class' => 'btn btn-primary', 'name' => 'contact-button']) ?>
+    <div class="container-xxl py-5">
+        <div class="container">
+            <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+                <h5 class="section-title ff-secondary text-center text-primary fw-normal">Contacto/Reserva</h5>
+                <h1 class="mb-5">Preencha o formulário para nos contactar.</h1>
             </div>
-
-            <?php ActiveForm::end(); ?>
         </div>
     </div>
 
@@ -109,7 +89,7 @@ $this->title = 'Reserva';
             </div>
             <div class="col-md-6 bg-dark d-flex align-items-center">
                 <div class="p-5 wow fadeInUp" data-wow-delay="0.2s" style="visibility: visible; animation-delay: 0.2s; animation-name: fadeInUp;">
-                    <h5 class="section-title ff-secondary text-start text-primary fw-normal">Reservation</h5>
+                    <h5 class="section-title ff-secondary text-start text-primary fw-normal">Reservas</h5>
                     <h1 class="text-white mb-4">Reserve a sua mesa</h1>
                     <?php $form = ActiveForm::begin(['action' => ['site/contact'], 'method' => 'post']); ?>
                     <?= $form->field($model, 'name')->textInput(['placeholder' => 'Nome'])->label('Your Name') ?>
@@ -117,8 +97,9 @@ $this->title = 'Reserva';
                     <?= $form->field($model, 'subject')->textInput(['placeholder' => 'Assunto'])->label('Subject') ?>
                     <?= $form->field($model, 'body')->textarea(['rows' => 6, 'placeholder' => 'Pedido'])->label('Special Request') ?>
                     <?= $form->field($model, 'verifyCode')->widget(Captcha::class, [
-                        'template' => '<div class="row"><div class="col-lg-3">{image}</div><div class="col-lg-6">{input}</div></div>',
-                    ]) ?>
+                        'template' => '<div class="row"><div class="col-lg-3">{image}</div><div class="col-lg-12">{input}</div></div>',
+                        'options' => ['placeholder' => 'Captcha'],
+                    ])?>
                     <div class="form-group">
                         <?= Html::submitButton('Registe', ['class' => 'btn btn-primary w-100 py-3', 'name' => 'contact-button']) ?>
                     </div>
