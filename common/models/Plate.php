@@ -103,4 +103,15 @@ class Plate extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Supplier::class, ['id' => 'supplier_id']);
     }
+
+    public function getPopularPlates()
+    {
+        return static::find()
+            ->select(['plate.*', 'COUNT(request.id) AS request_count'])
+            ->leftJoin('request', 'plate.id = request.plate_id')
+            ->groupBy('plate.id')
+            ->orderBy(['request_count' => SORT_DESC])
+            ->limit(6)
+            ->all();
+    }
 }

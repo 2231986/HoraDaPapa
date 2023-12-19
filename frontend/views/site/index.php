@@ -194,18 +194,20 @@ $this->title = 'Página Inicial';
         <div class="row mt-5">
             <div class="col-md-12">
                 <h2>Pratos Populares</h2>
-                <!-- Add a simple image gallery using Bootstrap classes -->
                 <div class="row">
-                    <div class="col-md-4 mb-3">
-                        <img src="https://img.freepik.com/premium-psd/pasta-instagram-flyer-post_124799-133.jpg?w=740" class="img-fluid" alt="Food Image 1">
-                    </div>
-                    <div class="col-md-4 mb-3">
-                        <img src="https://img.freepik.com/premium-psd/pasta-instagram-flyer-post_124799-133.jpg?w=740" class="img-fluid" alt="Food Image 2">
-                    </div>
-                    <div class="col-md-4 mb-3">
-                        <img src="https://img.freepik.com/premium-psd/pasta-instagram-flyer-post_124799-133.jpg?w=740" class="img-fluid" alt="Food Image 3">
-                    </div>
+                    <?php foreach ($popularPlates as $plate) : ?>
+                        <div class="col-md-4 mb-3">
+                            <?= Html::a(
+                                Html::img(
+                                    $plate->image_name ? Yii::$app->params['imagePath'] . $plate->image_name : Yii::getAlias('@web/img/nopic.jpg'),
+                                    ['class' => 'img-fluid', 'alt' => Html::encode($plate->title)]
+                                ),
+                                ['plate/index']
+                            ) ?>
+                        </div>
+                    <?php endforeach; ?>
                 </div>
+
             </div>
         </div>
     </div>
