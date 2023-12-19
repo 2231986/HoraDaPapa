@@ -139,14 +139,13 @@ class SiteController extends Controller
     public function actionContact()
     {
         $model = new ContactForm();
-        if ($model->load(Yii::$app->request->post()) && $model->validate())
-        {
-            if ($model->sendEmail(Yii::$app->params['adminEmail']))
-            {
+
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+            $recipientEmail = 'joao.rebelo.93@gmail.com'; // Replace with the recipient's email
+
+            if ($model->sendEmail($recipientEmail)) {
                 Yii::$app->session->setFlash('success', 'Thank you for contacting us. We will respond to you as soon as possible.');
-            }
-            else
-            {
+            } else {
                 Yii::$app->session->setFlash('error', 'There was an error sending your message.');
             }
 
@@ -157,6 +156,7 @@ class SiteController extends Controller
             'model' => $model,
         ]);
     }
+
 
     /**
      * Displays about page.
@@ -291,4 +291,6 @@ class SiteController extends Controller
             'model' => $model
         ]);
     }
+
+
 }
