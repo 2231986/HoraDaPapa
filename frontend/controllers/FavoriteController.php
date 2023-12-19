@@ -4,6 +4,7 @@ namespace frontend\controllers;
 
 use common\models\Favorite;
 use common\models\FavoriteSearch;
+use Yii;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -61,6 +62,9 @@ class FavoriteController extends Controller
     {
         $searchModel = new FavoriteSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
+
+        // Filtragem de favoritos baseado no utilizador logado
+        $dataProvider->query->andWhere(['user_id' => Yii::$app->user->id]);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
