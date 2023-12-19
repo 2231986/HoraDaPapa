@@ -4,6 +4,7 @@ namespace frontend\controllers;
 
 use common\models\Favorite;
 use common\models\FavoriteSearch;
+use common\models\Plate;
 use Yii;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -64,13 +65,14 @@ class FavoriteController extends Controller
         $dataProvider = $searchModel->search($this->request->queryParams);
 
         // Filtragem de favoritos baseado no utilizador logado
-        $dataProvider->query->andWhere(['user_id' => Yii::$app->user->id]);
+        $dataProvider->query->andWhere(['user_id' => Yii::$app->user->id])->with('plate');
 
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
     }
+
 
     /**
      * Displays a single Favorite model.

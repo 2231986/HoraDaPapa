@@ -23,22 +23,26 @@ $this->title = 'Favorites';
     <?php // echo $this->render('_search', ['model' => $searchModel]); 
     ?>
 
+
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-
             'id',
-            'plate_id',
+            [
+                'attribute' => 'plate_id',
+                'value' => function ($model) {
+                    return $model->plate ? $model->plate->title : 'No Plate';
+                },
+            ],
             'date_time',
             'user_id',
             [
                 'class' => ActionColumn::className(),
-                'urlCreator' => function ($action, $model, $key, $index, $column)
-                {
+                'urlCreator' => function ($action, $model, $key, $index, $column) {
                     return Url::toRoute([$action, 'id' => $model->id]);
-                }
+                },
             ],
         ],
     ]); ?>
