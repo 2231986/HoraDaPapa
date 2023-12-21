@@ -140,67 +140,76 @@ $this->title = 'Página Principal';
         </div>
     </div> -->
 
-    <h3>Visão Geral</h3>
+
 
     <div class="row">
-        <div class="col-md-4 col-sm-6 col-12">
-            <?php
+        <div class="col-md-6">
+            <h3>Visão Geral</h3>
+            <div class="row">
+                <div class="col-md-6">
+                    <?php
 
-            echo \hail812\adminlte\widgets\SmallBox::widget([
-                'title' => count(User::getUserClients()),
-                'text' => 'Clientes',
-                'icon' => 'fas fa-user-plus',
-                'theme' => 'gradient-success'
-            ]);
+                    echo \hail812\adminlte\widgets\SmallBox::widget([
+                        'title' => count(User::getUserClients()),
+                        'text' => 'Clientes',
+                        'icon' => 'fas fa-user-plus',
+                        'theme' => 'gradient-success'
+                    ]);
 
-            echo \hail812\adminlte\widgets\SmallBox::widget([
-                'title' => count(User::getUserStaff()),
-                'text' => 'Funcionários',
-                'icon' => 'fas fa-user-plus',
-                'theme' => 'gradient-success'
-            ]);
-            ?>
+                    echo \hail812\adminlte\widgets\SmallBox::widget([
+                        'title' => count(User::getUserStaff()),
+                        'text' => 'Funcionários',
+                        'icon' => 'fas fa-user-plus',
+                        'theme' => 'gradient-success'
+                    ]);
+                    ?>
+                </div>
+            </div>
+        </div>
+
+
+
+
+        <div class="col-md-6">
+            <h3>Estatísticas de Hoje</h3>
+            <div class="row">
+                <div class="col-md-6">
+                    <?php
+
+                    $helpticketModel = new Helpticket();
+                    $tickets = $helpticketModel->getTodayTickets();
+
+                    echo \hail812\adminlte\widgets\InfoBox::widget([
+                        'text' => 'Pedidos de ajuda',
+                        'number' => count($tickets),
+                        'icon' => 'far fa-envelope',
+                    ]);
+
+                    $mealModel = new Meal();
+                    $meals = $mealModel->getTodayMeals();
+                    echo \hail812\adminlte\widgets\SmallBox::widget([
+                        'title' => count($meals),
+                        'text' => 'Refeições Servidas',
+                        'icon' => 'fas fa-shopping-cart',
+                    ]);
+
+                    $favoriteModel = new Favorite();
+                    $favorites = $favoriteModel->getTodayFavorites();
+                    $favoritesRatio = $favoriteModel->getFavoritesRatio();
+                    echo \hail812\adminlte\widgets\InfoBox::widget([
+                        'text' => 'Favoritos',
+                        'number' => count($favorites),
+                        'theme' => 'success',
+                        'icon' => 'far fa-flag',
+                        'progress' => [
+                            'width' => "$favoritesRatio%",
+                            'description' => "$favoritesRatio% Aumento desde ontem"
+                        ]
+                    ]);
+                    ?>
+                </div>
+            </div>
         </div>
     </div>
-
-    <h3>Estatísticas de Hoje</h3>
-
-    <div class="row">
-        <div class="col-md-4 col-sm-6 col-12">
-            <?php
-
-            $helpticketModel = new Helpticket();
-            $tickets = $helpticketModel->getTodayTickets();
-
-            echo \hail812\adminlte\widgets\InfoBox::widget([
-                'text' => 'Pedidos de ajuda',
-                'number' => count($tickets),
-                'icon' => 'far fa-envelope',
-            ]);
-
-            $mealModel = new Meal();
-            $meals = $mealModel->getTodayMeals();
-            echo \hail812\adminlte\widgets\SmallBox::widget([
-                'title' => count($meals),
-                'text' => 'Refeições Servidas',
-                'icon' => 'fas fa-shopping-cart',
-            ]);
-
-            $favoriteModel = new Favorite();
-            $favorites = $favoriteModel->getTodayFavorites();
-            $favoritesRatio = $favoriteModel->getFavoritesRatio();
-            echo \hail812\adminlte\widgets\InfoBox::widget([
-                'text' => 'Favoritos',
-                'number' => count($favorites),
-                'theme' => 'success',
-                'icon' => 'far fa-flag',
-                'progress' => [
-                    'width' => "$favoritesRatio%",
-                    'description' => "$favoritesRatio% Aumento desde ontem"
-                ]
-            ]);
-            ?>
-        </div>
-    </div>
-
 </div>
+
