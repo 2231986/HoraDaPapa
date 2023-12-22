@@ -21,7 +21,20 @@ if (Yii::$app->user->can(RbacController::$PermissionUser))
     if (Yii::$app->authManager->getAssignment(RbacController::$RoleAdmin, $userID))
     {
         $userProfileLink = "/user";
-        array_push($menuItems, ['label' => 'Utilizadores', 'url' => [$userProfileLink]]);
+        $menuItems[] = ['label' => 'Utilizadores', 'url' => [$userProfileLink],'icon' => 'fa-regular fa-user',
+            'items' => [ // Submenu items array
+                [
+                    'label' => 'Index',
+                    'url' => ['user/'],
+                    'icon' => 'fa-solid fa-list', // Icon for the submenu item
+                ],
+                [
+                    'label' => 'Criar',
+                    'url' => ['/user/create'],
+                    'icon' => 'fa-solid fa-plus', // Icon for the submenu item
+
+                ],
+            ]];
     }
     else
     {
@@ -32,42 +45,150 @@ if (Yii::$app->user->can(RbacController::$PermissionUser))
 
 if (Yii::$app->user->can(RbacController::$PermissionPlate))
 {
-    array_push($menuItems, ['label' => 'Pratos', 'url' => ['/plate/index']]);
+    $menuItems[] = ['label' => 'Pratos','icon' => 'fa-solid fa-utensils',
+        'items' => [ // Submenu items array
+            [
+                'label' => 'Index',
+                'url' => ['plate/index'],
+                'icon' => 'fa-solid fa-list', // Icon for the submenu item
+            ],
+            [
+                'label' => 'Criar',
+                'url' => ['/plate/create'],
+                'icon' => 'fa-solid fa-plus', // Icon for the submenu item
+
+            ],
+        ]];
 }
 
 if (Yii::$app->user->can(RbacController::$PermissionRequest))
 {
-    array_push($menuItems, ['label' => 'Pedidos', 'url' => ['/request/index']]);
+    $menuItems[] = ['label' => 'Pedidos', 'url' => ['/request/index'], 'icon' => 'fas fa-list'];
 }
 
 if (Yii::$app->user->can(RbacController::$PermissionDinner))
 {
-    array_push($menuItems, ['label' => 'Mesas', 'url' => ['/dinner/index']]);
+    $menuItems[] = ['label' => 'Mesas', 'url' => ['/dinner/index'], 'icon' => 'fas fa-table',
+    'items' => [ // Submenu items array
+    [
+        'label' => 'Index',
+        'url' => ['dinner/index'],
+        'icon' => 'fa-solid fa-list', // Icon for the submenu item
+    ],
+    [
+        'label' => 'Criar',
+        'url' => ['dinner/create'],
+        'icon' => 'fa-solid fa-plus', // Icon for the submenu item
+
+    ],
+        [
+            'label' => 'Mesas por Limpar',
+            'url' => ['index', 'cleaned' => 0],
+            'icon' => 'fa-solid fa-plus', // Icon for the submenu item
+
+        ],
+        [
+            'label' => 'Mesas Limpas',
+            'url' => ['index', 'cleaned' => 1],
+            'icon' => 'fa-solid fa-plus', // Icon for the submenu item
+
+        ]
+]];
 }
 
 if (Yii::$app->user->can(RbacController::$PermissionHelpticket))
 {
-    array_push($menuItems, ['label' => 'Pedidos de Ajuda', 'url' => ['/helpticket/index']]);
+    $menuItems[] = ['label' => 'Pedidos de Ajuda', 'icon' => 'fas fa-hand-paper',
+    'items' => [ // Submenu items array
+    [
+        'label' => 'Index',
+        'url' => ['helpticket/index'],
+        'icon' => 'fa-solid fa-list', // Icon for the submenu item
+    ],
+    [
+        'label' => 'Por Resolver',
+        'url' => ['index', 'resolved' => 0],
+        'icon' => 'fa-solid fa-plus', // Icon for the submenu item
+
+    ],
+        [
+            'label' => 'Resolvidos',
+            'url' => ['index', 'resolved' => 1],
+            'icon' => 'fa-solid fa-plus', // Icon for the submenu item
+
+        ]
+]];
 }
 
 if (Yii::$app->user->can(RbacController::$PermissionInvoice))
 {
-    array_push($menuItems, ['label' => 'Faturas', 'url' => ['/invoice/index']]);
+    $menuItems[] = ['label' => 'Faturas', 'icon' => 'fa-solid fa-receipt',
+        'items' => [ // Submenu items array
+            [
+                'label' => 'Index',
+                'url' => ['invoice/index'],
+                'icon' => 'fa-solid fa-list', // Icon for the submenu item
+            ],
+            [
+                'label' => 'Criar',
+                'url' => ['/invoice/create'],
+                'icon' => 'fa-solid fa-plus', // Icon for the submenu item
+
+            ],
+        ]];
 }
 
 if (Yii::$app->user->can(RbacController::$PermissionSupplier))
 {
-    array_push($menuItems, ['label' => 'Fornecedores', 'url' => ['/supplier/index']]);
+    $menuItems[] = ['label' => 'Fornecedores', 'icon' => 'fa-solid fa-truck',
+        'items' => [ // Submenu items array
+            [
+                'label' => 'Index',
+                'url' => ['supplier/index'],
+                'icon' => 'fa-solid fa-list', // Icon for the submenu item
+            ],
+            [
+                'label' => 'Criar',
+                'url' => ['/supplier/create'],
+                'icon' => 'fa-solid fa-plus', // Icon for the submenu item
+
+            ],
+        ]];
 }
 
 if (Yii::$app->user->can(RbacController::$PermissionReview))
 {
-    array_push($menuItems, ['label' => 'Avaliações', 'url' => ['/review/index']]);
+    $menuItems[] = ['label' => 'Avaliações', 'url' => ['/review/index'], 'icon' => 'fa-solid fa-star'];
 }
 
 if (Yii::$app->user->can(RbacController::$PermissionMeal))
 {
-    array_push($menuItems, ['label' => 'Refeições', 'url' => ['/meal/index']]);
+    $menuItems[] = ['label' => 'Refeições', 'icon' => 'fas fa-drumstick-bite',
+        'items' => [ // Submenu items array
+            [
+                'label' => 'Index',
+                'url' => ['meal/index'],
+                'icon' => 'fa-solid fa-list', // Icon for the submenu item
+            ],
+            [
+                'label' => 'Criar',
+                'url' => ['/meal/create'],
+                'icon' => 'fa-solid fa-plus', // Icon for the submenu item
+
+            ],
+            [
+                'label' => 'Refeições Abertas',
+                'url' => ['index', 'checkout' => 0],
+                'icon' => 'fas fa-folder-open', // Icon for the submenu item
+
+            ],
+            [
+                'label' => 'Refeicoes Fechadas',
+                'url' => ['index', 'checkout' => 1],
+                'icon' => 'fas fa-folder', // Icon for the submenu item
+
+            ],
+        ]];
 }
 
 #endregion MenuItems com permissões
