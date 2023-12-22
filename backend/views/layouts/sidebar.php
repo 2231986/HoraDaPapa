@@ -25,12 +25,12 @@ if (Yii::$app->user->can(RbacController::$PermissionUser))
             'items' => [ // Submenu items array
                 [
                     'label' => 'Index',
-                    'url' => ['user/'],
+                    'url' => Url::to(['user/']),
                     'icon' => 'fa-solid fa-list', // Icon for the submenu item
                 ],
                 [
                     'label' => 'Criar',
-                    'url' => ['/user/create'],
+                    'url' => Url::to(['/user/create']),
                     'icon' => 'fa-solid fa-plus', // Icon for the submenu item
 
                 ],
@@ -49,12 +49,12 @@ if (Yii::$app->user->can(RbacController::$PermissionPlate))
         'items' => [ // Submenu items array
             [
                 'label' => 'Index',
-                'url' => ['plate/index'],
+                'url' => Url::to(['/plate']),
                 'icon' => 'fa-solid fa-list', // Icon for the submenu item
             ],
             [
                 'label' => 'Criar',
-                'url' => ['/plate/create'],
+                'url' => Url::to(['/plate/create']),
                 'icon' => 'fa-solid fa-plus', // Icon for the submenu item
 
             ],
@@ -68,28 +68,28 @@ if (Yii::$app->user->can(RbacController::$PermissionRequest))
 
 if (Yii::$app->user->can(RbacController::$PermissionDinner))
 {
-    $menuItems[] = ['label' => 'Mesas', 'url' => ['/dinner/index'], 'icon' => 'fas fa-table',
+    $menuItems[] = ['label' => 'Mesas', 'icon' => 'fas fa-table',
     'items' => [ // Submenu items array
     [
         'label' => 'Index',
-        'url' => ['dinner/index'],
+        'url' => Url::to( ['dinner/index']),
         'icon' => 'fa-solid fa-list', // Icon for the submenu item
     ],
     [
         'label' => 'Criar',
-        'url' => ['dinner/create'],
+        'url' => Url::to(['dinner/create']),
         'icon' => 'fa-solid fa-plus', // Icon for the submenu item
 
     ],
         [
             'label' => 'Mesas por Limpar',
-            'url' => ['index', 'cleaned' => 0],
+            'url' => Url::to(['index', 'cleaned' => 0]),
             'icon' => 'fa-solid fa-plus', // Icon for the submenu item
 
         ],
         [
             'label' => 'Mesas Limpas',
-            'url' => ['index', 'cleaned' => 1],
+            'url' => Url::to(['index', 'cleaned' => 1]),
             'icon' => 'fa-solid fa-plus', // Icon for the submenu item
 
         ]
@@ -102,18 +102,18 @@ if (Yii::$app->user->can(RbacController::$PermissionHelpticket))
     'items' => [ // Submenu items array
     [
         'label' => 'Index',
-        'url' => ['helpticket/index'],
+        'url' => Url::to(['helpticket/index']),
         'icon' => 'fa-solid fa-list', // Icon for the submenu item
     ],
     [
         'label' => 'Por Resolver',
-        'url' => ['index', 'resolved' => 0],
+        'url' => Url::to(['index', 'resolved' => 0]),
         'icon' => 'fa-solid fa-plus', // Icon for the submenu item
 
     ],
         [
             'label' => 'Resolvidos',
-            'url' => ['index', 'resolved' => 1],
+            'url' => Url::to(['index', 'resolved' => 1]),
             'icon' => 'fa-solid fa-plus', // Icon for the submenu item
 
         ]
@@ -126,12 +126,12 @@ if (Yii::$app->user->can(RbacController::$PermissionInvoice))
         'items' => [ // Submenu items array
             [
                 'label' => 'Index',
-                'url' => ['invoice/index'],
+                'url' => Url::to(['invoice/index']),
                 'icon' => 'fa-solid fa-list', // Icon for the submenu item
             ],
             [
                 'label' => 'Criar',
-                'url' => ['/invoice/create'],
+                'url' => Url::to(['/invoice/create']),
                 'icon' => 'fa-solid fa-plus', // Icon for the submenu item
 
             ],
@@ -144,12 +144,12 @@ if (Yii::$app->user->can(RbacController::$PermissionSupplier))
         'items' => [ // Submenu items array
             [
                 'label' => 'Index',
-                'url' => ['supplier/index'],
+                'url' => Url::to(['supplier/index']),
                 'icon' => 'fa-solid fa-list', // Icon for the submenu item
             ],
             [
                 'label' => 'Criar',
-                'url' => ['/supplier/create'],
+                'url' => Url::to(['/supplier/create']),
                 'icon' => 'fa-solid fa-plus', // Icon for the submenu item
 
             ],
@@ -167,24 +167,24 @@ if (Yii::$app->user->can(RbacController::$PermissionMeal))
         'items' => [ // Submenu items array
             [
                 'label' => 'Index',
-                'url' => ['meal/index'],
+                'url' => Url::to(['meal/index']),
                 'icon' => 'fa-solid fa-list', // Icon for the submenu item
             ],
             [
                 'label' => 'Criar',
-                'url' => ['/meal/create'],
+                'url' => Url::to(['/meal/create']),
                 'icon' => 'fa-solid fa-plus', // Icon for the submenu item
 
             ],
             [
                 'label' => 'Refeições Abertas',
-                'url' => ['index', 'checkout' => 0],
+                'url' => Url::to(['index', 'checkout' => 0]),
                 'icon' => 'fas fa-folder-open', // Icon for the submenu item
 
             ],
             [
                 'label' => 'Refeicoes Fechadas',
-                'url' => ['index', 'checkout' => 1],
+                'url' => Url::to(['index', 'checkout' => 1]),
                 'icon' => 'fas fa-folder', // Icon for the submenu item
 
             ],
