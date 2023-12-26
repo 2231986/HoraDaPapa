@@ -76,7 +76,7 @@ class RequestController extends Controller
         }
         else if (\Yii::$app->user->can(RbacController::$RoleWaiter))
         {
-            $query = Request::find()->where(['isCooked' => 1]);
+            $query = Request::find()->joinWith('meal')->orderBy('dinner_table_id')->where(['isCooked' => 1]);
         }
         else
         {

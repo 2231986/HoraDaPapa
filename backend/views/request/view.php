@@ -40,7 +40,7 @@ use console\controllers\RbacController;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            //'meal.dinner.name',
+            'meal.dinner_table_id',
             'plate.title',
             'observation',
             'quantity',
