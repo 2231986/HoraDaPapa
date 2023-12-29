@@ -14,13 +14,25 @@ $this->title = 'Pedidos';
 ?>
 <div class="request-index">
 
-    <?php // echo $this->render('_search', ['model' => $searchModel]); 
+    <?php // echo $this->render('_search', ['model' => $searchModel]);
     ?>
 
-    <?= ListView::widget([
+<!--    --><?php /*//= ListView::widget([             LISTVIEW ANTIGA, PUXA PEDIDOS; NOT GROUPED
         'dataProvider' => $dataProvider,
-        'itemView' => 'view',
-    ]); ?>
 
+        'itemView' => 'view',
+    ]); */?>
+
+
+    <?php foreach ($groupedRequests as $dinnerTableId => $requests): ?>
+        <h2>Dinner Table ID: <?= $dinnerTableId ?></h2>
+        <?= \yii\widgets\ListView::widget([
+            'dataProvider' => new \yii\data\ArrayDataProvider([
+                'allModels' => $requests,
+                'pagination' => false,
+            ]),
+            'itemView' => '_item',
+        ])?>
+    <?php endforeach?>
 
 </div>

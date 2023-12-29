@@ -76,7 +76,32 @@ class RequestController extends Controller
         }
         else if (\Yii::$app->user->can(RbacController::$RoleWaiter))
         {
-            $query = Request::find()->joinWith('meal')->orderBy('dinner_table_id')->where(['isCooked' => 1]);
+
+            // Vai buscar requests, junta-se a tabela meal e filtra por requests cozinhados
+            $query = Request::find()->joinWith('meal')->where(['isCooked' => 1]);
+
+            //declaração de array para agrupar os pedidos por dinner_table_id
+            $groupedRequests = [];
+            foreach ($query->each() as $request) {
+                //ve se ha uma meal associada ao request
+                if ($request->meal !== null) {
+                    //se existir uma meal associada, vai buscar a dinner_table id que é igual ao id da mesa
+                    $dinnerTableId = $request->meal->dinner_table_id;
+                    //passamos o id da mesa como referencia aos requests
+                    $groupedRequests[$dinnerTableId][] = $request;
+                }
+            }
+
+            //Pedidos são aqui guardados no dataprovider que esta associado ao array
+            $dataProvider = new \yii\data\ArrayDataProvider([
+                'allModels' => $groupedRequests,
+            ]);
+
+            return $this->render('index', [
+                'dataProvider' => $dataProvider,
+                'groupedRequests' => $groupedRequests,
+            ]);
+
         }
         else
         {
