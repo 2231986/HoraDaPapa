@@ -70,48 +70,32 @@ class RequestController extends Controller
      */
     public function actionIndex()
     {
-        if (\Yii::$app->user->can(RbacController::$RoleCooker))
-        {
-            $query = Request::find()->where(['isCooked' => 0]);
-        }
-        else if (\Yii::$app->user->can(RbacController::$RoleWaiter))
-        {
+        $query = Request::find();
 
-            //QUERY
-            // Vai buscar requests
-            // Junta modelo meal
-            // Filragem por requests cozinhados e já entregues
-            $query = Request::find()->joinWith('meal')->where(['isCooked' => 1])->where(['isDelivered' => 0]);;
+        if (\Yii::$app->user->can(RbacController::$RoleCooker)) {
+            $query->where(['isCooked' => 0]);
+        } elseif (\Yii::$app->user->can(RbacController::$RoleWaiter)) {
+            $query->joinWith('meal')
+                ->where(['isCooked' => 1])
+                ->andWhere(['isDelivered' => 0]);
 
-            //declaração de array para agrupar os pedidos por dinner_table_id
             $groupedRequests = [];
             foreach ($query->each() as $request) {
-                //ve se ha uma meal associada ao request
                 if ($request->meal !== null) {
-                    //se existir uma meal associada, vai buscar a dinner_table id que é igual ao id da mesa
                     $dinnerTableId = $request->meal->dinner_table_id;
-                    //passamos o id da mesa como referencia aos requests
                     $groupedRequests[$dinnerTableId][] = $request;
                 }
             }
 
-            //Pedidos são aqui guardados no dataprovider que esta associado ao array
             $dataProvider = new \yii\data\ArrayDataProvider([
                 'allModels' => $groupedRequests,
             ]);
-
-            return $this->render('index', [
-                'dataProvider' => $dataProvider,
-                'groupedRequests' => $groupedRequests,
-            ]);
-
-        }
-        else
-        {
-            $query = Request::find()->where(['!=', 'isCooked', 1])->orWhere(['!=', 'isDelivered', 1]);
+        } else {
+            $query->where(['!=', 'isCooked', 1])
+                ->orWhere(['!=', 'isDelivered', 1]);
         }
 
-        $dataProvider = new ActiveDataProvider([
+        $dataProvider = new \yii\data\ActiveDataProvider([
             'query' => $query,
             'pagination' => [
                 'pageSize' => 20,
@@ -120,7 +104,9 @@ class RequestController extends Controller
 
         return $this->render('index', [
             'dataProvider' => $dataProvider,
+            'groupedRequests' => $groupedRequests ?? null,
         ]);
+
     }
 
     /**
