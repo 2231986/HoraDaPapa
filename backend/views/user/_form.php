@@ -53,11 +53,12 @@ use yii\helpers\ArrayHelper;
     );
     ?>
 
-    <?= $form->field($userInfo, 'name') ?>
+    <?= isset($userInfo) ? $form->field($userInfo, 'name')->textInput() : '' ?>
 
-    <?= $form->field($userInfo, 'surname') ?>
+    <?= isset($userInfo) ? $form->field($userInfo, 'surname')->textInput() : '' ?>
 
-    <?= $form->field($userInfo, 'nif') ?>
+    <?= isset($userInfo) ? $form->field($userInfo, 'nif')->textInput() : '' ?>
+
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
