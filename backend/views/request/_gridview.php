@@ -7,7 +7,6 @@ use yii\helpers\Url;
 use yii\grid\GridView;
 
 ?>
-<!-- _gridview.php -->
 
 <?= GridView::widget([
     'dataProvider' => new \yii\data\ArrayDataProvider([
