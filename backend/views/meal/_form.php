@@ -1,5 +1,6 @@
 <?php
 
+use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
@@ -12,11 +13,15 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'dinner_table_id')->textInput() ?>
+
+    <?= $form->field($model, 'dinner_table_id')->dropDownList(
+        \yii\helpers\ArrayHelper::map(\app\models\Dinner::find()->where(['isClean' => 1])->all(), 'id', 'name'),
+        ['prompt' => 'Escolha uma mesa']
+    ) ?>
+
 
     <?= $form->field($model, 'checkout')->textInput() ?>
 
-    <?= $form->field($model, 'date_time')->textInput() ?>
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
