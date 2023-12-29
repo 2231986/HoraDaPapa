@@ -1,6 +1,7 @@
 <?php
 
 use app\models\Request;
+use yii\grid\GridView;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\grid\ActionColumn;
@@ -17,22 +18,17 @@ $this->title = 'Pedidos';
     <?php // echo $this->render('_search', ['model' => $searchModel]);
     ?>
 
-<!--    --><?php /*//= ListView::widget([             LISTVIEW ANTIGA, PUXA PEDIDOS; NOT GROUPED
-        'dataProvider' => $dataProvider,
-
-        'itemView' => 'view',
-    ]); */?>
 
 
-    <?php foreach ($groupedRequests as $dinnerTableId => $requests): ?>
-        <h2>Dinner Table ID: <?= $dinnerTableId ?></h2>
-        <?= \yii\widgets\ListView::widget([
-            'dataProvider' => new \yii\data\ArrayDataProvider([
-                'allModels' => $requests,
-                'pagination' => false,
-            ]),
-            'itemView' => '_item',
-        ])?>
-    <?php endforeach?>
+
+    <div class="request-index">
+        <?php foreach ($groupedRequests as $dinnerTableId => $requests): ?>
+            <div class="dinner-table">
+                <h3>MESA: <?= $dinnerTableId; ?></h3>
+                <?= $this->render('_gridview', ['requests' => $requests]) ?>
+            </div>
+        <?php endforeach; ?>
+    </div>
+
 
 </div>

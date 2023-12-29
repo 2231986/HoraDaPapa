@@ -77,8 +77,11 @@ class RequestController extends Controller
         else if (\Yii::$app->user->can(RbacController::$RoleWaiter))
         {
 
-            // Vai buscar requests, junta-se a tabela meal e filtra por requests cozinhados
-            $query = Request::find()->joinWith('meal')->where(['isCooked' => 1]);
+            //QUERY
+            // Vai buscar requests
+            // Junta modelo meal
+            // Filragem por requests cozinhados e já entregues
+            $query = Request::find()->joinWith('meal')->where(['isCooked' => 1])->where(['isDelivered' => 0]);;
 
             //declaração de array para agrupar os pedidos por dinner_table_id
             $groupedRequests = [];
@@ -128,8 +131,12 @@ class RequestController extends Controller
      */
     public function actionView($id)
     {
+        $model = $this->findModel($id);
+        $groupedRequests =[];
+
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $model,
+            'groupedRequests' => $groupedRequests, // tal como no index, passa groupedRequests para a view, de forma
         ]);
     }
 
@@ -172,8 +179,7 @@ class RequestController extends Controller
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save())
         {
-            return $this->redirect(['view', 'id' => $model->id]);
-        }
+            return $this->redirect('index');        }
 
         return $this->render('update', [
             'model' => $model,
