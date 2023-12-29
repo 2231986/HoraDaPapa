@@ -3,6 +3,7 @@
 namespace backend\controllers;
 
 use app\handlers\InvoiceHandler;
+use app\models\Dinner;
 use app\models\Meal;
 use app\models\MealSearch;
 use yii\web\Controller;
@@ -121,10 +122,20 @@ class MealController extends Controller
     {
         $model = new Meal();
 
+
+        // Fetch cleaned tables and prepare dropdown data
+        $query = Dinner::find()->where(['isClean' => 1]);
+
+        $tableDropdown = \yii\helpers\ArrayHelper::map($query->all(), 'id', 'name'); // Assuming 'name' is the field to display in the dropdown
+
+
         if ($this->request->isPost)
         {
             if ($model->load($this->request->post()) && $model->save())
             {
+                // Passa a hora atual como referencia
+                $model->date_time = date('Y-m-d H:i:s');
+
                 return $this->redirect(['view', 'id' => $model->id]);
             }
         }
@@ -133,9 +144,12 @@ class MealController extends Controller
             $model->loadDefaultValues();
         }
 
+        // Pass the dropdown data along with the model to the view
         return $this->render('create', [
             'model' => $model,
+            'tableDropdown' => $tableDropdown,
         ]);
+
     }
 
     /**
