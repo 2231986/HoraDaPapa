@@ -98,6 +98,12 @@ class FavoriteController extends Controller
 
         if ($this->request->isPost)
         {
+            // Passa o ID utilizador logado como referencia
+            $model->user_id = Yii::$app->user->id;
+
+            // Passa a hora atual como referencia
+            $model->date_time = date('Y-m-d H:i:s');
+
             if ($model->load($this->request->post()) && $model->save())
             {
                 return $this->redirect(['view', 'id' => $model->id]);

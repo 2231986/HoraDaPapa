@@ -1,5 +1,7 @@
 <?php
 
+use common\models\Plate;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
@@ -12,11 +14,17 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'plate_id')->textInput() ?>
+    <?= $form->field($model, 'plate_id')->dropDownList(
+        ArrayHelper::map(Plate::find()->all(), 'id', 'title'),
+        ['prompt' => 'Selecione o Prato']
+    ) ?>
 
-    <?= $form->field($model, 'date_time')->textInput() ?>
 
-    <?= $form->field($model, 'user_id')->textInput() ?>
+
+
+
+
+
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
