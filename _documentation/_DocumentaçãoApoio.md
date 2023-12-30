@@ -54,6 +54,13 @@ pause
 >php vendor/bin/codecept run -- -c backend
 
 
+**TESTES APOIO**
+>https://www.yiiframework.com/doc/guide/2.0/en/test-overview
+> https://codeception.com/docs/UnitTests
+> https://codeception.com/docs/FunctionalTests
+> https://codeception.com/docs/AcceptanceTests
+
+
 **GII**
 >http://localhost/HoraDaPapa/backend/web/gii
 
