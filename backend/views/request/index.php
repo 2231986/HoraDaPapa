@@ -10,7 +10,7 @@ $groupedRequests = [];
 
 foreach ($dataProvider->getModels() as $request)
 {
-    if ($request->meal !== null)
+    if ($request->meal != null)
     {
         $dinnerTableId = $request->meal->dinner_table_id;
         $groupedRequests[$dinnerTableId][] = $request;
@@ -34,16 +34,29 @@ foreach ($dataProvider->getModels() as $request)
                         'attribute' => 'meal_id',
                         'label' => 'Refeição',
                     ],
-                    'meal.dinner_table_id',
+                    [
+                        'attribute' => 'meal.dinner_table_id',
+                        'label' => 'Mesa',
+                        'format' => 'raw',
+                        'value' => function ($model)
+                        {
+                            return Html::a($model->meal->dinner->name, ['dinner/view', 'id' => $model->meal->dinner_table_id]);
+                        },
+                    ],
                     [
                         'attribute' => 'user.username',
                         'label' => 'Cliente',
+                        'format' => 'raw',
+                        'value' => function ($model)
+                        {
+                            return Html::a($model->user->username, ['user/view', 'id' => $model->user_id]);
+                        },
                     ],
                     [
                         'attribute' => 'observation',
                         'value' => function ($model)
                         {
-                            return $model->observation !== null ? $model->observation : '--';
+                            return $model->observation != null ? $model->observation : '--';
                         },
                     ],
                     [

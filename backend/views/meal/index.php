@@ -27,7 +27,7 @@ $this->params['breadcrumbs'][] = $this->title;
     ?>
 
     <p>
-        <?= Html::a('Create Meal', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Criar Refeição', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); 
@@ -43,8 +43,13 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'dinner.id',
             ],
             [
-                'label' => 'Nome de Mesa',
                 'attribute' => 'dinner.name',
+                'label' => 'Mesa',
+                'format' => 'raw',
+                'value' => function ($model)
+                {
+                    return Html::a($model->dinner->name, ['dinner/view', 'id' => $model->dinner->id]);
+                },
             ],
             'date_time',
             [

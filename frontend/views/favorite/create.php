@@ -5,7 +5,7 @@ use yii\helpers\Html;
 /** @var yii\web\View $this */
 /** @var app\models\Favorite $model */
 
-$this->title = 'Create Favorite';
+$this->title = 'Criar Favorito';
 $this->params['breadcrumbs'][] = ['label' => 'Favorites', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>

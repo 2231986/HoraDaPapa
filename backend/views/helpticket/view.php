@@ -7,13 +7,10 @@ use console\controllers\RbacController;
 /** @var yii\web\View $this */
 /** @var app\models\Helpticket $model */
 
-$this->title = $model->id;
 \yii\web\YiiAsset::register($this);
 ?>
 
 <div class="helpticket-view">
-
-    <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
         <?= Html::a('Mudar estado', ['resolved', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>

@@ -81,7 +81,7 @@ class RequestController extends Controller
         }
         else
         {
-            $query->all();
+            $query->joinWith('meal')->all();
         }
 
         $dataProvider = new \yii\data\ActiveDataProvider([

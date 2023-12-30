@@ -3,6 +3,7 @@
 use common\helpers\FormatterHelper;
 use yii\widgets\DetailView;
 use yii\grid\GridView;
+use yii\helpers\Html;
 
 /** @var yii\web\View $this */
 /** @var app\models\Invoice $model */
@@ -27,7 +28,26 @@ $this->params['breadcrumbs'][] = $this->title;
                 },
             ],
             'date_time',
-            'user.userInfo.nif',
+            [
+                'label' => 'Cliente',
+                'format' => 'raw',
+                'value' => function ($model)
+                {
+                    $username = $model->user->username;
+                    $userId = $model->user_id;
+                    $url = \yii\helpers\Url::to(['user/view', 'id' => $userId]);
+
+                    return Html::a($username, $url);
+                },
+            ],
+            [
+                'label' => 'NIF',
+                'attribute' => 'user.userInfo.nif',
+                'value' => function ($model)
+                {
+                    return empty($model->user->userInfo->nif) ? '999999999' : $model->user->userInfo->nif;
+                },
+            ],
             [
                 'label' => 'Nome da mesa',
                 'attribute' => 'meal.dinner.name',
@@ -51,7 +71,13 @@ $this->params['breadcrumbs'][] = $this->title;
                                     return FormatterHelper::formatCurrency($model->price);
                                 },
                             ],
-                            'observation',
+                            [
+                                'attribute' => 'observation',
+                                'value' => function ($model)
+                                {
+                                    return empty($model->observation) ? '--' : $model->observation;
+                                },
+                            ],
                         ],
                     ]);
                 },

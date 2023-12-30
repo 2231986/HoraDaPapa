@@ -5,7 +5,7 @@ use yii\helpers\Html;
 /** @var yii\web\View $this */
 /** @var common\models\Plate $model */
 
-$this->title = 'Create Plate';
+$this->title = 'Criar Prato';
 $this->params['breadcrumbs'][] = ['label' => 'Plates', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>

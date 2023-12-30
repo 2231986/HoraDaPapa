@@ -13,8 +13,6 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="user-view">
 
-    <h1><?= Html::encode($this->title) ?></h1>
-
     <p>
         <?= Html::a('Atualizar', ['update', 'id' => $user->id], ['class' => 'btn btn-primary']) ?>
         <?= Html::a('Remover', ['delete', 'id' => $user->id], [
@@ -32,9 +30,28 @@ $this->params['breadcrumbs'][] = $this->title;
             'username',
             'role.description',
             'email:email',
-            'userInfo.name',
-            'userInfo.surname',
-            'userInfo.nif',
+            [
+                'attribute' => 'userInfo.name',
+                'value' => function ($model)
+                {
+                    return $model->userInfo->name != null ? $model->userInfo->name : '--';
+                },
+            ],
+            [
+                'attribute' => 'userInfo.surname',
+                'value' => function ($model)
+                {
+                    return $model->userInfo->surname != null ? $model->userInfo->surname : '--';
+                },
+            ],
+            [
+                'attribute' => 'userInfo.nif',
+                'value' => function ($model)
+                {
+                    return $model->userInfo->nif != null ? $model->userInfo->nif : '--';
+                },
+            ],
+
         ],
     ]) ?>
 
