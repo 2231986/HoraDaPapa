@@ -28,7 +28,7 @@ use console\controllers\RbacController;
         }
         ?>
 
-        <?= Html::a('Delete', ['delete', 'id' => $model->id], [
+        <?= Html::a('Remover', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'data' => [
                 'confirm' => 'Are you sure you want to delete this item?',
@@ -37,10 +37,10 @@ use console\controllers\RbacController;
         ]) ?>
     </p>
 
-    <?php foreach ($groupedRequests as $tableId => $requests): ?>
+    <?php foreach ($groupedRequests as $tableId => $requests) : ?>
         <h2>Dinner Table ID: <?= $tableId ?></h2>
         <ul>
-            <?php foreach ($requests as $request): ?>
+            <?php foreach ($requests as $request) : ?>
                 <li>
                     <!-- Access properties of each $request here -->
                     Request ID: <?= $request->id ?>

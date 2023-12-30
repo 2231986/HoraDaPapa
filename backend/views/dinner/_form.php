@@ -17,7 +17,7 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'isClean')->textInput()->dropDownList([1 => 'Limpo', 0 => 'Por Limpar'])->label('Estado') ?>
 
     <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton('Guardar', ['class' => 'btn btn-success']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

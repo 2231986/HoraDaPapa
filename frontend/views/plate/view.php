@@ -16,17 +16,6 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <p>
-        <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->id], [
-            'class' => 'btn btn-danger',
-            'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
-                'method' => 'post',
-            ],
-        ]) ?>
-    </p>
-
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
@@ -42,7 +31,22 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             'title',
             'date_time',
-            'image_name',
+            [
+                'attribute' => 'image_name',
+                'format' => 'html', // Set the format to HTML to allow rendering HTML tags
+                'visible' => !empty($model->image_name), // Only show if image_name is not empty
+                'value' => function ($model)
+                {
+                    $imageUrl = Yii::$app->params['imagePath'] . $model->image_name;
+
+                    if ($model->image_name == null)
+                    {
+                        $imageUrl = Yii::getAlias('@web/img/nopic.jpg');
+                    }
+
+                    return Html::img($imageUrl, ['height' => '250px', 'width' => '250px', 'class' => 'img-thumbnail', 'alt' => 'Image']);
+                },
+            ],
         ],
     ]) ?>
 

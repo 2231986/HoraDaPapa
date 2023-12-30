@@ -11,6 +11,7 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use console\controllers\RbacController;
 use yii\filters\AccessControl;
+use yii\web\ForbiddenHttpException;
 
 /**
  * FavoriteController implements the CRUD actions for Favorite model.
@@ -65,7 +66,7 @@ class FavoriteController extends Controller
         $dataProvider = $searchModel->search($this->request->queryParams);
 
         // Filtragem de favoritos baseado no utilizador logado
-        $dataProvider->query->andWhere(['user_id' => Yii::$app->user->id])->with('plate');
+        $dataProvider->query->andWhere(['user_id' => Yii::$app->user->id]);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
@@ -100,9 +101,6 @@ class FavoriteController extends Controller
         {
             // Passa o ID utilizador logado como referencia
             $model->user_id = Yii::$app->user->id;
-
-            // Passa a hora atual como referencia
-            $model->date_time = date('Y-m-d H:i:s');
 
             if ($model->load($this->request->post()) && $model->save())
             {
@@ -165,6 +163,14 @@ class FavoriteController extends Controller
     {
         if (($model = Favorite::findOne(['id' => $id])) !== null)
         {
+            $userID = Yii::$app->user->getId();
+
+            //Protege contra a visualização de outros favoritos não o próprio
+            if ($userID != $model->user_id)
+            {
+                throw new ForbiddenHttpException('Não pode visualizar registos que não são seus!');
+            }
+
             return $model;
         }
 

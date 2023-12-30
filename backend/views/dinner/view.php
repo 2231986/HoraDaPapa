@@ -15,8 +15,8 @@ use yii\widgets\DetailView;
 
     <p>
         <?= Html::a('Mudar estado', ['cleaned', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->id], [
+        <?= Html::a('Atualizar', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Remover', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'data' => [
                 'confirm' => 'Are you sure you want to delete this item?',

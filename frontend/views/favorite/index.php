@@ -29,19 +29,31 @@ $this->title = 'Favorites';
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-            'id',
             [
+                'label' => 'Nome do Prato',
                 'attribute' => 'plate_id',
-                'value' => function ($model) {
+                'value' => function ($model)
+                {
                     return $model->plate ? $model->plate->title : 'No Plate';
                 },
             ],
-            'date_time',
-            'user_id',
+            [
+                'label' => 'Data',
+                'value' => 'date_time'
+            ],
             [
                 'class' => ActionColumn::className(),
-                'urlCreator' => function ($action, $model, $key, $index, $column) {
-                    return Url::toRoute([$action, 'id' => $model->id]);
+                'urlCreator' => function ($action, $model, $key, $index)
+                {
+                    if ($action === 'view')
+                    {
+                        // Assuming 'plate/view' is the route for the plate view
+                        return Url::to(['plate/view', 'id' => $model->plate_id]);
+                    }
+                    else
+                    {
+                        return Url::toRoute([$action, 'id' => $model->id]);
+                    }
                 },
             ],
         ],

@@ -23,7 +23,7 @@ $this->title = $model->id;
 
         if (Yii::$app->authManager->getAssignment(RbacController::$RoleAdmin, $userID))
         {
-            echo Html::a('Delete', ['delete', 'id' => $model->id], [
+            echo Html::a('Remover', ['delete', 'id' => $model->id], [
                 'class' => 'btn btn-danger',
                 'data' => [
                     'confirm' => 'Are you sure you want to delete this item?',

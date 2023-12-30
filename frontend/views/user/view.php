@@ -14,7 +14,7 @@ $this->title = $model->id;
     <h1><?= Html::encode('Utilizador: ' . $this->title) ?></h1>
 
     <p>
-        <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Atualizar', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
     </p>
 
     <?= DetailView::widget([

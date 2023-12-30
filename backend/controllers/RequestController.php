@@ -72,16 +72,21 @@ class RequestController extends Controller
     {
         $query = Request::find();
 
-        if (\Yii::$app->user->can(RbacController::$RoleCooker)) {
+        if (\Yii::$app->user->can(RbacController::$RoleCooker))
+        {
             $query->where(['isCooked' => 0]);
-        } elseif (\Yii::$app->user->can(RbacController::$RoleWaiter)) {
+        }
+        elseif (\Yii::$app->user->can(RbacController::$RoleWaiter))
+        {
             $query->joinWith('meal')
                 ->where(['isCooked' => 1])
                 ->andWhere(['isDelivered' => 0]);
 
             $groupedRequests = [];
-            foreach ($query->each() as $request) {
-                if ($request->meal !== null) {
+            foreach ($query->each() as $request)
+            {
+                if ($request->meal !== null)
+                {
                     $dinnerTableId = $request->meal->dinner_table_id;
                     $groupedRequests[$dinnerTableId][] = $request;
                 }
@@ -90,7 +95,9 @@ class RequestController extends Controller
             $dataProvider = new \yii\data\ArrayDataProvider([
                 'allModels' => $groupedRequests,
             ]);
-        } else {
+        }
+        else
+        {
             $query->where(['!=', 'isCooked', 1])
                 ->orWhere(['!=', 'isDelivered', 1]);
         }
@@ -106,7 +113,6 @@ class RequestController extends Controller
             'dataProvider' => $dataProvider,
             'groupedRequests' => $groupedRequests ?? null,
         ]);
-
     }
 
     /**
@@ -118,7 +124,7 @@ class RequestController extends Controller
     public function actionView($id)
     {
         $model = $this->findModel($id);
-        $groupedRequests =[];
+        $groupedRequests = [];
 
         return $this->render('view', [
             'model' => $model,
@@ -165,7 +171,8 @@ class RequestController extends Controller
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save())
         {
-            return $this->redirect('index');        }
+            return $this->redirect('index');
+        }
 
         return $this->render('update', [
             'model' => $model,
