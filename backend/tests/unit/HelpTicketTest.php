@@ -103,15 +103,15 @@ class HelpticketTest extends \Codeception\Test\Unit
 
     public function testHelpticketGetTodayTickets()
     {
-        // Create a new user for testing
+        // Create a new user for testing with auth_key set manually
         $user = new User();
-        $user->setAttributes([
-            'id' => 1,
-            'username' => 'testuser',
-            'email' => 'test@example.com',
-            'password_hash' => 'hashedpassword',
-        ]);
+        $user->username = 'testuser';
+        $user->email = 'test@example.com';
+        $user->password_hash = 'hashed-password';
+        $user->auth_key = Yii::$app->security->generateRandomString(32); // Set auth_key manually here
         $user->save();
+
+
 
         // Create help tickets for today and yesterday
         $todayTicket = new Helpticket();

@@ -15,13 +15,13 @@ class ContactCest
 
     public function checkContact(FunctionalTester $I)
     {
-        $I->see('Reserva', 'h1');
+        $I->see('Reserva', 'h5');
     }
 
     public function checkContactSubmitNoData(FunctionalTester $I)
     {
         $I->submitForm('#contact-form', []);
-        $I->see('Reserva', 'h1');
+        $I->see('Reserva', 'h5');
         $I->seeValidationError('Name cannot be blank');
         $I->seeValidationError('Email cannot be blank');
         $I->seeValidationError('Subject cannot be blank');
