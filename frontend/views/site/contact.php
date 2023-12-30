@@ -91,7 +91,7 @@ $this->title = 'Reserva';
                 <div class="p-5 wow fadeInUp" data-wow-delay="0.2s" style="visibility: visible; animation-delay: 0.2s; animation-name: fadeInUp;">
                     <h5 class="section-title ff-secondary text-start text-primary fw-normal">Reservas</h5>
                     <h1 class="text-white mb-4">Reserve a sua mesa</h1>
-                    <?php $form = ActiveForm::begin(['action' => ['site/contact'], 'method' => 'post']); ?>
+                    <?php $form = ActiveForm::begin(['action' => ['site/contact'],'id' => 'contact-form', 'method' => 'post']); ?>
                     <?= $form->field($model, 'name')->textInput(['placeholder' => 'Nome'])->label('Your Name') ?>
                     <?= $form->field($model, 'email')->textInput(['placeholder' => 'Email'])->label('Your Email') ?>
                     <?= $form->field($model, 'subject')->textInput(['placeholder' => 'Assunto'])->label('Subject') ?>
