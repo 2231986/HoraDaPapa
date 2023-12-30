@@ -1,16 +1,138 @@
-<div class="request-index">
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+<?php
 
-    <?php if (!empty($groupedRequests)) : ?>
-        <div class="request-index">
-            <?php foreach ($groupedRequests as $dinnerTableId => $requests) : ?>
-                <div class="dinner-table">
-                    <h3>MESA: <?= $dinnerTableId; ?></h3>
-                    <?= $this->render('_gridview', ['data' => $requests, 'isAdmin' => false]); ?>
-                </div>
-            <?php endforeach; ?>
+use yii\grid\ActionColumn;
+use yii\helpers\Html;
+use yii\helpers\Url;
+use yii\grid\GridView;
+use console\controllers\RbacController;
+
+$groupedRequests = [];
+
+foreach ($dataProvider->getModels() as $request)
+{
+    if ($request->meal !== null)
+    {
+        $dinnerTableId = $request->meal->dinner_table_id;
+        $groupedRequests[$dinnerTableId][] = $request;
+    }
+}
+
+?>
+
+<div class="request-index">
+    <?php foreach ($groupedRequests as $dinnerTableId => $requests) : ?>
+        <div class="dinner-table">
+            <h3>MESA: <?= $dinnerTableId; ?></h3>
+            <?= GridView::widget([
+                'dataProvider' => new \yii\data\ArrayDataProvider(['allModels' => $requests]),
+                'columns' => [
+                    [
+                        'attribute' => 'id',
+                        'label' => 'Pedido',
+                    ],
+                    [
+                        'attribute' => 'meal_id',
+                        'label' => 'Refeição',
+                    ],
+                    'meal.dinner_table_id',
+                    [
+                        'attribute' => 'user.username',
+                        'label' => 'Cliente',
+                    ],
+                    [
+                        'attribute' => 'observation',
+                        'value' => function ($model)
+                        {
+                            return $model->observation !== null ? $model->observation : '--';
+                        },
+                    ],
+                    [
+                        'attribute' => 'plate.title',
+                        'format' => 'raw',
+                        'value' => function ($model)
+                        {
+                            return Html::a($model->plate->title, ['plate/view', 'id' => $model->plate->id]);
+                        },
+                    ],
+                    'quantity',
+                    [
+                        'attribute' => 'isCooked',
+                        'value' => function ($model)
+                        {
+                            return $model->isCooked ? 'Sim' : 'Não';
+                        },
+                        'format' => 'raw',
+                        'contentOptions' => function ($model)
+                        {
+                            return [
+                                'style' => 'color: ' . ($model->isCooked ? 'green' : 'red'),
+                            ];
+                        },
+                    ],
+                    [
+                        'attribute' => 'isDelivered',
+                        'value' => function ($model)
+                        {
+                            return $model->isDelivered ? 'Sim' : 'Não';
+                        },
+                        'format' => 'raw',
+                        'contentOptions' => function ($model)
+                        {
+                            return [
+                                'style' => 'color: ' . ($model->isDelivered ? 'green' : 'red'),
+                            ];
+                        },
+                    ],
+                    [
+                        'class' => ActionColumn::className(),
+                        'urlCreator' => function ($action, $model, $key, $index, $column)
+                        {
+                            return Url::toRoute([$action, 'id' => $model->id]);
+                        },
+                        'template' => '{view} {update} {delete} {cookedButton} {deliveredButton}',
+                        'buttons' => [
+                            'cookedButton' => function ($url, $model, $key)
+                            {
+                                if (Yii::$app->user->can(RbacController::$RoleAdmin) || Yii::$app->user->can(RbacController::$RoleCooker))
+                                {
+                                    return Html::a(
+                                        '<i class="fas fa-utensils"></i>',
+                                        ['cooked', 'id' => $model->id],
+                                        [
+                                            'title' => 'Marcar como cozinhado',
+                                            'data' => [
+                                                'toggle' => 'tooltip',
+                                                'placement' => 'bottom',
+                                            ],
+                                        ]
+                                    );
+                                }
+                                return '';
+                            },
+                            'deliveredButton' => function ($url, $model, $key)
+                            {
+                                if (Yii::$app->user->can(RbacController::$RoleAdmin) || Yii::$app->user->can(RbacController::$RoleWaiter))
+                                {
+                                    return Html::a(
+                                        '<i class="fas fa-truck"></i>',
+                                        ['delivered', 'id' => $model->id],
+                                        [
+                                            'title' => 'Marcar como entregue',
+                                            'data' => [
+                                                'toggle' => 'tooltip',
+                                                'placement' => 'bottom',
+                                            ],
+                                        ]
+                                    );
+                                }
+                                return '';
+                            },
+                        ],
+
+                    ],
+                ],
+            ]);
+            ?>
         </div>
-    <?php else : ?>
-        <?= $this->render('_gridview', ['data' => $dataProvider, 'isAdmin' => true]); ?>
-    <?php endif; ?>
+    <?php endforeach; ?>
 </div>

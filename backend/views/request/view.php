@@ -9,6 +9,7 @@ use console\controllers\RbacController;
 
 \yii\web\YiiAsset::register($this);
 ?>
+
 <div class="request-view">
 
     <p>
@@ -37,27 +38,15 @@ use console\controllers\RbacController;
         ]) ?>
     </p>
 
-    <?php foreach ($groupedRequests as $tableId => $requests) : ?>
-        <h2>Dinner Table ID: <?= $tableId ?></h2>
-        <ul>
-            <?php foreach ($requests as $request) : ?>
-                <li>
-                    <!-- Access properties of each $request here -->
-                    Request ID: <?= $request->id ?>
-                    <!-- Other properties -->
-                </li>
-            <?php endforeach; ?>
-        </ul>
-    <?php endforeach; ?>
-
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
             'meal.dinner_table_id',
-            'plate.title',
             'observation',
             'quantity',
             'user.username',
+            'plate.title',
+            'plate.description',
             'date_time',
         ],
     ]) ?>

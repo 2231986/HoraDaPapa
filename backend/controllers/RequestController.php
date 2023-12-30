@@ -8,7 +8,6 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use console\controllers\RbacController;
 use yii\filters\AccessControl;
-use yii\data\ActiveDataProvider;
 use common\components\Mosquitto;
 
 /**
@@ -74,32 +73,15 @@ class RequestController extends Controller
 
         if (\Yii::$app->user->can(RbacController::$RoleCooker))
         {
-            $query->where(['isCooked' => 0]);
+            $query->joinWith('meal')->where(['isCooked' => 0]);
         }
-        elseif (\Yii::$app->user->can(RbacController::$RoleWaiter))
+        else if (\Yii::$app->user->can(RbacController::$RoleWaiter))
         {
-            $query->joinWith('meal')
-                ->where(['isCooked' => 1])
-                ->andWhere(['isDelivered' => 0]);
-
-            $groupedRequests = [];
-            foreach ($query->each() as $request)
-            {
-                if ($request->meal !== null)
-                {
-                    $dinnerTableId = $request->meal->dinner_table_id;
-                    $groupedRequests[$dinnerTableId][] = $request;
-                }
-            }
-
-            $dataProvider = new \yii\data\ArrayDataProvider([
-                'allModels' => $groupedRequests,
-            ]);
+            $query->joinWith('meal')->where(['isCooked' => 1])->andWhere(['isDelivered' => 0]);
         }
         else
         {
-            $query->where(['!=', 'isCooked', 1])
-                ->orWhere(['!=', 'isDelivered', 1]);
+            $query->all();
         }
 
         $dataProvider = new \yii\data\ActiveDataProvider([
@@ -111,7 +93,7 @@ class RequestController extends Controller
 
         return $this->render('index', [
             'dataProvider' => $dataProvider,
-            'groupedRequests' => $groupedRequests ?? null,
+            'fullList' => \Yii::$app->user->can(RbacController::$RoleAdmin),
         ]);
     }
 
@@ -124,11 +106,9 @@ class RequestController extends Controller
     public function actionView($id)
     {
         $model = $this->findModel($id);
-        $groupedRequests = [];
 
         return $this->render('view', [
             'model' => $model,
-            'groupedRequests' => $groupedRequests, // tal como no index, passa groupedRequests para a view, de forma
         ]);
     }
 
