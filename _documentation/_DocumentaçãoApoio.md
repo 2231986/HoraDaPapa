@@ -57,7 +57,10 @@ pause
 
 >php vendor/bin/codecept run -- -c backend
  
-> php vendor/bin/codecept generate:test unit UserTest --config frontend         //CRIAR TESTES
+> php vendor/bin/codecept generate:test unit UserTest --config frontend         //CRIAR TESTES UNITARIOS
+> 
+> php vendor/bin/codecept generate:cest functional LoginTest --config frontend //CRIAR TESTES FUNCIONAIS 
+
 
 
 **GII**
