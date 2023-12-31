@@ -25,9 +25,12 @@ use yii\helpers\ArrayHelper;
     <?= $form->field($user, 'username')->textInput(['autofocus' => true]) ?>
     <?= $form->field($user, 'email') ?>
 
-    <?= $form->field($userInfo, 'name') ?>
-    <?= $form->field($userInfo, 'surname') ?>
-    <?= $form->field($userInfo, 'nif') ?>
+    <?php if ($userInfo !== null) : ?>
+        <?= $form->field($userInfo, 'name') ?>
+        <?= $form->field($userInfo, 'surname') ?>
+        <?= $form->field($userInfo, 'nif') ?>
+    <?php endif; ?>
+
 
     <div class="form-group">
         <?= Html::submitButton('Guardar', ['class' => 'btn btn-success']) ?>
