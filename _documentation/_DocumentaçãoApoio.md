@@ -31,6 +31,10 @@ Na pasta do projeto correr no terminal os seguintes comandos por order:
 
 **Testes:**
 https://github.com/yiisoft/yii2-app-advanced/blob/master/docs/guide/start-testing.md
+>https://www.yiiframework.com/doc/guide/2.0/en/test-overview
+> https://codeception.com/docs/UnitTests
+> https://codeception.com/docs/FunctionalTests
+> https://codeception.com/docs/AcceptanceTests
 
 Dependências:
 - JDK
@@ -52,13 +56,8 @@ pause
 >php vendor/bin/codecept run -- -c frontend acceptance
 
 >php vendor/bin/codecept run -- -c backend
-
-
-**TESTES APOIO**
->https://www.yiiframework.com/doc/guide/2.0/en/test-overview
-> https://codeception.com/docs/UnitTests
-> https://codeception.com/docs/FunctionalTests
-> https://codeception.com/docs/AcceptanceTests
+ 
+> php vendor/bin/codecept generate:test unit UserTest --config frontend         //CRIAR TESTES
 
 
 **GII**
