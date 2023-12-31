@@ -42,7 +42,7 @@ class ReviewTest extends \Codeception\Test\Unit
     {
         // b. Criar um registo válido e guardar na BD
         $review = new Review();
-        $review->user_id = 66; // Definir user válido existente
+        $review->user_id = 2; // Definir user válido existente na bd de testes senao da erro
         $review->plate_id = 1; // Definir prato válido existente
         $review->description = 'Valid description';// Definir descrição valida, string
         $review->value = 5; // Definir pontuaçao válida, tipo de dados integer

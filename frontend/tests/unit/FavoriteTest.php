@@ -54,8 +54,8 @@ class FavoriteTest extends \Codeception\Test\Unit
 
         // b. Criar um registo válido e guardar na BD
         $favorite = new Favorite();
-        $favorite->user_id = 66; // Replace with a valid user ID
-        $favorite->plate_id = 1; // Replace with a valid plate ID
+        $favorite->user_id = 2; // Definir user válido existente na bd de testes senao da erro
+        $favorite->plate_id = 1; // Definir prato existente 
 
         $this->assertTrue($favorite->validate(), 'Record should pass validation');
         $this->assertTrue($favorite->save(), 'Record should be saved successfully');
@@ -74,11 +74,11 @@ class FavoriteTest extends \Codeception\Test\Unit
 
         // d. Ler o registo anterior e aplicar um update
         $favorite = Favorite::findOne($favorite->id);
-        $favorite->user_id = 69; // Replace with a different user ID
+        $favorite->user_id = 2; // Definir user válido existente na bd de testes senao da erro
         $this->assertTrue($favorite->save(), 'Record should be updated successfully');
 
         // e. Ver se o registo atualizado se encontra na BD
-        $this->tester->seeRecord('common\models\Favorite', ['id' => $favorite->id, 'user_id' => 69]);
+        $this->tester->seeRecord('common\models\Favorite', ['id' => $favorite->id, 'user_id' => 2]);// Definir user válido existente na bd de testes senao da erro
 
         // f. Apagar o registo
         $favorite->delete();
