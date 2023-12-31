@@ -3,6 +3,7 @@
 
 namespace backend\tests\Unit;
 
+use app\models\Meal;
 use backend\tests\UnitTester;
 
 class MealTest extends \Codeception\Test\Unit
@@ -27,9 +28,9 @@ class MealTest extends \Codeception\Test\Unit
         $this->tester->wantTo('Trigger validation errors');
 
         $meal = new \app\models\Meal();
-        $meal->dinner_table_id = null; // Introduce invalid data
-        $meal->checkout = 'invalid_checkout'; // Introduce invalid data
-        $meal->date_time = ''; // Introduce invalid data
+        $meal->dinner_table_id = null; // Dado Invalido, dinner_table_id é obrigatorio
+        $meal->checkout = 'invalid_checkout'; // Dado invalido está a espera de um inteiro
+        $meal->date_time = ''; // formato errado
     }
 
     public function testMealLifecycle()
@@ -39,7 +40,7 @@ class MealTest extends \Codeception\Test\Unit
 
         // b. Criar um registo válido e guardar na BD
         $meal = new \app\models\Meal();
-        $meal->dinner_table_id = 1; // Replace with your dinner table ID
+        $meal->dinner_table_id = 1; // Definir preço válido
         $meal->checkout = 0;
         $meal->date_time = date('Y-m-d H:i:s');
 
@@ -56,7 +57,7 @@ class MealTest extends \Codeception\Test\Unit
 
         // e. Ver se o registo atualizado se encontra na BD
         $updatedMeal = \app\models\Meal::findOne($meal->id);
-        $this->assertNotNull($updatedMeal, 'Updated record should exist in the database');
+        $this->assertInstanceOf(Meal::class, $updatedMeal, 'Updated record should exist in the databasee');
         $this->assertEquals(1, $updatedMeal->checkout, 'Checkout status should be updated');
 
         // f. Apagar o registo

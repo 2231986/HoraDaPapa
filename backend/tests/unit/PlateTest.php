@@ -28,10 +28,10 @@ class PlateTest extends \Codeception\Test\Unit
         $this->tester->wantTo('Trigger validation errors');
 
         $plate = new Plate();
-        $plate->description = ''; // Empty description should trigger validation error
-        $plate->price = -1; // Invalid price should trigger validation error
-        $plate->title = ''; // Empty title should trigger validation error
-        $plate->supplier_id = null; // Null supplier ID should trigger validation error
+        $plate->description = ''; // Descrição vazia, campo obrigatorio
+        $plate->price = -1; // Dado invalido valor negativo, esta a espera de um float positivo
+        $plate->title = ''; // Campo obrigatorio
+        $plate->supplier_id = null; // Campo obrigatorio
 
         $saved = $plate->save();
 
@@ -45,11 +45,11 @@ class PlateTest extends \Codeception\Test\Unit
 
         // b. Criar um registo válido e guardar na BD
         $plate = new Plate();
-        $plate->description = 'A delicious dish'; // Set valid description
-        $plate->price = 10.99; // Set valid price
-        $plate->title = 'Yummy Plate'; // Set valid title
-        $plate->date_time = date('Y-m-d H:i:s'); // Set valid date time
-        $plate->supplier_id = 1; // Set valid supplier ID
+        $plate->description = 'A delicious dish'; // Definir descriçao válida
+        $plate->price = 10.99; // Definir preço válido
+        $plate->title = 'Yummy Plate'; // Definir titulo válido
+        $plate->date_time = date('Y-m-d H:i:s'); // Definir data válida em determinado formato
+        $plate->supplier_id = 1; // Definir supplier válido
         $this->assertTrue($plate->save(), 'Record should be saved successfully');
         $this->assertNotNull($plate->id, 'Record should have an ID after saving');
 
@@ -60,13 +60,12 @@ class PlateTest extends \Codeception\Test\Unit
         // d. Ler o registo anterior e aplicar um update
         $foundPlate->description = 'An even more delicious dish';
         $foundPlate->save();
-        $updatedPlate = Plate::findOne(['description' => 'An even more delicious dish']);
-        $this->assertInstanceOf(Plate::class, $updatedPlate, 'Plate should be updated in the database');
-        $this->assertEquals($foundPlate->id, $updatedPlate->id, 'Plate IDs should match');
 
         // e. Ver se o registo atualizado se encontra na BD
         $verifiedUpdatedPlate = Plate::findOne(['description' => 'An even more delicious dish']);
         $this->assertInstanceOf(Plate::class, $verifiedUpdatedPlate, 'Plate should exist in the database');
+        $this->assertEquals($foundPlate->id, $verifiedUpdatedPlate->id, 'Plate IDs should match');
+
 
         // f. Apagar o registo
         $verifiedUpdatedPlate->delete();
