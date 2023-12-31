@@ -62,14 +62,13 @@ class FavoriteTest extends \Codeception\Test\Unit
         $this->assertNotNull($favorite->id, 'Record should have an ID after saving');
 
         // c. Ver se o registo válido se encontra na BD
-        //$this->tester->seeRecord('common\models\Favorite', ['id' => $favorite->id]);
+        $this->tester->seeRecord('common\models\Favorite', ['id' => $favorite->id]);
 
 
 
-       // Alternativa ao metodo seeRecord do codeception
-
-        $favorite = Favorite::findOne(['id' => $favorite->id]);
-        $this->assertNotNull($favorite, 'Record should exist in the database');
+        // Alternativa ao metodo seeRecord do codeception
+        //$favorite = Favorite::findOne(['id' => $favorite->id]);
+        //$this->assertNotNull($favorite, 'Record should exist in the database');
 
 
 
@@ -78,13 +77,17 @@ class FavoriteTest extends \Codeception\Test\Unit
         $favorite->user_id = 69; // Replace with a different user ID
         $this->assertTrue($favorite->save(), 'Record should be updated successfully');
 
-        // Step e: Verify if the updated record exists in the database
+        // e. Ver se o registo atualizado se encontra na BD
         $this->tester->seeRecord('common\models\Favorite', ['id' => $favorite->id, 'user_id' => 69]);
 
-        // Step f: Delete the record
+        // f. Apagar o registo
         $favorite->delete();
 
-        // Step g: Verify that the record does not exist in the database
+        //verifica que foi mesmo apagado
+        $this->assertNull(Favorite::findOne($favorite->id), 'Record should be deleted successfully');
+
+
+        // g. Verificar que o registo não se encontra na BD.
         $this->tester->dontSeeRecord('common\models\Favorite', ['id' => $favorite->id]);
     }
 
