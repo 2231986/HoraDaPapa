@@ -33,11 +33,18 @@ $this->params['breadcrumbs'][] = $this->title;
                 'format' => 'raw',
                 'value' => function ($model)
                 {
-                    $username = $model->user->username;
-                    $userId = $model->user_id;
-                    $url = \yii\helpers\Url::to(['user/view', 'id' => $userId]);
+                    if ($model->user != null)
+                    {
+                        $username = $model->user->username;
+                        $userId = $model->user_id;
+                        $url = \yii\helpers\Url::to(['user/view', 'id' => $userId]);
 
-                    return Html::a($username, $url);
+                        return Html::a($username, $url);
+                    }
+                    else
+                    {
+                        return '--';
+                    }
                 },
             ],
             [

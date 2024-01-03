@@ -10,7 +10,7 @@ use yii\filters\VerbFilter;
 use console\controllers\RbacController;
 use yii\filters\AccessControl;
 use app\models\Meal;
-use app\handlers\InvoiceHandler;
+use app\services\InvoiceHandler;
 use common\models\User;
 
 /**

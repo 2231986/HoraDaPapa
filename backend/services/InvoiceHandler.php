@@ -1,6 +1,6 @@
 <?php
 
-namespace app\handlers;
+namespace app\services;
 
 use app\models\Meal;
 use app\models\Dinner;

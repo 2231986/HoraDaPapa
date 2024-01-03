@@ -2,8 +2,7 @@
 
 namespace backend\controllers;
 
-use app\handlers\InvoiceHandler;
-use app\models\Dinner;
+use app\services\InvoiceHandler;
 use app\models\Meal;
 use app\models\MealSearch;
 use yii\web\Controller;
@@ -122,19 +121,22 @@ class MealController extends Controller
     {
         $model = new Meal();
 
-        if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
+        if ($this->request->isPost)
+        {
+            if ($model->load($this->request->post()) && $model->save())
+            {
                 $model->date_time = date('Y-m-d H:i:s');
                 return $this->redirect(['view', 'id' => $model->id]);
             }
-        } else {
+        }
+        else
+        {
             $model->loadDefaultValues();
         }
 
         return $this->render('create', [
             'model' => $model,
         ]);
-
     }
 
     /**

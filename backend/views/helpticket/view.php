@@ -13,7 +13,7 @@ use console\controllers\RbacController;
 <div class="helpticket-view">
 
     <p>
-        <?= Html::a('Mudar estado', ['resolved', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Resolver', ['resolved', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
 
         <?php
         $userID =  Yii::$app->user->getId();

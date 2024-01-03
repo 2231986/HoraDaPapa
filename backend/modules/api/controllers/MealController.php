@@ -3,7 +3,7 @@
 namespace backend\modules\api\controllers;
 
 use app\models\Meal;
-use app\handlers\InvoiceHandler;
+use app\services\InvoiceHandler;
 use app\models\Request;
 use common\models\Plate;
 use backend\modules\api\ApiResponse;
