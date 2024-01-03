@@ -33,8 +33,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'date_time',
             [
                 'attribute' => 'image_name',
-                'format' => 'html', // Set the format to HTML to allow rendering HTML tags
-                'visible' => !empty($model->image_name), // Only show if image_name is not empty
+                'format' => 'html', // Set the format to HTML to allow rendering HTML tags                
                 'value' => function ($model)
                 {
                     $imageUrl = Yii::$app->params['imagePath'] . $model->image_name;
