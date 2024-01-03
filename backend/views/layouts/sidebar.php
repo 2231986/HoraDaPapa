@@ -46,6 +46,7 @@ if (Yii::$app->user->can(RbacController::$PermissionUser))
 if (Yii::$app->user->can(RbacController::$PermissionPlate))
 {
     $menuItems[] = ['label' => 'Pratos','icon' => 'fa-solid fa-utensils',
+        'id' => 'pratos-index',
         'items' => [ // Submenu items array
             [
                 'label' => 'Index',
