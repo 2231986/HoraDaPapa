@@ -2,15 +2,21 @@
 
 namespace backend\controllers;
 
+use app\models\Helpticket;
+use app\models\Invoice;
+use app\models\Request;
+use app\models\Review;
 use Yii;
 use yii\web\ForbiddenHttpException;
 use console\controllers\RbacController;
 use common\models\User;
 use app\models\UserSearch;
+use common\models\Favorite;
 use common\models\UserInfo;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\BadRequestHttpException;
 use yii\filters\AccessControl;
 
 /**
@@ -206,6 +212,33 @@ class UserController extends Controller
      */
     public function actionDelete($id)
     {
+        $user = $this->findModel($id);
+
+        if (Favorite::find()->where(['user_id' => $user->id])->exists())
+        {
+            throw new BadRequestHttpException('Este Utilizador não pode ser apagado, porque tem um Favorito associado!');
+        }
+
+        if (Helpticket::find()->where(['user_id' => $user->id])->exists())
+        {
+            throw new BadRequestHttpException('Este Utilizador não pode ser apagado, porque tem um Pedido de Ajuda associado!');
+        }
+
+        if (Invoice::find()->where(['user_id' => $user->id])->exists())
+        {
+            throw new BadRequestHttpException('Este Utilizador não pode ser apagado, porque tem uma Fatura associada!');
+        }
+
+        if (Request::find()->where(['user_id' => $user->id])->exists())
+        {
+            throw new BadRequestHttpException('Este Utilizador não pode ser apagado, porque tem um Pedido associado!');
+        }
+
+        if (Review::find()->where(['user_id' => $user->id])->exists())
+        {
+            throw new BadRequestHttpException('Este Utilizador não pode ser apagado, porque tem uma Avaliação associada!');
+        }
+
         $authManager = \Yii::$app->authManager;
         $authManager->revokeAll($id); // Remover roles
 

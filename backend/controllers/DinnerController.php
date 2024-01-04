@@ -9,6 +9,8 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use console\controllers\RbacController;
 use yii\filters\AccessControl;
+use app\models\Meal;
+use yii\web\BadRequestHttpException;
 
 /**
  * DinnerController implements the CRUD actions for Dinner model.
@@ -162,7 +164,14 @@ class DinnerController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        $model = $this->findModel($id);
+
+        if (Meal::find()->where(['dinner_table_id' => $model->id])->exists())
+        {
+            throw new BadRequestHttpException('Esta Mesa não pode ser apagada, porque tem uma Refeição associada!');
+        }
+
+        $model->delete();
 
         return $this->redirect(['index']);
     }

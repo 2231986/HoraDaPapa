@@ -21,7 +21,8 @@ if (Yii::$app->user->can(RbacController::$PermissionUser))
     if (Yii::$app->authManager->getAssignment(RbacController::$RoleAdmin, $userID))
     {
         $userProfileLink = "/user";
-        $menuItems[] = ['label' => 'Utilizadores', 'url' => [$userProfileLink],'icon' => 'fa-regular fa-user',
+        $menuItems[] = [
+            'label' => 'Utilizadores', 'url' => [$userProfileLink], 'icon' => 'fa-regular fa-user',
             'items' => [ // Submenu items array
                 [
                     'label' => 'Index',
@@ -34,7 +35,8 @@ if (Yii::$app->user->can(RbacController::$PermissionUser))
                     'icon' => 'fa-solid fa-plus',
 
                 ],
-            ]];
+            ]
+        ];
     }
     else
     {
@@ -45,7 +47,8 @@ if (Yii::$app->user->can(RbacController::$PermissionUser))
 
 if (Yii::$app->user->can(RbacController::$PermissionPlate))
 {
-    $menuItems[] = ['label' => 'Pratos','icon' => 'fa-solid fa-utensils',
+    $menuItems[] = [
+        'label' => 'Pratos', 'icon' => 'fa-solid fa-utensils',
         'id' => 'pratos-index',
         'items' => [ // Submenu items array
             [
@@ -59,7 +62,8 @@ if (Yii::$app->user->can(RbacController::$PermissionPlate))
                 'icon' => 'fa-solid fa-plus',
 
             ],
-        ]];
+        ]
+    ];
 }
 
 if (Yii::$app->user->can(RbacController::$PermissionRequest))
@@ -69,61 +73,66 @@ if (Yii::$app->user->can(RbacController::$PermissionRequest))
 
 if (Yii::$app->user->can(RbacController::$PermissionDinner))
 {
-    $menuItems[] = ['label' => 'Mesas', 'icon' => 'fas fa-table',
-    'items' => [ // Submenu items array
-    [
-        'label' => 'Index',
-        'url' => Url::to( ['dinner/index']),
-        'icon' => 'fa-solid fa-list',
-    ],
-    [
-        'label' => 'Criar',
-        'url' => Url::to(['dinner/create']),
-        'icon' => 'fa-solid fa-plus',
+    $menuItems[] = [
+        'label' => 'Mesas', 'icon' => 'fas fa-table',
+        'items' => [ // Submenu items array
+            [
+                'label' => 'Index',
+                'url' => Url::to(['dinner/index']),
+                'icon' => 'fa-solid fa-list',
+            ],
+            [
+                'label' => 'Criar',
+                'url' => Url::to(['dinner/create']),
+                'icon' => 'fa-solid fa-plus',
 
-    ],
-        [
-            'label' => 'Mesas por Limpar',
-            'url' => Url::to(['/dinner', 'cleaned' => 0]),
-            'icon' => 'fa-solid fa-plus',
+            ],
+            [
+                'label' => 'Mesas por Limpar',
+                'url' => Url::to(['/dinner', 'cleaned' => 0]),
+                'icon' => 'fa-solid fa-plus',
 
-        ],
-        [
-            'label' => 'Mesas Limpas',
-            'url' => Url::to(['/dinner', 'cleaned' => 1]),
-            'icon' => 'fa-solid fa-plus',
+            ],
+            [
+                'label' => 'Mesas Limpas',
+                'url' => Url::to(['/dinner', 'cleaned' => 1]),
+                'icon' => 'fa-solid fa-plus',
 
+            ]
         ]
-]];
+    ];
 }
 
 if (Yii::$app->user->can(RbacController::$PermissionHelpticket))
 {
-    $menuItems[] = ['label' => 'Pedidos de Ajuda', 'icon' => 'fas fa-hand-paper',
-    'items' => [ // Submenu items array
-    [
-        'label' => 'Index',
-        'url' => Url::to(['helpticket/index']),
-        'icon' => 'fa-solid fa-list',
-    ],
-    [
-        'label' => 'Por Resolver',
-        'url' => Url::to(['/helpticket', 'resolved' => 0]),
-        'icon' => 'fa-solid fa-plus',
+    $menuItems[] = [
+        'label' => 'Pedidos de Ajuda', 'icon' => 'fas fa-hand-paper',
+        'items' => [ // Submenu items array
+            [
+                'label' => 'Index',
+                'url' => Url::to(['helpticket/index']),
+                'icon' => 'fa-solid fa-list',
+            ],
+            [
+                'label' => 'Por Resolver',
+                'url' => Url::to(['/helpticket', 'resolved' => 0]),
+                'icon' => 'fa-solid fa-plus',
 
-    ],
-        [
-            'label' => 'Resolvidos',
-            'url' => Url::to(['/helpticket', 'resolved' => 1]),
-            'icon' => 'fa-solid fa-plus',
+            ],
+            [
+                'label' => 'Resolvidos',
+                'url' => Url::to(['/helpticket', 'resolved' => 1]),
+                'icon' => 'fa-solid fa-plus',
 
+            ]
         ]
-]];
+    ];
 }
 
 if (Yii::$app->user->can(RbacController::$PermissionInvoice))
 {
-    $menuItems[] = ['label' => 'Faturas', 'icon' => 'fa-solid fa-receipt',
+    $menuItems[] = [
+        'label' => 'Faturas', 'icon' => 'fa-solid fa-receipt',
         'items' => [ // Submenu items array
             [
                 'label' => 'Index',
@@ -136,12 +145,14 @@ if (Yii::$app->user->can(RbacController::$PermissionInvoice))
                 'icon' => 'fa-solid fa-plus',
 
             ],
-        ]];
+        ]
+    ];
 }
 
 if (Yii::$app->user->can(RbacController::$PermissionSupplier))
 {
-    $menuItems[] = ['label' => 'Fornecedores', 'icon' => 'fa-solid fa-truck',
+    $menuItems[] = [
+        'label' => 'Fornecedores', 'icon' => 'fa-solid fa-truck',
         'items' => [ // Submenu items array
             [
                 'label' => 'Index',
@@ -154,7 +165,8 @@ if (Yii::$app->user->can(RbacController::$PermissionSupplier))
                 'icon' => 'fa-solid fa-plus',
 
             ],
-        ]];
+        ]
+    ];
 }
 
 if (Yii::$app->user->can(RbacController::$PermissionReview))
@@ -164,7 +176,8 @@ if (Yii::$app->user->can(RbacController::$PermissionReview))
 
 if (Yii::$app->user->can(RbacController::$PermissionMeal))
 {
-    $menuItems[] = ['label' => 'Refeições', 'icon' => 'fas fa-drumstick-bite',
+    $menuItems[] = [
+        'label' => 'Refeições', 'icon' => 'fas fa-drumstick-bite',
         'items' => [ // Submenu items array
             [
                 'label' => 'Index',
@@ -189,7 +202,8 @@ if (Yii::$app->user->can(RbacController::$PermissionMeal))
                 'icon' => 'fas fa-folder',
 
             ],
-        ]];
+        ]
+    ];
 }
 
 #endregion MenuItems com permissões

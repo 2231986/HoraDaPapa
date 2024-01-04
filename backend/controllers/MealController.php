@@ -2,15 +2,18 @@
 
 namespace backend\controllers;
 
+use app\models\Invoice;
 use app\services\InvoiceHandler;
 use app\models\Meal;
 use app\models\MealSearch;
+use app\models\Request;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use console\controllers\RbacController;
 use yii\data\ActiveDataProvider;
 use yii\filters\AccessControl;
+use yii\web\BadRequestHttpException;
 
 /**
  * MealController implements the CRUD actions for Meal model.
@@ -169,7 +172,19 @@ class MealController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        $model = $this->findModel($id);
+
+        if (Request::find()->where(['meal_id' => $model->id])->exists())
+        {
+            throw new BadRequestHttpException('Esta Refeição não pode ser apagada, porque tem um Request associado!');
+        }
+
+        if (Invoice::find()->where(['meal_id' => $model->id])->exists())
+        {
+            throw new BadRequestHttpException('Esta Refeição não pode ser apagada, porque tem uma Fatura associada!');
+        }
+
+        $model->delete();
 
         return $this->redirect(['index']);
     }

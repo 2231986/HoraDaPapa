@@ -2,6 +2,7 @@
 
 namespace backend\controllers;
 
+use app\models\Request;
 use Yii;
 use app\models\Supplier;
 use common\models\Plate;
@@ -13,6 +14,8 @@ use console\controllers\RbacController;
 use yii\filters\AccessControl;
 use common\components\Mosquitto;
 use backend\models\UploadForm;
+use common\models\Favorite;
+use yii\web\BadRequestHttpException;
 use yii\web\UploadedFile;
 
 /**
@@ -197,7 +200,24 @@ class PlateController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        $model =  $this->findModel($id);
+
+        if (Favorite::find()->where(['plate_id' => $model->id])->exists())
+        {
+            throw new BadRequestHttpException('Este Prato não pode ser apagado, porque tem um Favorito associado!');
+        }
+
+        if (Favorite::find()->where(['plate_id' => $model->id])->exists())
+        {
+            throw new BadRequestHttpException('Este Prato não pode ser apagado, porque tem uma Avaliação associada!');
+        }
+
+        if (Request::find()->where(['plate_id' => $model->id])->exists())
+        {
+            throw new BadRequestHttpException('Este Prato não pode ser apagado, porque tem um Pedido associado!');
+        }
+
+        $model->delete();
 
         return $this->redirect(['index']);
     }
