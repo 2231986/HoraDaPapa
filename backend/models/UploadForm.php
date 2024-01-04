@@ -36,7 +36,7 @@ class UploadForm extends Model
             }
             else
             {
-                \Yii::error('Error saving uploaded file.');
+                \Yii::error('Erro ao gravar o ficheiro.');
             }
         }
 

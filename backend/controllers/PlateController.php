@@ -119,7 +119,7 @@ class PlateController extends Controller
                 }
                 else
                 {
-                    Yii::error('Error uploading image: ' . print_r($uploadedImage->errors, true));
+                    Yii::error('Erro ao carregar a image: ' . print_r($uploadedImage->errors, true));
                 }
             }
 
@@ -130,7 +130,7 @@ class PlateController extends Controller
             }
             else
             {
-                Yii::error('Error saving plate: ' . print_r($plate->errors, true));
+                Yii::error('Erro ao gravar o Prato: ' . print_r($plate->errors, true));
             }
         }
         else
@@ -169,7 +169,7 @@ class PlateController extends Controller
                 }
                 else
                 {
-                    Yii::error('Error uploading image: ' . print_r($uploadedImage->errors, true));
+                    Yii::error('Erro ao carregar a image: ' . print_r($uploadedImage->errors, true));
                 }
             }
 
@@ -180,7 +180,7 @@ class PlateController extends Controller
             }
             else
             {
-                Yii::error('Error saving plate: ' . print_r($plate->errors, true));
+                Yii::error('Erro ao gravar o Prato: ' . print_r($plate->errors, true));
             }
         }
 
