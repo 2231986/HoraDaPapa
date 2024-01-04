@@ -32,7 +32,7 @@ use console\controllers\RbacController;
         <?= Html::a('Remover', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
+                'confirm' => 'Tem acerteza que pretende remover este item?',
                 'method' => 'post',
             ],
         ]) ?>
