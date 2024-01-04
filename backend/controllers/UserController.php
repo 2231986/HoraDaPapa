@@ -216,37 +216,35 @@ class UserController extends Controller
 
         if (Favorite::find()->where(['user_id' => $user->id])->exists())
         {
-            throw new BadRequestHttpException('Este Utilizador não pode ser apagado, porque tem um Favorito associado!');
+            \Yii::$app->session->setFlash('error', 'Este Utilizador não pode ser apagado, porque tem um Favorito associado!');
         }
-
-        if (Helpticket::find()->where(['user_id' => $user->id])->exists())
+        else if (Helpticket::find()->where(['user_id' => $user->id])->exists())
         {
-            throw new BadRequestHttpException('Este Utilizador não pode ser apagado, porque tem um Pedido de Ajuda associado!');
+            \Yii::$app->session->setFlash('error', 'Este Utilizador não pode ser apagado, porque tem um Pedido de Ajuda associado!');
         }
-
-        if (Invoice::find()->where(['user_id' => $user->id])->exists())
+        else if (Invoice::find()->where(['user_id' => $user->id])->exists())
         {
-            throw new BadRequestHttpException('Este Utilizador não pode ser apagado, porque tem uma Fatura associada!');
+            \Yii::$app->session->setFlash('error', 'Este Utilizador não pode ser apagado, porque tem uma Fatura associada!');
         }
-
-        if (Request::find()->where(['user_id' => $user->id])->exists())
+        else if (Request::find()->where(['user_id' => $user->id])->exists())
         {
-            throw new BadRequestHttpException('Este Utilizador não pode ser apagado, porque tem um Pedido associado!');
+            \Yii::$app->session->setFlash('error', 'Este Utilizador não pode ser apagado, porque tem um Pedido associado!');
         }
-
-        if (Review::find()->where(['user_id' => $user->id])->exists())
+        else if (Review::find()->where(['user_id' => $user->id])->exists())
         {
-            throw new BadRequestHttpException('Este Utilizador não pode ser apagado, porque tem uma Avaliação associada!');
+            \Yii::$app->session->setFlash('error', 'Este Utilizador não pode ser apagado, porque tem uma Avaliação associada!');
         }
+        else
+        {
+            $authManager = \Yii::$app->authManager;
+            $authManager->revokeAll($id); // Remover roles
 
-        $authManager = \Yii::$app->authManager;
-        $authManager->revokeAll($id); // Remover roles
+            $userInfo = UserInfo::findOne($id);
+            $userInfo->delete(); // Remover UserInfo
 
-        $userInfo = UserInfo::findOne($id);
-        $userInfo->delete(); // Remover UserInfo
-
-        $user = $this->findModel($id);
-        $user->delete(); // Remover Info
+            $user = $this->findModel($id);
+            $user->delete(); // Remover Info
+        }
 
         return $this->redirect(['index']);
     }

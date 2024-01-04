@@ -6,6 +6,7 @@ use yii\helpers\Url;
 use yii\grid\ActionColumn;
 use yii\grid\GridView;
 use common\helpers\FormatterHelper;
+use common\widgets\Alert;
 
 /** @var yii\web\View $this */
 /** @var common\models\PlateSearch $searchModel */
@@ -14,6 +15,9 @@ use common\helpers\FormatterHelper;
 $this->title = 'Pratos';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+
+<?= Alert::widget() ?>
+
 <div class="plate-index">
 
     <p>

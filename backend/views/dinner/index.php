@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\ListView;
+use common\widgets\Alert;
 
 /** @var yii\web\View $this */
 /** @var app\models\DinnerSearch $searchModel */
@@ -10,6 +11,8 @@ use yii\widgets\ListView;
 $this->title = 'Mesas';
 
 ?>
+
+<?= Alert::widget() ?>
 
 <div class="dinner-index">
 

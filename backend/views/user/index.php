@@ -5,6 +5,7 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\grid\ActionColumn;
 use yii\grid\GridView;
+use common\widgets\Alert;
 
 /** @var yii\web\View $this */
 /** @var app\models\UserSearch $searchModel */
@@ -13,6 +14,9 @@ use yii\grid\GridView;
 $this->title = 'Utilizadores';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+
+<?= Alert::widget() ?>
+
 <div class="user-index">
 
     <p>

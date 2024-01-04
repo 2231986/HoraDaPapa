@@ -204,20 +204,20 @@ class PlateController extends Controller
 
         if (Favorite::find()->where(['plate_id' => $model->id])->exists())
         {
-            throw new BadRequestHttpException('Este Prato não pode ser apagado, porque tem um Favorito associado!');
+            \Yii::$app->session->setFlash('error', 'Este Prato não pode ser apagado, porque tem um Favorito associado!');
         }
-
-        if (Favorite::find()->where(['plate_id' => $model->id])->exists())
+        else if (Favorite::find()->where(['plate_id' => $model->id])->exists())
         {
-            throw new BadRequestHttpException('Este Prato não pode ser apagado, porque tem uma Avaliação associada!');
+            \Yii::$app->session->setFlash('error', 'Este Prato não pode ser apagado, porque tem uma Avaliação associada!');
         }
-
-        if (Request::find()->where(['plate_id' => $model->id])->exists())
+        else if (Request::find()->where(['plate_id' => $model->id])->exists())
         {
-            throw new BadRequestHttpException('Este Prato não pode ser apagado, porque tem um Pedido associado!');
+            \Yii::$app->session->setFlash('error', 'Este Prato não pode ser apagado, porque tem um Pedido associado!');
         }
-
-        $model->delete();
+        else
+        {
+            $model->delete();
+        }
 
         return $this->redirect(['index']);
     }

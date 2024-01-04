@@ -176,15 +176,16 @@ class MealController extends Controller
 
         if (Request::find()->where(['meal_id' => $model->id])->exists())
         {
-            throw new BadRequestHttpException('Esta Refeição não pode ser apagada, porque tem um Request associado!');
+            \Yii::$app->session->setFlash('error', 'Esta Refeição não pode ser apagada, porque tem um Request associado!');
         }
-
-        if (Invoice::find()->where(['meal_id' => $model->id])->exists())
+        else if (Invoice::find()->where(['meal_id' => $model->id])->exists())
         {
-            throw new BadRequestHttpException('Esta Refeição não pode ser apagada, porque tem uma Fatura associada!');
+            \Yii::$app->session->setFlash('error', 'Esta Refeição não pode ser apagada, porque tem uma Fatura associada!');
         }
-
-        $model->delete();
+        else
+        {
+            $model->delete();
+        }
 
         return $this->redirect(['index']);
     }

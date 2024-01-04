@@ -168,10 +168,12 @@ class DinnerController extends Controller
 
         if (Meal::find()->where(['dinner_table_id' => $model->id])->exists())
         {
-            throw new BadRequestHttpException('Esta Mesa não pode ser apagada, porque tem uma Refeição associada!');
+            \Yii::$app->session->setFlash('error', 'Esta Mesa não pode ser apagada, porque tem uma Refeição associada!');
         }
-
-        $model->delete();
+        else
+        {
+            $model->delete();
+        }
 
         return $this->redirect(['index']);
     }
