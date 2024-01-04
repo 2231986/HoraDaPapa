@@ -14,17 +14,10 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'plate_id')->dropDownList(
+    <?= $form->field($model, 'plate_id')->label('Prato')->dropDownList(
         ArrayHelper::map(Plate::find()->all(), 'id', 'title'),
         ['prompt' => 'Selecione o Prato']
     ) ?>
-
-
-
-
-
-
-
 
     <div class="form-group">
         <?= Html::submitButton('Guardar', ['class' => 'btn btn-success']) ?>

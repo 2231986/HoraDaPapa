@@ -2,6 +2,8 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use common\models\User;
+use yii\helpers\ArrayHelper;
 
 /** @var yii\web\View $this */
 /** @var app\models\Request $model */
@@ -11,24 +13,18 @@ use yii\widgets\ActiveForm;
 <div class="request-form">
 
     <?php $form = ActiveForm::begin(); ?>
+    <?= $form->field($model, 'quantity')->textInput(['type' => 'number', 'min' => 1]) ?>
 
-    <?= $form->field($model, 'meal_id')->textInput() ?>
+    <?= $form->field($model, 'isCooked')->dropDownList([0 => 'Não', 1 => 'Sim'], ['prompt' => 'Selecione']) ?>
 
-    <?= $form->field($model, 'observation')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'isDelivered')->dropDownList([0 => 'Não', 1 => 'Sim'], ['prompt' => 'Selecione']) ?>
 
-    <?= $form->field($model, 'plate_id')->textInput() ?>
+    <?= $form->field($model, 'observation')->textarea(['rows' => 4, 'placeholder' => 'Insira alguma observação, se necessário']) ?>
 
-    <?= $form->field($model, 'isCooked')->textInput() ?>
-
-    <?= $form->field($model, 'isDelivered')->textInput() ?>
-
-    <?= $form->field($model, 'user_id')->textInput() ?>
-
-    <?= $form->field($model, 'date_time')->textInput() ?>
-
-    <?= $form->field($model, 'price')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'quantity')->textInput() ?>
+    <?= $form->field($model, 'user_id')->label('Cliente')->dropDownList(
+        ArrayHelper::map(User::find()->all(), 'id', 'username'),
+        ['prompt' => 'Selecione o Cliente']
+    ) ?>
 
     <div class="form-group">
         <?= Html::submitButton('Guardar', ['class' => 'btn btn-success']) ?>

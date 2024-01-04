@@ -8,7 +8,7 @@ use common\helpers\FormatterHelper;
 /** @var common\models\Plate $model */
 
 $this->title = $model->title;
-$this->params['breadcrumbs'][] = ['label' => 'Plates', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Pratos', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>

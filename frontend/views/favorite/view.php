@@ -7,7 +7,7 @@ use yii\widgets\DetailView;
 /** @var app\models\Favorite $model */
 
 $this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Favorites', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Favoritos', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>

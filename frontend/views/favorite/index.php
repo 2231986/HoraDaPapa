@@ -10,7 +10,7 @@ use yii\grid\GridView;
 /** @var app\models\FavoriteSearch $searchModel */
 /** @var yii\data\ActiveDataProvider $dataProvider */
 
-$this->title = 'Favorites';
+$this->title = 'Favoritos';
 ?>
 <div class="favorite-index">
 

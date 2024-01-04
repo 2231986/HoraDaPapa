@@ -20,13 +20,33 @@ $this->title = $model->id;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'username',
-            'role.description',
-            'email:email',
-            'userInfo.name',
-            'userInfo.surname',
-            'userInfo.nif',
+            [
+                'attribute' => 'username',
+                'label' => 'Nome de Cliente',
+            ],
+            [
+                'attribute' => 'role.description',
+                'label' => 'Função',
+            ],
+            [
+                'attribute' => 'email',
+                'format' => 'email',
+                'label' => 'Email',
+            ],
+            [
+                'attribute' => 'userInfo.name',
+                'label' => 'Nome',
+            ],
+            [
+                'attribute' => 'userInfo.surname',
+                'label' => 'Sobrenome',
+            ],
+            [
+                'attribute' => 'userInfo.nif',
+                'label' => 'NIF',
+            ],
         ],
     ]) ?>
+
 
 </div>

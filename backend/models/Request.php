@@ -40,8 +40,9 @@ class Request extends \yii\db\ActiveRecord
     {
         return [
             [['meal_id', 'plate_id', 'user_id', 'price'], 'required'],
-            [['meal_id', 'plate_id', 'isCooked', 'isDelivered', 'user_id', 'quantity'], 'integer'],
-            [['date_time', 'observation', 'quantity'], 'safe'],
+            [['meal_id', 'plate_id', 'isCooked', 'isDelivered', 'user_id'], 'integer'],
+            [['quantity'], 'integer', 'min' => 1, 'max' => 100],
+            [['date_time', 'observation'], 'safe'],
             [['price'], 'number'],
             [['observation'], 'string', 'max' => 255],
             [['meal_id'], 'exist', 'skipOnError' => true, 'targetClass' => Meal::class, 'targetAttribute' => ['meal_id' => 'id']],

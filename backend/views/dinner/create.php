@@ -6,7 +6,7 @@ use yii\helpers\Html;
 /** @var app\models\Dinner $model */
 
 $this->title = 'Criar Mesa';
-$this->params['breadcrumbs'][] = ['label' => 'Dinners', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Mesas', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 

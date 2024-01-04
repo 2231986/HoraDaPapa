@@ -9,7 +9,7 @@ use common\helpers\FormatterHelper;
 /** @var app\models\Meal $model */
 
 $this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Meals', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Refeições', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>

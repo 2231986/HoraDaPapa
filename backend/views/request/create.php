@@ -6,7 +6,7 @@ use yii\helpers\Html;
 /** @var app\models\Request $model */
 
 $this->title = 'Criar Pedido';
-$this->params['breadcrumbs'][] = ['label' => 'Requests', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Pedidos', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="request-create">

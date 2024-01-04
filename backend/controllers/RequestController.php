@@ -69,19 +69,19 @@ class RequestController extends Controller
      */
     public function actionIndex()
     {
-        $query = Request::find();
+        $query = Request::find()->joinWith('meal')->where(['checkout' => 0]);
 
         if (\Yii::$app->user->can(RbacController::$RoleCooker))
         {
-            $query->joinWith('meal')->where(['isCooked' => 0]);
+            $query->where(['isCooked' => 0]);
         }
         else if (\Yii::$app->user->can(RbacController::$RoleWaiter))
         {
-            $query->joinWith('meal')->where(['isCooked' => 1])->andWhere(['isDelivered' => 0]);
+            $query->where(['isCooked' => 1])->andWhere(['isDelivered' => 0]);
         }
         else
         {
-            $query->joinWith('meal')->all();
+            $query->all();
         }
 
         $dataProvider = new \yii\data\ActiveDataProvider([
