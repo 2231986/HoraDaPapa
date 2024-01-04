@@ -5,6 +5,7 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\grid\ActionColumn;
 use yii\grid\GridView;
+use common\widgets\Alert;
 
 /** @var yii\web\View $this */
 /** @var app\models\FavoriteSearch $searchModel */
@@ -12,6 +13,9 @@ use yii\grid\GridView;
 
 $this->title = 'Favoritos';
 ?>
+
+<?= Alert::widget() ?>
+
 <div class="favorite-index">
 
     <h1><?= Html::encode($this->title) ?></h1>

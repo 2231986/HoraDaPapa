@@ -102,9 +102,22 @@ class FavoriteController extends Controller
             // Passa o ID utilizador logado como referencia
             $model->user_id = Yii::$app->user->id;
 
-            if ($model->load($this->request->post()) && $model->save())
+            if ($model->load($this->request->post()))
             {
-                return $this->redirect(['view', 'id' => $model->id]);
+                $existingFavorite = Favorite::findOne(['user_id' => $model->user_id, 'plate_id' => $model->plate_id]);
+
+                if (!$existingFavorite)
+                {
+                    if ($model->save())
+                    {
+                        return $this->redirect(['view', 'id' => $model->id]);
+                    }
+                }
+                else
+                {
+                    Yii::$app->session->setFlash('error', 'Este prato já foi adicionado!');
+                    return $this->redirect(['index']);
+                }
             }
         }
         else
