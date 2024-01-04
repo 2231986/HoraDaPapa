@@ -212,23 +212,30 @@ class RequestController extends Controller
 
         if ($model)
         {
-            if ($model->isDelivered == 0)
+            if ($model->isCooked == 1)
             {
-                $model->isDelivered = 1;
-            }
-            else
-            {
-                $model->isDelivered = 0;
-            }
+                if ($model->isDelivered == 0)
+                {
+                    $model->isDelivered = 1;
+                }
+                else
+                {
+                    $model->isDelivered = 0;
+                }
 
-            if ($model->save())
-            {
-                \Yii::$app->session->setFlash('success', 'O estado foi modificado para entregue!');
-                \Yii::$app->Mosquitto->publish(Mosquitto::getTopic($model->user_id), 'O estado foi modificado para entregue!');
+                if ($model->save())
+                {
+                    \Yii::$app->session->setFlash('success', 'O estado foi modificado para entregue!');
+                    \Yii::$app->Mosquitto->publish(Mosquitto::getTopic($model->user_id), 'O estado foi modificado para entregue!');
+                }
+                else
+                {
+                    \Yii::$app->session->setFlash('error', 'Não foi possível realizar a atualização de estado!');
+                }
             }
             else
             {
-                \Yii::$app->session->setFlash('error', 'Não foi possível realizar a atualização de estado!');
+                \Yii::$app->session->setFlash('error', 'O Pedido ainda não está cozinhado!');
             }
         }
         else
