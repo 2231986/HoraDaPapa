@@ -44,11 +44,26 @@ use console\controllers\RbacController;
             'meal.dinner_table_id',
             'observation',
             'quantity',
-            'user.username',
-            'plate.title',
+            [
+                'attribute' => 'user.username',
+                'format' => 'raw',
+                'value' => function ($model)
+                {
+                    return Html::a($model->user->username, ['user/view', 'id' => $model->user->id]);
+                },
+            ],
+            [
+                'attribute' => 'plate.title',
+                'format' => 'raw',
+                'value' => function ($model)
+                {
+                    return Html::a($model->plate->title, ['plate/view', 'id' => $model->plate->id]);
+                },
+            ],
             'plate.description',
             'date_time',
         ],
     ]) ?>
+
 
 </div>

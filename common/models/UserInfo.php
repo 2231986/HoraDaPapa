@@ -3,6 +3,7 @@
 namespace common\models;
 
 use Yii;
+use common\helpers\FormatterHelper;
 
 /**
  * This is the model class for table "user_info".
@@ -32,7 +33,7 @@ class UserInfo extends \yii\db\ActiveRecord
         return [
             [['user_id'], 'required'],
             [['user_id'], 'integer'],
-            [['nif'], 'string', 'max' => 9],
+            [['nif'], 'string', 'min' => 9, 'max' => 9],
             [['name', 'surname'], 'string', 'max' => 255],
             [['user_id'], 'unique'],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['user_id' => 'id']],

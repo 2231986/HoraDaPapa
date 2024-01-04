@@ -50,7 +50,25 @@ $this->params['breadcrumbs'][] = $this->title;
                     return Html::img($imageUrl, ['height' => '250px', 'width' => '250px', 'class' => 'img-thumbnail', 'alt' => 'Image']);
                 },
             ],
-            'supplier.name',
+            [
+                'attribute' => 'supplier.name',
+                'format' => 'raw',
+                'value' => function ($model)
+                {
+                    if ($model->supplier !== null)
+                    {
+                        $supplierName = $model->supplier->name;
+                        $supplierId = $model->supplier->id;
+                        $url = \yii\helpers\Url::to(['supplier/view', 'id' => $supplierId]);
+
+                        return Html::a($supplierName, $url);
+                    }
+                    else
+                    {
+                        return '--';
+                    }
+                },
+            ],
             'supplier.nif',
         ],
     ]) ?>

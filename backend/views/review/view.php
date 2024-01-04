@@ -29,9 +29,42 @@ $this->params['breadcrumbs'][] = $this->title;
         'attributes' => [
             [
                 'label' => 'Cliente',
-                'attribute' => 'user.username',
+                'format' => 'raw',
+                'value' => function ($model)
+                {
+                    if ($model->user != null)
+                    {
+                        $username = $model->user->username;
+                        $userId = $model->user_id;
+                        $url = \yii\helpers\Url::to(['user/view', 'id' => $userId]);
+
+                        return Html::a($username, $url);
+                    }
+                    else
+                    {
+                        return '--';
+                    }
+                },
             ],
-            'plate.title',
+            [
+                'label' => 'Prato',
+                'format' => 'raw',
+                'value' => function ($model)
+                {
+                    if ($model->plate != null)
+                    {
+                        $plateTitle = $model->plate->title;
+                        $plateId = $model->plate_id;
+                        $url = \yii\helpers\Url::to(['plate/view', 'id' => $plateId]);
+
+                        return Html::a($plateTitle, $url);
+                    }
+                    else
+                    {
+                        return '--';
+                    }
+                },
+            ],
             'description',
             'value',
             'date_time',

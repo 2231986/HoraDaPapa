@@ -37,11 +37,12 @@ class Review extends \yii\db\ActiveRecord
     {
         return [
             [['user_id', 'plate_id', 'description', 'value'], 'required'],
-            [['user_id', 'plate_id', 'value'], 'integer'],
+            [['user_id', 'plate_id'], 'integer'],
             [['date_time'], 'safe'],
             [['description'], 'string', 'max' => 255],
             [['plate_id'], 'exist', 'skipOnError' => true, 'targetClass' => Plate::class, 'targetAttribute' => ['plate_id' => 'id']],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['user_id' => 'id']],
+            [['value'], 'integer', 'min' => 0, 'max' => 10],
         ];
     }
 

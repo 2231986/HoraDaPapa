@@ -26,8 +26,21 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'label' => 'Cliente',
                 'attribute' => 'user.username',
+                'format' => 'raw', // Set the format to raw to allow rendering HTML
+                'value' => function ($model)
+                {
+                    return Html::a($model->user->username, ['user/view', 'id' => $model->user->id]);
+                },
             ],
-            'plate.title',
+            [
+                'label' => 'Prato',
+                'attribute' => 'plate.title',
+                'format' => 'raw', // Set the format to raw to allow rendering HTML
+                'value' => function ($model)
+                {
+                    return Html::a($model->plate->title, ['plate/view', 'id' => $model->plate->id]);
+                },
+            ],
             'value',
             'date_time',
             [
@@ -40,6 +53,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
         ],
     ]); ?>
+
 
 
 </div>

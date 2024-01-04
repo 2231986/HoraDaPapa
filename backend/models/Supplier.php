@@ -4,6 +4,7 @@ namespace app\models;
 
 use Yii;
 use common\models\Plate;
+use common\helpers\FormatterHelper;
 
 /**
  * This is the model class for table "supplier".

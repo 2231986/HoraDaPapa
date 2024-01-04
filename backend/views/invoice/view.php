@@ -57,7 +57,11 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             [
                 'label' => 'Nome da mesa',
-                'attribute' => 'meal.dinner.name',
+                'format' => 'raw',
+                'value' => function ($model)
+                {
+                    return Html::a($model->meal->dinner->name, ['dinner/view', 'id' => $model->meal->dinner->id]);
+                },
             ],
             [
                 'label' => 'Requests',
@@ -69,7 +73,14 @@ $this->params['breadcrumbs'][] = $this->title;
                             'allModels' => $model->meal->requests,
                         ]),
                         'columns' => [
-                            'plate.title',
+                            [
+                                'attribute' => 'plate.title',
+                                'format' => 'raw',
+                                'value' => function ($model)
+                                {
+                                    return Html::a($model->plate->title, ['plate/view', 'id' => $model->plate->id]);
+                                },
+                            ],
                             [
                                 'attribute' => 'price',
                                 'label' => 'Preço',

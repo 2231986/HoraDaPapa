@@ -31,7 +31,7 @@ class Dinner extends \yii\db\ActiveRecord
     {
         return [
             [['name'], 'required'],
-            [['isClean'], 'integer'],
+            [['isClean'], 'in', 'range' => [0, 1]],
             [['date_time'], 'safe'],
             [['name'], 'string', 'max' => 255],
         ];

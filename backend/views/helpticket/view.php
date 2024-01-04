@@ -40,8 +40,23 @@ use console\controllers\RbacController;
                 'attribute' => 'date_time',
             ],
             [
-                'label' => 'Nome',
-                'attribute' => 'user.username',
+                'label' => 'Cliente',
+                'format' => 'raw',
+                'value' => function ($model)
+                {
+                    if ($model->user != null)
+                    {
+                        $username = $model->user->username;
+                        $userId = $model->user_id;
+                        $url = \yii\helpers\Url::to(['user/view', 'id' => $userId]);
+
+                        return Html::a($username, $url);
+                    }
+                    else
+                    {
+                        return '--';
+                    }
+                },
             ],
             [
                 'label' => 'Descrição',

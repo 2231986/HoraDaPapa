@@ -33,7 +33,8 @@ class Helpticket extends \yii\db\ActiveRecord
     {
         return [
             [['user_id', 'needHelp', 'description'], 'required'],
-            [['user_id', 'needHelp'], 'integer'],
+            [['needHelp'], 'in', 'range' => [0, 1]],
+            [['user_id'], 'integer'],
             [['date_time'], 'safe'],
             [['description'], 'string', 'max' => 255],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['user_id' => 'id']],

@@ -34,6 +34,7 @@ class Meal extends \yii\db\ActiveRecord
         return [
             [['dinner_table_id'], 'required'],
             [['dinner_table_id', 'checkout'], 'integer'],
+            [['checkout'], 'number', 'min' => 0, 'max' => 1, 'integerOnly' => true],
             [['date_time'], 'safe'],
             [['dinner_table_id'], 'exist', 'skipOnError' => true, 'targetClass' => Dinner::class, 'targetAttribute' => ['dinner_table_id' => 'id']],
         ];
