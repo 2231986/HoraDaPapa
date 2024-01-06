@@ -1,11 +1,10 @@
 <?php
 
 use yii\helpers\Html;
-use yii\widgets\ListView;
+use yii\grid\GridView;
 use common\widgets\Alert;
 
 /** @var yii\web\View $this */
-/** @var app\models\DinnerSearch $searchModel */
 /** @var yii\data\ActiveDataProvider $dataProvider */
 
 $this->title = 'Mesas';
@@ -17,12 +16,9 @@ $this->title = 'Mesas';
 <div class="dinner-index">
 
     <?php
-    if ($cleaned)
-    {
+    if ($cleaned) {
         echo "<p>" . Html::a('Mesas por limpar', ['index', 'cleaned' => 0], ['class' => 'btn btn-primary']) . "</p>";
-    }
-    else
-    {
+    } else {
         echo "<p>" . Html::a('Mesas limpas', ['index', 'cleaned' => 1], ['class' => 'btn btn-primary']) . "</p>";
     }
     ?>
@@ -31,9 +27,31 @@ $this->title = 'Mesas';
         <?= Html::a('Criar Mesa', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
-    <?= ListView::widget([
+    <?= GridView::widget([
         'dataProvider' => $dataProvider,
-        'itemView' => 'view',
+        'columns' => [
+            'id',
+            'name',
+            'date_time',
+            [
+                'attribute' => 'isClean',
+                'value' => function ($model) {
+                    return $model->isClean ? 'Limpa' : 'Suja';
+                },
+                'format' => 'raw',
+                'contentOptions' => function ($model) {
+                    return [
+                        'style' => 'color: ' . ($model->isClean ? 'green' : 'red'),
+                    ];
+                },
+            ],
+            [
+                'class' => 'yii\grid\ActionColumn',
+                'template' => '{view} {update} {delete}',
+            ],
+        ],
     ]); ?>
+
+
 
 </div>
