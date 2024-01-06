@@ -61,7 +61,7 @@ BackendAsset::register($this);
     $this->registerCssFile(Url::to('@web/css/bootstrap.min.css'));
 
     // Registering the JS file in your layout
-    $this->registerJsFile(Url::to('@web/js/script.js'), ['depends' => [\yii\web\JqueryAsset::class]]);
+    $this->registerJsFile(Url::to('@web/js/main.js'), ['depends' => [\yii\web\JqueryAsset::class]]);
 
     // JavaScript Libraries
     $this->registerJsFile(Url::to('@web/lib/wow/wow.min.js'));
