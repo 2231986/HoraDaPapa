@@ -31,4 +31,9 @@ class FunctionalTester extends \Codeception\Actor
     {
         $this->dontSee($message, '.invalid-feedback');
     }
+
+
+    public function executeJS(string $string)
+    {
+    }
 }
