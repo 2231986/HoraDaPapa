@@ -3,6 +3,9 @@
 
 namespace frontend\tests\Functional;
 
+use common\fixtures\UserFixture;
+use common\models\User;
+use console\controllers\RbacController;
 use frontend\tests\FunctionalTester;
 use common\fixtures\UserFixture;
 use common\models\User;
@@ -21,6 +24,9 @@ class UserLoginUpdateTestCest
 
     public function _before(FunctionalTester $I)
     {
+        $authManager = \Yii::$app->authManager;
+        $authManager->assign($authManager->getRole(RbacController::$RoleClient), User::findOne(['username' => 'erau'])->id);
+
     }
 
     protected function formParams($login, $password)
