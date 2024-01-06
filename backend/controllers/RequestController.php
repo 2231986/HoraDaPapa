@@ -149,14 +149,25 @@ class RequestController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($this->request->isPost && $model->load($this->request->post()) && $model->save())
-        {
-            return $this->redirect('index');
+        if ($this->request->isPost && $model->load($this->request->post())) {
+            // Check if the user is an admin and is updating isDelivered
+            if (\Yii::$app->user->can(RbacController::$RoleAdmin) && $model->isAttributeChanged('isDelivered')) {
+                // If admin tries to set isDelivered to 1 and isCooked is 0, prevent the update
+                if ($model->isDelivered == 1 && $model->isCooked == 0) {
+                    // Redirect or show an error message indicating the issue
+                    \Yii::$app->session->setFlash('error', 'Cannot set isDelivered to 1 if isCooked is 0.');
+                    return $this->redirect(['/request']);
+                }
+            }
+
+            // Proceed with the update
+            if ($model->save()) {
+                return $this->redirect(['/request']);
+            }
         }
 
-        return $this->render('update', [
-            'model' => $model,
-        ]);
+
+        return $this->render('update', ['model' => $model,]);
     }
 
     /**
