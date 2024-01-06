@@ -31,9 +31,10 @@ $this->title = $model->id;
                         <h5 class="mb-0"><?= $model->username ?></h5>
                         <small>Role: <?= $model->role->description ?></small>
                         <h5 class="mb-0"><?= $model->email ?></h5>
-                        <h5 class="mb-0"><?= $model->userInfo->name ?></h5>
-                        <h5 class="mb-0"><?= $model->userInfo->surname ?></h5>
-                        <h5 class="mb-0"><?= $model->userInfo->nif ?></h5>
+                        <?= isset($model->userInfo) ? $model->userInfo->name : 'N/A'; ?>
+                        <?= isset($model->userInfo) ? $model->userInfo->surname : 'N/A'; ?>
+                        <?= isset($model->userInfo) ? $model->userInfo->nif : 'N/A'; ?>
+
                         <div class="d-flex justify-content-center mt-3">
                             <a class="btn btn-square btn-primary mx-1" href="<?= Url::to(['update', 'id' => $model->id]) ?>">
                                 <i class="fa fa-edit"></i>
