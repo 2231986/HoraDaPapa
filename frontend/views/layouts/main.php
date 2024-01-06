@@ -91,7 +91,7 @@ BackendAsset::register($this);
         ]);
         $menuItems = [
             ['label' => 'Sobre nós', 'url' => ['/site/about']],
-            ['label' => 'Reserva', 'url' => ['/site/contact']],
+            ['label' => 'Contacto', 'url' => ['/site/contact']],
             ['label' => 'Pratos', 'url' => ["/plate"]],
         ];
         if (Yii::$app->user->isGuest)
