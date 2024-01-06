@@ -15,14 +15,8 @@ class ReviewTest extends \Codeception\Test\Unit
     {
     }
 
-    // tests
-    public function testSomeFeature()
+    public function testTriggerValidationErrors()
     {
-
-    }
-
-    public function testTriggerValidationErrors(){
-
         $this->tester->wantTo('check validation');
 
         // Step a: Trigger all validation rules (introduce erroneous data)
@@ -34,17 +28,24 @@ class ReviewTest extends \Codeception\Test\Unit
         $review->date_time = ''; // Dado invalido,nao respeita o formato de data
 
         $this->assertFalse($review->validate(), 'Should not validate with erroneous data');
-
     }
 
     // Tests
     public function testReviewLifecycle()
     {
+        $user = new \common\models\User();
+        $user->username = 'new_username';
+        $user->email = 'new_email@example.com';
+        $user->setPassword("12345678");
+        $user->generateAuthKey();
+        $user->generateEmailVerificationToken();
+        $user->save();
+
         // b. Criar um registo válido e guardar na BD
         $review = new Review();
-        $review->user_id = 2; // Definir user válido existente na bd de testes senao da erro
+        $review->user_id = $user->id; // Definir user válido existente na bd de testes senao da erro
         $review->plate_id = 1; // Definir prato válido existente
-        $review->description = 'Valid description';// Definir descrição valida, string
+        $review->description = 'Valid description'; // Definir descrição valida, string
         $review->value = 5; // Definir pontuaçao válida, tipo de dados integer
 
 

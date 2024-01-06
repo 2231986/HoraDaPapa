@@ -10,6 +10,13 @@ class HomeCest
 {
     public function _before(AcceptanceTester $I)
     {
+        $user = User::findOne(['username' => 'dinis999']);
+
+        if ($user)
+        {
+            $user->delete();
+        }
+
         //TODO: Adicionar 1 prato
     }
 
@@ -35,7 +42,7 @@ class HomeCest
         $I->seeLink('Sobre nós');
         $I->click('Sobre nós');
         $I->wait(2);
-        $I->see('Descubra a nossa história e paixão pela culinária.');
+        $I->see('Descubra nosso delicioso cardápio e desfrute de uma maravilhosa experiência gastronômica.');
 
         //Reserva
         // $I->seeLink('Reserva');
@@ -56,7 +63,7 @@ class HomeCest
         $I->click('Pratos');
         $I->wait(2);
 
-        $I->see('Todos os nossos pratos');
+        $I->see('Todas as papas!');
         $I->see('€', '.text-primary');
 
         //Registar
@@ -80,6 +87,7 @@ class HomeCest
     public function checkFrontendFavorites(AcceptanceTester $I)
     {
         $I->amOnPage('/');
+        $I->wait(1);
         $I->see('Hora da Papa');
 
         $I->see('Login');
@@ -96,9 +104,10 @@ class HomeCest
         $I->seeLink('Favoritos');
         $I->click('Favoritos');
         $I->wait(2);
+        $I->executeJS("window.scrollTo(0, document.body.scrollHeight);");
 
-        $I->seeElement('.btn.btn-success');
-        $I->click('.btn.btn-success');
+        $I->waitForElement('a i.fa.fa-plus');
+        $I->executeJS('document.querySelector("a i.fa.fa-plus").click();');
         $I->wait(2);
 
         $I->selectOption('select[name="Favorite[plate_id]"]', '1');
@@ -107,7 +116,7 @@ class HomeCest
 
         $I->wait(1);
 
-        $I->see('Atualizar', '.btn.btn-primary');
-        $I->see('Remover', '.btn.btn-danger');
+        $I->seeElement('.fa.fa-edit');
+        $I->seeElement('.fa.fa-trash');
     }
 }

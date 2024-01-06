@@ -34,14 +34,13 @@ class FavoriteTestCest
 
         $authManager = \Yii::$app->authManager;
         $authManager->assign($authManager->getRole(RbacController::$RoleClient), User::findOne(['username' => 'erau'])->id);
-
     }
 
     // tests
     public function tryToTest(FunctionalTester $I)
     {
         //login, criar um favorito, Atualizar
-        $I->amLoggedInAs(User::findByUsername('admin'));
+        $I->amLoggedInAs(User::findByUsername('erau'));
         $I->amOnRoute('favorite/create');
         $I->see('Criar Favorito');
         $I->selectOption('select[name="Favorite[plate_id]"]', "2");

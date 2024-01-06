@@ -4,6 +4,7 @@
 namespace frontend\tests\Unit;
 
 use common\models\User;
+use common\models\UserInfo;
 use frontend\tests\UnitTester;
 
 class UserTest extends \Codeception\Test\Unit
@@ -67,7 +68,13 @@ class UserTest extends \Codeception\Test\Unit
         $this->assertEquals($savedUser->username, $updatedUser->username, 'Username should match');
 
         // f. Apagar o registo
-        $updatedUser->delete();
+        $authManager = \Yii::$app->authManager;
+        $authManager->revokeAll($user->id); // Remover roles
+
+        $userInfo = UserInfo::findOne($user->id);
+        $userInfo->delete(); // Remover UserInfo
+
+        $user->delete(); // Remover Info
 
         // g. Verificar que o registo não se encontra na BD.
         $deletedUser = \common\models\User::findOne($updatedUser->id);

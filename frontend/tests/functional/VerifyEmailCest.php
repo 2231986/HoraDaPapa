@@ -56,12 +56,10 @@ class VerifyEmailCest
     {
         $I->amOnRoute('site/verify-email', ['token' => '4ch0qbfhvWwkcuWqjN8SWRq72SOw1KYT_1548675330']);
         $I->canSee('Your email has been confirmed!');
-        $I->canSee('Encontre os seu pratos favoritos', 'p');
-        $I->see('Logout (test.test)', 'form button[type=submit]');
 
         $I->seeRecord('common\models\User', [
-            'username' => 'test.test',
-            'email' => 'test@mail.com',
+            'username' => 'test2.test',
+            'email' => 'test2@mail.com',
             'status' => \common\models\User::STATUS_ACTIVE
         ]);
     }

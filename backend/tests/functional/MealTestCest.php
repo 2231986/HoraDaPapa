@@ -35,25 +35,28 @@ class MealTestCest
         $role = $auth->getRole(RbacController::$RoleWaiter);
         $auth->assign($role,  $user->id);
         $I->amOnRoute('site/login');
-
     }
 
     // tests
     public function tryToTest(FunctionalTester $I)
     {
         $I->amOnRoute('/site/login');
+
         $I->see('Sign in to start your session', 'p');
         $I->fillField('#loginform-username', 'waiter');
         $I->fillField('#loginform-password', '12345678');
         $I->click('Sign In', 'form button[type=submit]');
+
         $I->see('Página Principal', 'h1');
         $I->amOnRoute('/meal/create');
-        $I->selectOption('select[name="Meal[dinner_table_id]"]', "2"); // Selecionar prato a partir de dropdownlist
-        $I->fillField('input[id="meal-checkout"]', '0');
+        $I->selectOption('select[name="Meal[dinner_table_id]"]', '1');
+        $I->selectOption('select[name="Meal[checkout]"]', '0');
         $I->click('Guardar');
+
         $I->see('Atualizar');
         $I->click('Atualizar');
-        $I->fillField('input[id="meal-checkout"]', '1');
+
+        $I->selectOption('select[name="Meal[checkout]"]', '1');
         $I->click('Guardar');
     }
 }

@@ -43,8 +43,6 @@ class RequestFilterTestCest
         $auth->assign($role,  $user->id);
 
         $I->amOnRoute('site/login');
-
-
     }
 
     // tests
@@ -52,7 +50,7 @@ class RequestFilterTestCest
     {
 
         // Assume que ja existem requests na base de dados
-        $cookedRequests = Request::find()->where(['isCooked' => 1])->all();
+        $cookedRequests = Request::find()->where(['isCooked' => 1])->andWhere(['isDelivered' => 0])->all();
 
         $waiter = User::findOne(['username' => 'waiter']); // Fetch waiter user
 
@@ -63,7 +61,8 @@ class RequestFilterTestCest
         $I->amOnPage('/request/index');
 
         // Verify that the page displays cooked requests
-        foreach ($cookedRequests as $cookedRequest) {
+        foreach ($cookedRequests as $cookedRequest)
+        {
             $I->see($cookedRequest->id); // Assuming description field represents the request
         }
     }
@@ -83,9 +82,9 @@ class RequestFilterTestCest
         $I->amOnPage('/request/index');
 
         // Verify that the page displays cooked requests
-        foreach ($notCookedRequests as $notCookedRequest) {
+        foreach ($notCookedRequests as $notCookedRequest)
+        {
             $I->see($notCookedRequest->id); // Assuming description field represents the request
         }
     }
-
 }

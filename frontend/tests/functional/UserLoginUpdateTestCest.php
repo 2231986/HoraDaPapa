@@ -4,36 +4,55 @@
 namespace frontend\tests\Functional;
 
 use frontend\tests\FunctionalTester;
+use common\fixtures\UserFixture;
+use common\models\User;
 
 class UserLoginUpdateTestCest
 {
+    public function _fixtures()
+    {
+        return [
+            'user' => [
+                'class' => UserFixture::class,
+                'dataFile' => codecept_data_dir() . 'custom_data.php',
+            ],
+        ];
+    }
+
     public function _before(FunctionalTester $I)
     {
     }
 
-    // tests
+    protected function formParams($login, $password)
+    {
+        return [
+            'LoginForm[username]' => $login,
+            'LoginForm[password]' => $password,
+        ];
+    }
+
     public function tryToTest(FunctionalTester $I)
     {
         $I->amOnPage('/');
         $I->click('Registar');
-        $I->fillField('input[id="signupform-username"]', 'trunks');
-        $I->fillField('input[id="signupform-email"]', 'trunks@corp.com');
+        $I->fillField('input[id="signupform-username"]', 'client');
+        $I->fillField('input[id="signupform-email"]', 'client@horadapapa.com');
         $I->fillField('input[id="signupform-password"]', '12345678');
-        $I->click('signup-button');
-        $I->amOnPage('/');
+        $I->click(['name' => 'signup-button']);
+
         $I->click('Login');
-        $I->fillField('input[id="loginform-username"]', 'trunks');
-        $I->fillField('input[id="loginform-password"]', '12345678');
-        $I->click('login-button');
+        $I->submitForm('#login-form', $this->formParams('client', '12345678'));
+
         $I->amOnPage('/');
-        $I->see('logout (trunks)');
+        $I->see('Logout (client)');
         $I->see('Utilizador');
         $I->click('Utilizador');
-        $I->see('trunks@corp.com');
-        $I->seeLink('Atualizar');
-        $I->click('Atualizar');
-        $I->fillField('input[id="user-email"]', 'trunks@capsule.com');
+
+        $I->see('client@horadapapa.com');
+        $I->click('.team-item a.btn.btn-primary');
+
+        $I->fillField(['name' => 'User[email]'], 'clientX@horadapapa.com');
         $I->click('Guardar');
-        $I->see('trunks@capsule.com');
+        $I->see('clientX@horadapapa.com');
     }
 }

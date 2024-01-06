@@ -23,7 +23,6 @@ class FavoriteTest extends \Codeception\Test\Unit
     // tests
     public function testSomeFeature()
     {
-
     }
 
     // Step a: Trigger validation errors
@@ -51,10 +50,17 @@ class FavoriteTest extends \Codeception\Test\Unit
     {
         $this->tester->wantTo('Test the lifecycle of the Favorite model');;
 
+        $user = new \common\models\User();
+        $user->username = 'new_username';
+        $user->email = 'new_email@example.com';
+        $user->setPassword("12345678");
+        $user->generateAuthKey();
+        $user->generateEmailVerificationToken();
+        $user->save();
 
         // b. Criar um registo válido e guardar na BD
         $favorite = new Favorite();
-        $favorite->user_id = 2; // Definir user válido existente na bd de testes senao da erro
+        $favorite->user_id = $user->id; // Definir user válido existente na bd de testes senao da erro
         $favorite->plate_id = 1; // Definir prato existente 
 
         $this->assertTrue($favorite->validate(), 'Record should pass validation');
@@ -74,11 +80,11 @@ class FavoriteTest extends \Codeception\Test\Unit
 
         // d. Ler o registo anterior e aplicar um update
         $favorite = Favorite::findOne($favorite->id);
-        $favorite->user_id = 2; // Definir user válido existente na bd de testes senao da erro
+        $favorite->user_id = $user->id; // Definir user válido existente na bd de testes senao da erro
         $this->assertTrue($favorite->save(), 'Record should be updated successfully');
 
         // e. Ver se o registo atualizado se encontra na BD
-        $this->tester->seeRecord('common\models\Favorite', ['id' => $favorite->id, 'user_id' => 2]);// Definir user válido existente na bd de testes senao da erro
+        $this->tester->seeRecord('common\models\Favorite', ['id' => $favorite->id, 'user_id' => $user->id]); // Definir user válido existente na bd de testes senao da erro
 
         // f. Apagar o registo
         $favorite->delete();
@@ -90,10 +96,4 @@ class FavoriteTest extends \Codeception\Test\Unit
         // g. Verificar que o registo não se encontra na BD.
         $this->tester->dontSeeRecord('common\models\Favorite', ['id' => $favorite->id]);
     }
-
-
-
-
-
-
 }

@@ -12,6 +12,6 @@ class HomeCest
         $I->see('Hora da Papa');
         $I->seeLink('Sobre nós');
         $I->click('Sobre nós');
-        $I->see('Sobre o Nosso Restaurante');
+        $I->see('Bem vindo à Hora da Papa!');
     }
 }
