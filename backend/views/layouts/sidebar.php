@@ -177,7 +177,7 @@ if (Yii::$app->user->can(RbacController::$PermissionReview))
 if (Yii::$app->user->can(RbacController::$PermissionMeal))
 {
     $menuItems[] = [
-        'label' => 'Refeições', 'id'=>'ddd', 'icon' => 'fas fa-drumstick-bite',
+        'label' => 'Refeições', 'icon' => 'fas fa-drumstick-bite',
         'items' => [ // Submenu items array
             [
                 'label' => 'Index',

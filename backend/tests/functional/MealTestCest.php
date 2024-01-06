@@ -11,6 +11,13 @@ use console\controllers\RbacController;
 class MealTestCest
 {
 
+    /**
+     * Load fixtures before db transaction begin
+     * Called in _before()
+     * @see \Codeception\Module\Yii2::_before()
+     * @see \Codeception\Module\Yii2::loadFixtures()
+     * @return array
+     */
     public function _fixtures()
     {
         return [
@@ -20,7 +27,6 @@ class MealTestCest
             ]
         ];
     }
-
     public function _before(FunctionalTester $I)
     {
         $user = User::find()->where(['id' => 3])->one();
@@ -31,6 +37,7 @@ class MealTestCest
         $I->amOnRoute('site/login');
     }
 
+    // tests
     public function tryToTest(FunctionalTester $I)
     {
         $I->amOnRoute('/site/login');
