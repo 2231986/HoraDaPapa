@@ -1,5 +1,4 @@
 <?php
-
 use common\helpers\FormatterHelper;
 use yii\helpers\Html;
 use yii\grid\GridView;
@@ -10,43 +9,43 @@ use yii\grid\GridView;
 
 $this->title = 'Pratos';
 ?>
+
+
 <div class="container-xxl py-5">
     <div class="container">
         <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
-            <h5 class="section-title ff-secondary text-center text-primary fw-normal">Food Menu</h5>
-            <h1 class="mb-5">Todos os nossos pratos</h1>
+            <h5 class="section-title ff-secondary text-center text-primary fw-normal">Menu</h5>
+            <h1 class="mb-5">Todas as papas!</h1>
         </div>
 
         <?= GridView::widget([
             'dataProvider' => $dataProvider,
-            'options' => ['class' => 'row g-4'], // Apply the 'row' class to the GridView container
+            'options' => ['class' => 'row m-4'], // Apply the 'row' class to the GridView container
             'layout' => "{items}", // Keep only the items without any surrounding container
             'tableOptions' => ['class' => 'table table-striped'], // Apply Bootstrap table class
             'columns' => [
                 [
-                    'format' => 'html', // Set the format to HTML to allow rendering HTML tags
-                    'value' => function ($model)
-                    {
+                    'format' => 'raw',
+                    'value' => function ($model) {
                         $imageUrl = Yii::$app->params['imagePath'] . $model->image_name;
 
-                        if ($model->image_name == null)
-                        {
+                        if ($model->image_name == null) {
                             $imageUrl = Yii::getAlias('@web/img/nopic.jpg');
                         }
 
-                        return Html::img($imageUrl, ['height' => '250px', 'width' => '250px', 'class' => 'img-thumbnail', 'alt' => 'Image']);
-                    },
-                ],
-                [
-                    //'header' => 'Title',
-                    //'attribute' => 'title',
-                    'format' => 'raw',
-                    'value' => function ($model)
-                    {
-                        return '<h5 class="d-flex justify-content-between border-bottom pb-2">' .
-                            Html::encode($model->title) .
-                            '<span class="text-primary">' . FormatterHelper::formatCurrency($model->price) . '</span></h5>' .
-                            '<small class="fst-italic">' . Html::encode($model->description) . '</small>';
+                        return '
+                    <div class="col-lg-12">
+                        <div class="d-flex align-items-center">
+                            ' . Html::img($imageUrl, ['height' => '80px', 'width' => '80px', 'class' => 'flex-shrink-0 img-fluid rounded', 'alt' => 'Image']) . '
+                            <div class="w-100 d-flex flex-column text-start ps-4">
+                                <h5 class="d-flex justify-content-between border-bottom pb-2">
+                                    <span>' . Html::encode($model->title) . '</span>
+                                    <span class="text-primary">' . FormatterHelper::formatCurrency($model->price) . '</span>
+                                </h5>
+                                <small class="fst-italic">' . Html::encode($model->description) . '</small>
+                            </div>
+                        </div>
+                    </div>';
                     },
                 ],
             ],

@@ -5,14 +5,15 @@ use yii\helpers\Html;
 /** @var yii\web\View $this */
 /** @var app\models\Favorite $model */
 
-$this->title = 'Atualizar Favorito: ' . $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Favoritos', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
-$this->params['breadcrumbs'][] = 'Atualizar';
+$this->title = 'Atualizar Favorito:';
 ?>
 <div class="favorite-update">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <div class="row">
+        <div class="col">
+            <h1 class="text-center"><?= Html::encode($this->title) ?></h1>
+        </div>
+    </div>
 
     <?= $this->render('_form', [
         'model' => $model,

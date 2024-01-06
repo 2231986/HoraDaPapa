@@ -7,108 +7,80 @@
 use yii\bootstrap5\Html;
 use yii\bootstrap5\ActiveForm;
 use yii\captcha\Captcha;
-//use yii\helpers\Url;
-
-
-//$formAction = Url::toRoute(['site/contact']); // Replace 'site/contact' with the actual route to your actionContact
-
 
 $this->title = 'Reserva';
 ?>
 
 <div class="site-contact">
-
     <div class="container-xxl py-5">
         <div class="container">
             <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
                 <h5 class="section-title ff-secondary text-center text-primary fw-normal">Contacto/Reserva</h5>
                 <h1 class="mb-5">Preencha o formulário para nos contactar.</h1>
             </div>
-        </div>
-    </div>
 
-    <!--
-
-    <div class="container-xxl py-5 px-0 wow fadeInUp" data-wow-delay="0.1s" style="visibility: visible; animation-delay: 0.1s; animation-name: fadeInUp;">
-        <div class="row g-0">
-            <div class="col-md-6">
-                <div class="video">
-
-                </div>
-            </div>
-            <div class="col-md-6 bg-dark d-flex align-items-center">
-                <div class="p-5 wow fadeInUp" data-wow-delay="0.2s" style="visibility: visible; animation-delay: 0.2s; animation-name: fadeInUp;">
-                    <h5 class="section-title ff-secondary text-start text-primary fw-normal">Reservation</h5>
-                    <h1 class="text-white mb-4">Reserve a sua mesa</h1>
-                    <form action="your_action_url_here" method="post">
-                        <div class="row g-3">
-                            <div class="col-md-6">
-                                <div class="form-floating">
-                                    <input type="text" class="form-control" id="name" name="name" placeholder="Nome">
-                                    <label for="name">Your Name</label>
-                                </div>
-                            </div>
-
-                            <div class="col-md-6">
-                                <div class="form-floating">
-                                    <input type="email" class="form-control" id="email" name="email" placeholder="Email">
-                                    <label for="email">Your Email</label>
-                                </div>
-                            </div>
-
-                            <div class="col-md-12">
-                                <div class="form-floating">
-                                    <input type="text" class="form-control" id="subject" name="subject" placeholder="Assunto">
-                                    <label for="subject">Subject</label>
-                                </div>
-                            </div>
-
-                            <div class="col-12">
-                                <div class="form-floating">
-                                    <textarea class="form-control" placeholder="Pedido" id="message" name="body" style="height: 100px"></textarea>
-                                    <label for="message">Special Request</label>
-                                </div>
-                            </div>
-                            <div class="col-12">
-                                <button class="btn btn-primary w-100 py-3" type="submit">Registe</button>
-                            </div>
+            <div class="container-xxl py-5">
+                <div class="row g-0">
+                    <div class="col-md-6">
+                        <div class="video">
                         </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div> -->
-
-
-    <div class="container-xxl py-5 px-0 wow fadeInUp" data-wow-delay="0.1s" style="visibility: visible; animation-delay: 0.1s; animation-name: fadeInUp;">
-        <div class="row g-0">
-            <div class="col-md-6">
-                <div class="video">
-
-                </div>
-            </div>
-            <div class="col-md-6 bg-dark d-flex align-items-center">
-                <div class="p-5 wow fadeInUp" data-wow-delay="0.2s" style="visibility: visible; animation-delay: 0.2s; animation-name: fadeInUp;">
-                    <h5 class="section-title ff-secondary text-start text-primary fw-normal">Reservas</h5>
-                    <h1 class="text-white mb-4">Reserve a sua mesa</h1>
-                    <?php $form = ActiveForm::begin(['action' => ['site/contact'],'id' => 'contact-form', 'method' => 'post']); ?>
-                    <?= $form->field($model, 'name')->textInput(['placeholder' => 'Nome'])->label('Your Name') ?>
-                    <?= $form->field($model, 'email')->textInput(['placeholder' => 'Email'])->label('Your Email') ?>
-                    <?= $form->field($model, 'subject')->textInput(['placeholder' => 'Assunto'])->label('Subject') ?>
-                    <?= $form->field($model, 'body')->textarea(['rows' => 6, 'placeholder' => 'Pedido'])->label('Special Request') ?>
-                    <?= $form->field($model, 'verifyCode')->widget(Captcha::class, [
-                        'template' => '<div class="row"><div class="col-lg-3">{image}</div><div class="col-lg-12">{input}</div></div>',
-                        'options' => ['placeholder' => 'Captcha'],
-                    ])?>
-                    <div class="form-group">
-                        <?= Html::submitButton('Registe', ['class' => 'btn btn-primary w-100 py-3', 'name' => 'contact-button']) ?>
                     </div>
-                    <?php ActiveForm::end(); ?>
+                    <div class="col-md-6 bg-dark d-flex align-items-center">
+                        <div class="p-5">
+                            <h5 class="section-title ff-secondary text-start text-primary fw-normal">Contacto</h5>
+                            <h1 class="text-white mb-4">Contacto</h1>
+                            <?php $form = ActiveForm::begin(['action' => ['site/contact'], 'id' => 'contact-form', 'method' => 'post']); ?>
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <?= $form->field($model, 'name')->textInput(['placeholder' => 'Nome'])->label(false) ?>
+                                </div>
+                                <div class="col-md-6">
+                                    <?= $form->field($model, 'email')->textInput(['placeholder' => 'Email'])->label(false) ?>
+                                </div>
+                                <div class="col-12">
+                                    <?= $form->field($model, 'subject')->textInput(['placeholder' => 'Assunto'])->label(false) ?>
+                                </div>
+                                <div class="col-12">
+                                    <?= $form->field($model, 'body')->textarea(['rows' => 6, 'placeholder' => 'Pedido'])->label(false) ?>
+                                </div>
+                                <div class="col-lg-3">
+                                    <?= $form->field($model, 'verifyCode')->widget(Captcha::class, [
+                                        'template' => '{image}',
+                                        'options' => ['placeholder' => 'Captcha'],
+                                    ])->label(false) ?>
+                                </div>
+                                <div class="col-lg-9">
+                                    <?= $form->field($model, 'verifyCode')->textInput(['placeholder' => 'Enter Captcha'])->label(false) ?>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-group mt-4">
+                                        <?= Html::submitButton('Enviar', ['class' => 'btn btn-primary w-100 py-3', 'name' => 'contact-button']) ?>
+                                    </div>
+                                </div>
+                            </div>
+                            <?php ActiveForm::end(); ?>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row g-4 justify-content-center">
+                <div class="col-12">
+                    <div class="row gy-4 text-center">
+                        <div class="col-md-4">
+                            <h5 class="section-title ff-secondary fw-normal text-start text-primary">Booking</h5>
+                            <p><i class="fa fa-envelope-open text-primary me-2"></i>geral@horadapapa.com</p>
+                        </div>
+                        <div class="col-md-4">
+                            <h5 class="section-title ff-secondary fw-normal text-start text-primary">General</h5>
+                            <p><i class="fa fa-envelope-open text-primary me-2"></i>info@horadapapa.com</p>
+                        </div>
+                        <div class="col-md-4">
+                            <h5 class="section-title ff-secondary fw-normal text-start text-primary">Technical</h5>
+                            <p><i class="fa fa-envelope-open text-primary me-2"></i>apoio@horadapapa.com</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-
-
-
 </div>

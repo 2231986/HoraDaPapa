@@ -10,32 +10,35 @@ use yii\helpers\ArrayHelper;
 /** @var yii\widgets\ActiveForm $form */
 ?>
 
-<div class="user-form">
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="user-form">
 
-    <?php $form = ActiveForm::begin(); ?>
+                <?php $form = ActiveForm::begin(); ?>
 
-    <?php
-    $userID =  Yii::$app->user->getId();
+                <?php
+                $userID = Yii::$app->user->getId();
+                if (Yii::$app->authManager->getAssignment(RbacController::$RoleAdmin, $userID)) {
+                    echo $form->field($user, 'status')->textInput();
+                } ?>
 
-    if (Yii::$app->authManager->getAssignment(RbacController::$RoleAdmin, $userID))
-    {
-        echo $form->field($user, 'status')->textInput();
-    } ?>
+                <?= $form->field($user, 'username')->textInput(['autofocus' => true]) ?>
+                <?= $form->field($user, 'email') ?>
 
-    <?= $form->field($user, 'username')->textInput(['autofocus' => true]) ?>
-    <?= $form->field($user, 'email') ?>
+                <?php if ($userInfo !== null) : ?>
+                    <?= $form->field($userInfo, 'name') ?>
+                    <?= $form->field($userInfo, 'surname') ?>
+                    <?= $form->field($userInfo, 'nif') ?>
+                <?php endif; ?>
 
-    <?php if ($userInfo !== null) : ?>
-        <?= $form->field($userInfo, 'name') ?>
-        <?= $form->field($userInfo, 'surname') ?>
-        <?= $form->field($userInfo, 'nif') ?>
-    <?php endif; ?>
+                <div class="form-group">
+                    <?= Html::submitButton('Guardar', ['class' => 'btn btn-success']) ?>
+                </div>
 
+                <?php ActiveForm::end(); ?>
 
-    <div class="form-group">
-        <?= Html::submitButton('Guardar', ['class' => 'btn btn-success']) ?>
+            </div>
+        </div>
     </div>
-
-    <?php ActiveForm::end(); ?>
-
 </div>

@@ -111,7 +111,7 @@ class Plate extends \yii\db\ActiveRecord
             ->leftJoin('request', 'plate.id = request.plate_id')
             ->groupBy('plate.id')
             ->orderBy(['request_count' => SORT_DESC])
-            ->limit(6)
+            ->limit(3)
             ->all();
     }
 }

@@ -78,8 +78,10 @@ class SiteController extends Controller
     public function actionIndex()
     {
         $plate = new Plate();
+        $model = new ContactForm();
 
         return $this->render('index', [
+            'model' => $model,
             'popularPlates' => $plate->getPopularPlates(),
         ]);
     }
