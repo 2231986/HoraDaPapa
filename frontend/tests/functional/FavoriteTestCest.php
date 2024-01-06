@@ -12,33 +12,36 @@ use common\models\Favorite;
 
 class FavoriteTestCest
 {
+    /**
+     * Load fixtures before db transaction begin
+     * Called in _before()
+     * @see \Codeception\Module\Yii2::_before()
+     * @see \Codeception\Module\Yii2::loadFixtures()
+     * @return array
+     */
+    public function _fixtures()
+    {
+        return [
+            'user' => [
+                'class' => UserFixture::class,
+                'dataFile' => codecept_data_dir() . 'login_data.php'
+            ]
+        ];
+    }
 
     public function _before(FunctionalTester $I)
     {
-        $user = User::find()->where(['id' => 4])->one();
 
-        $auth = \Yii::$app->authManager;
-        $role = $auth->getRole(RbacController::$RoleClient);
-        $auth->assign($role,  $user->id);
-        $I->amOnRoute('site/login');
-
-
+        $authManager = \Yii::$app->authManager;
+        $authManager->assign($authManager->getRole(RbacController::$RoleClient), User::findOne(['username' => 'erau'])->id);
 
     }
 
     // tests
     public function tryToTest(FunctionalTester $I)
     {
-        $I->amOnPage('/');
-        $I->click('Login');
-        $I->fillField('input[id="loginform-username"]', 'client');
-        $I->fillField('input[id="loginform-password"]', '12345678');
-        $I->click('login-button');
-        $I->amOnPage('/');
-        $I->see('logout (client)');
-        $I->see('Favoritos');
-        $I->click('Favoritos');
-        $I->see('Adicione');
+        //login, criar um favorito, Atualizar
+        $I->amLoggedInAs(User::findByUsername('admin'));
         $I->amOnRoute('favorite/create');
         $I->see('Criar Favorito');
         $I->selectOption('select[name="Favorite[plate_id]"]', "2");
@@ -46,7 +49,8 @@ class FavoriteTestCest
         $I->see('Atualizar');
         $I->click('Atualizar');
         $I->selectOption('select[name="Favorite[plate_id]"]', "1");
-        $I->click('Guardar');// Click guardar para submeter form
+        $I->click('Guardar');
+        // criar novo favorito e removelo
         $I->amOnRoute('favorite/create');
         $I->see('Criar Favorito');
         $I->selectOption('select[name="Favorite[plate_id]"]', "2");
