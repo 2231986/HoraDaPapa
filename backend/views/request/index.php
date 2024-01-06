@@ -5,6 +5,7 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\grid\GridView;
 use console\controllers\RbacController;
+use common\widgets\Alert;
 
 $groupedRequests = [];
 
@@ -18,6 +19,8 @@ foreach ($dataProvider->getModels() as $request)
 }
 
 ?>
+
+<?= Alert::widget() ?>
 
 <div class="request-index">
     <?php foreach ($groupedRequests as $dinnerTableId => $requests) : ?>
