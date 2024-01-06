@@ -44,8 +44,8 @@ class UserTest extends \Codeception\Test\Unit
     {
         // b. Criar um registo válido e guardar na BD
         $user = new \common\models\User();
-        $user->username = 'valid_username';
-        $user->email = 'valid_email@example.com';
+        $user->username = 'new_username';
+        $user->email = 'new_email@example.com';
         $user->setPassword("12345678");
         $user->generateAuthKey();
         $user->generateEmailVerificationToken();
