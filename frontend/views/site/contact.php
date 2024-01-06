@@ -43,13 +43,13 @@ $this->title = 'Reserva';
                                 <div class="col-12">
                                     <?= $form->field($model, 'body')->textarea(['rows' => 6, 'placeholder' => 'Pedido'])->label(false) ?>
                                 </div>
-                                <div class="col-lg-3">
+                                <div class="col-lg-4">
                                     <?= $form->field($model, 'verifyCode')->widget(Captcha::class, [
                                         'template' => '{image}',
                                         'options' => ['placeholder' => 'Captcha'],
                                     ])->label(false) ?>
                                 </div>
-                                <div class="col-lg-9">
+                                <div class="col-lg-8">
                                     <?= $form->field($model, 'verifyCode')->textInput(['placeholder' => 'Enter Captcha'])->label(false) ?>
                                 </div>
                                 <div class="col-12">

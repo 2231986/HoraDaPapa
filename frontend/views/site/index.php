@@ -118,52 +118,52 @@ $this->title = 'Página Inicial';
             </div>
 
 
-                <div class="container-xxl py-5">
-                    <div class="row g-0">
-                        <div class="col-md-6">
-                            <div class="video">
-                            </div>
+            <div class="container-xxl py-5">
+                <div class="row g-0">
+                    <div class="col-md-6">
+                        <div class="video">
                         </div>
-                        <div class="col-md-6 bg-dark d-flex align-items-center">
-                            <div class="p-5">
-                                <h5 class="section-title ff-secondary text-start text-primary fw-normal">Contacto</h5>
-                                <h1 class="text-white mb-4">Contacto</h1>
-                                <?php $form = ActiveForm::begin(['action' => ['site/contact'], 'id' => 'contact-form', 'method' => 'post']); ?>
-                                <div class="row g-3">
-                                    <div class="col-md-6">
-                                        <?= $form->field($model, 'name')->textInput(['placeholder' => 'Nome'])->label(false) ?>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <?= $form->field($model, 'email')->textInput(['placeholder' => 'Email'])->label(false) ?>
-                                    </div>
-                                    <div class="col-12">
-                                        <?= $form->field($model, 'subject')->textInput(['placeholder' => 'Assunto'])->label(false) ?>
-                                    </div>
-                                    <div class="col-12">
-                                        <?= $form->field($model, 'body')->textarea(['rows' => 6, 'placeholder' => 'Pedido'])->label(false) ?>
-                                    </div>
-                                    <div class="col-lg-3">
-                                        <?= $form->field($model, 'verifyCode')->widget(Captcha::class, [
-                                            'template' => '{image}',
-                                            'options' => ['placeholder' => 'Captcha'],
-                                        ])->label(false) ?>
-                                    </div>
-                                    <div class="col-lg-9">
-                                        <?= $form->field($model, 'verifyCode')->textInput(['placeholder' => 'Enter Captcha'])->label(false) ?>
-                                    </div>
-                                    <div class="col-12">
-                                        <div class="form-group mt-4">
-                                            <?= Html::submitButton('Enviar', ['class' => 'btn btn-primary w-100 py-3', 'name' => 'contact-button']) ?>
-                                        </div>
+                    </div>
+                    <div class="col-md-6 bg-dark d-flex align-items-center">
+                        <div class="p-5">
+                            <h5 class="section-title ff-secondary text-start text-primary fw-normal">Contacto</h5>
+                            <h1 class="text-white mb-4">Contacto</h1>
+                            <?php $form = ActiveForm::begin(['action' => ['site/contact'], 'id' => 'contact-form', 'method' => 'post']); ?>
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <?= $form->field($model, 'name')->textInput(['placeholder' => 'Nome'])->label(false) ?>
+                                </div>
+                                <div class="col-md-6">
+                                    <?= $form->field($model, 'email')->textInput(['placeholder' => 'Email'])->label(false) ?>
+                                </div>
+                                <div class="col-12">
+                                    <?= $form->field($model, 'subject')->textInput(['placeholder' => 'Assunto'])->label(false) ?>
+                                </div>
+                                <div class="col-12">
+                                    <?= $form->field($model, 'body')->textarea(['rows' => 6, 'placeholder' => 'Pedido'])->label(false) ?>
+                                </div>
+                                <div class="col-lg-4">
+                                    <?= $form->field($model, 'verifyCode')->widget(Captcha::class, [
+                                        'template' => '{image}',
+                                        'options' => ['placeholder' => 'Captcha'],
+                                    ])->label(false) ?>
+                                </div>
+                                <div class="col-lg-8">
+                                    <?= $form->field($model, 'verifyCode')->textInput(['placeholder' => 'Enter Captcha'])->label(false) ?>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-group mt-4">
+                                        <?= Html::submitButton('Enviar', ['class' => 'btn btn-primary w-100 py-3', 'name' => 'contact-button']) ?>
                                     </div>
                                 </div>
-                                <?php ActiveForm::end(); ?>
                             </div>
+                            <?php ActiveForm::end(); ?>
                         </div>
                     </div>
                 </div>
             </div>
-            </div>
         </div>
     </div>
+</div>
+</div>
 </div>
