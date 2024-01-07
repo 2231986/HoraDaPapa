@@ -23,6 +23,13 @@ foreach ($dataProvider->getModels() as $request)
 <?= Alert::widget() ?>
 
 <div class="request-index">
+
+    <?php if (Yii::$app->user->can(RbacController::$RoleAdmin)) : ?>
+        <p>
+            <?= Html::a('Criar Pedido', ['create'], ['class' => 'btn btn-success']) ?>
+        </p>
+    <?php endif; ?>
+
     <?php foreach ($groupedRequests as $dinnerTableId => $requests) : ?>
         <div class="dinner-table">
             <h3>MESA: <?= $dinnerTableId; ?></h3>
@@ -59,7 +66,7 @@ foreach ($dataProvider->getModels() as $request)
                         'attribute' => 'observation',
                         'value' => function ($model)
                         {
-                            return $model->observation != null ? $model->observation : '--';
+                            return empty($model->observation) ? '--' : $model->observation;
                         },
                     ],
                     [

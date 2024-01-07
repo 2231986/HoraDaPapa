@@ -34,21 +34,21 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'userInfo.name',
                 'value' => function ($model)
                 {
-                    return $model->userInfo->name != null ? $model->userInfo->name : '--';
+                    return empty($model->userInfo->name) ? '--' : $model->userInfo->name;
                 },
             ],
             [
                 'attribute' => 'userInfo.surname',
                 'value' => function ($model)
                 {
-                    return $model->userInfo->surname != null ? $model->userInfo->surname : '--';
+                    return empty($model->userInfo->surname) ? '--' : $model->userInfo->surname;
                 },
             ],
             [
                 'attribute' => 'userInfo.nif',
                 'value' => function ($model)
                 {
-                    return $model->userInfo->nif != null ? $model->userInfo->nif : '--';
+                    return empty($model->userInfo->nif) ? '--' : $model->userInfo->nif;
                 },
             ],
 

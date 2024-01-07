@@ -9,6 +9,7 @@ use yii\filters\VerbFilter;
 use console\controllers\RbacController;
 use yii\filters\AccessControl;
 use common\components\Mosquitto;
+use common\models\Plate;
 
 /**
  * RequestController implements the CRUD actions for Request model.
@@ -123,9 +124,15 @@ class RequestController extends Controller
 
         if ($this->request->isPost)
         {
-            if ($model->load($this->request->post()) && $model->save())
+            if ($model->load($this->request->post()))
             {
-                return $this->redirect(['view', 'id' => $model->id]);
+                $plate = Plate::findOne($model->plate_id);
+                $model->price = $plate->price;
+
+                if ($model->save())
+                {
+                    return $this->redirect(['view', 'id' => $model->id]);
+                }
             }
         }
         else

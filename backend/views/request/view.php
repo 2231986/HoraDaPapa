@@ -41,8 +41,23 @@ use console\controllers\RbacController;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'meal.dinner_table_id',
-            'observation',
+            [
+                'attribute' => 'meal.dinner_table_id',
+                'format' => 'raw',
+                'value' => function ($model)
+                {
+                    return $model->meal->dinner ?
+                        Html::a($model->meal->dinner->name, ['dinner/view', 'id' => $model->meal->dinner->id]) :
+                        '--';
+                },
+            ],
+            [
+                'attribute' => 'observation',
+                'value' => function ($model)
+                {
+                    return empty($model->observation) ? '--' : $model->observation;
+                },
+            ],
             'quantity',
             [
                 'attribute' => 'user.username',
@@ -64,6 +79,5 @@ use console\controllers\RbacController;
             'date_time',
         ],
     ]) ?>
-
 
 </div>

@@ -14,7 +14,10 @@ use yii\helpers\ArrayHelper;
     <?php $form = ActiveForm::begin(); ?>
 
     <?= $form->field($model, 'meal_id')->dropDownList(
-        ArrayHelper::map($meals, 'id', 'dinner.name'),
+        ArrayHelper::map($meals, 'id', function ($meal)
+        {
+            return 'Refeição: (' . $meal['id'] . ') - Mesa: ' . $meal['dinner']['name'];
+        }),
         ['prompt' => 'Selecionar Refeição']
     ) ?>
 

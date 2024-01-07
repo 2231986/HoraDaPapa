@@ -17,7 +17,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($plate, 'price')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($plate, 'title')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($plate, 'title')->label('Título')->textInput(['maxlength' => true]) ?>
 
     <?php if ($plate->image_name) : ?>
         <?= Html::img(Yii::getAlias('@web/uploads/') . $plate->image_name, ['height' => '250px', 'width' => '250px', 'class' => 'img-thumbnail', 'alt' => 'Uploaded Image']) ?>
@@ -25,7 +25,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($uploadForm, 'imageFile')->fileInput(); ?>
 
-    <?= $form->field($plate, 'supplier_id')->dropDownList($supplier, ['prompt' => 'Select Supplier']) ?>
+    <?= $form->field($plate, 'supplier_id')->label('Fornecedor')->dropDownList($supplier, ['prompt' => 'Select Supplier']) ?>
 
 
     <div class="form-group">

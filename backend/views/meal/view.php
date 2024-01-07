@@ -88,7 +88,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'observation',
                 'value' => function ($model)
                 {
-                    return $model->observation ?? '--';
+                    return empty($model->observation) ? '--' : $model->observation;
                 },
             ],
             [

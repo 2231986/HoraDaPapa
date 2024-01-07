@@ -12,7 +12,7 @@ Na pasta do projeto correr no terminal os seguintes comandos por order:
 >Criar uma bd chamada `horadapapa`
 
 **Executar as migrações base**
->yii migrate 2
+>php yii migrate 2
 
 **Criar base de dados**
 >Correr o script da bd `horadapapa.sql`
