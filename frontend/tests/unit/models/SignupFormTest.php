@@ -51,8 +51,6 @@ class SignupFormTest extends \Codeception\Test\Unit
         verify($mail->getTo())->arrayHasKey('some_email@example.com');
         verify($mail->getFrom())->arrayHasKey(\Yii::$app->params['supportEmail']);
         verify($mail->getSubject())->equals('Account registration at ' . \Yii::$app->name);
-        var_dump($user);
-        verify($mail->toStrig($user->verification_token));
     }
 
     public function testNotCorrectSignup()
