@@ -1,0 +1,9 @@
+suite_namespace: backend\tests\acceptance
+actor: AcceptanceTester
+modules:
+    enabled:
+        - WebDriver:
+            url: http://localhost/HoraDaPapa/backend/web
+            browser: MicrosoftEdge
+        - Yii2:
+            part: init

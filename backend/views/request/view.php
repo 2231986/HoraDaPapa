@@ -24,8 +24,8 @@ use console\controllers\RbacController;
         }
         else
         {
-            echo Html::a('Cozinhar', ['Cooked', 'id' => $model->id], ['class' => 'btn btn-primary']);
-            echo Html::a('Entregar', ['Delivered', 'id' => $model->id], ['class' => 'btn btn-primary']);
+            echo Html::a('Cozinhar', ['cooked', 'id' => $model->id], ['class' => 'btn btn-primary']);
+            echo Html::a('Entregar', ['delivered', 'id' => $model->id], ['class' => 'btn btn-primary']);
         }
         ?>
 
