@@ -5,6 +5,7 @@ namespace app\services;
 use app\models\Meal;
 use app\models\Dinner;
 use app\models\Invoice;
+use app\models\Request;
 use common\components\Mosquitto;
 use yii\web\NotFoundHttpException;
 use yii\web\HttpException;
@@ -26,15 +27,34 @@ class InvoiceHandler
         }
 
         $requests = null;
-        if ($userID != null)
+        $hasRequestsToCook = Request::find()->joinWith('meal')->where(['meal_id' => $mealID, 'isCooked' => 0]);
+        $hasRequestsToDelivery = Request::find()->joinWith('meal')->where(['meal_id' => $mealID, 'isDelivered' => 0]);
+
+        if ($userID != null) //Quando tem User
         {
+            $hasRequestsToCook->andWhere(['user_id' => $userID])->one();
+            $hasRequestsToDelivery->andWhere(['user_id' => $userID])->one();
+
             $requests = $meal->getRequestsByUser($userID);
             $invoiceTotalPrice = $meal->getMealCurrentPaidedAmountByUser($userID);
         }
-        else
+        else //Quando NÃO tem User
         {
+            $hasRequestsToCook->one();
+            $hasRequestsToDelivery->one();
+
             $requests = $meal->getRequests();
             $invoiceTotalPrice = $meal->getMealTotalPaymentAmount();
+        }
+
+        if ($hasRequestsToCook->exists())
+        {
+            throw new HttpException(403, "A refeição Nº$mealID tem pedidos por Cozinhar!");
+        }
+
+        if ($hasRequestsToDelivery->exists())
+        {
+            throw new HttpException(403, "A refeição Nº$mealID tem pedidos por Entregar!");
         }
 
         $invoice = new Invoice();
