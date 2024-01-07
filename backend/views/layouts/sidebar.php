@@ -68,7 +68,24 @@ if (Yii::$app->user->can(RbacController::$PermissionPlate))
 
 if (Yii::$app->user->can(RbacController::$PermissionRequest))
 {
-    $menuItems[] = ['label' => 'Pedidos', 'url' => ['/request/index'], 'icon' => 'fas fa-list'];
+    $menuItems[] = [
+        'label' => 'Pedidos', 'icon' => 'fa-solid fa-utensils',
+        'id' => 'pratos-index',
+        'items' => [ // Submenu items array
+            [
+                'label' => 'Index',
+                'url' => Url::to(['/request/index']),
+                'icon' => 'fa-solid fa-list',
+            ],
+            [
+                'label' => 'Criar',
+                'url' => Url::to(['/request/create']),
+                'icon' => 'fa-solid fa-plus',
+
+            ],
+        ]
+    ];
+
 }
 
 if (Yii::$app->user->can(RbacController::$PermissionDinner))
@@ -171,7 +188,22 @@ if (Yii::$app->user->can(RbacController::$PermissionSupplier))
 
 if (Yii::$app->user->can(RbacController::$PermissionReview))
 {
-    $menuItems[] = ['label' => 'Avaliações', 'url' => ['/review/index'], 'icon' => 'fa-solid fa-star'];
+    $menuItems[] = [
+        'label' => 'Avaliações', 'icon' => 'fa-solid fa-star',
+        'items' => [ // Submenu items array
+            [
+                'label' => 'Index',
+                'url' => Url::to(['/review/index']),
+                'icon' => 'fa-solid fa-list',
+            ],
+            [
+                'label' => 'Criar',
+                'url' => Url::to(['/review/create']),
+                'icon' => 'fa-solid fa-plus',
+
+            ],
+        ]
+    ];
 }
 
 if (Yii::$app->user->can(RbacController::$PermissionMeal))

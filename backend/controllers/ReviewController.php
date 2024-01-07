@@ -101,15 +101,16 @@ class ReviewController extends Controller
     {
         $model = new Review();
 
-        if ($this->request->isPost)
-        {
-            if ($model->load($this->request->post()) && $model->save())
-            {
-                return $this->redirect(['view', 'id' => $model->id]);
+        if ($this->request->isPost) {
+            if ($model->load($this->request->post())) {
+                // Set the 'date_time' attribute to the current timestamp
+                $model->date_time = date('Y-m-d H:i:s');
+
+                if ($model->save()) {
+                    return $this->redirect(['view', 'id' => $model->id]);
+                }
             }
-        }
-        else
-        {
+        } else {
             $model->loadDefaultValues();
         }
 
@@ -117,6 +118,7 @@ class ReviewController extends Controller
             'model' => $model,
         ]);
     }
+
 
     /**
      * Updates an existing Review model.
