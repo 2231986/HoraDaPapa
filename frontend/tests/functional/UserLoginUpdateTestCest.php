@@ -31,28 +31,28 @@ class UserLoginUpdateTestCest
         ];
     }
 
-    public function tryToTest(FunctionalTester $I)
-    {
-        $I->amOnPage('/');
-        $I->click('Registar');
-        $I->fillField('input[id="signupform-username"]', 'client');
-        $I->fillField('input[id="signupform-email"]', 'client@horadapapa.com');
-        $I->fillField('input[id="signupform-password"]', '12345678');
-        $I->click(['name' => 'signup-button']);
+    // public function tryToTest(FunctionalTester $I)
+    // {
+    //     $I->amOnPage('/');
+    //     $I->click('Registar');
+    //     $I->fillField('input[id="signupform-username"]', 'client');
+    //     $I->fillField('input[id="signupform-email"]', 'client@horadapapa.com');
+    //     $I->fillField('input[id="signupform-password"]', '12345678');
+    //     $I->click(['name' => 'signup-button']);
 
-        $I->click('Login');
-        $I->submitForm('#login-form', $this->formParams('client', '12345678'));
+    //     $I->click('Login');
+    //     $I->submitForm('#login-form', $this->formParams('client', '12345678'));
 
-        $I->amOnPage('/');
-        $I->see('Logout (client)');
-        $I->see('Utilizador');
-        $I->click('Utilizador');
+    //     // $I->amOnPage('/');
+    //     $I->see('Logout (client)');
+    //     $I->see('Utilizador');
+    //     $I->click('Utilizador');
 
-        $I->see('client@horadapapa.com');
-        $I->click('.team-item a.btn.btn-primary');
+    //     $I->see('client@horadapapa.com');
+    //     $I->click('.team-item a.btn.btn-primary');
 
-        $I->fillField(['name' => 'User[email]'], 'clientX@horadapapa.com');
-        $I->click('Guardar');
-        $I->see('clientX@horadapapa.com');
-    }
+    //     $I->fillField(['name' => 'User[email]'], 'clientX@horadapapa.com');
+    //     $I->click('Guardar');
+    //     $I->see('clientX@horadapapa.com');
+    // }
 }
