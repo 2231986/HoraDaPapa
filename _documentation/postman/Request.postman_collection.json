@@ -12,7 +12,7 @@
 				"auth": {
 					"type": "bearer",
 					"bearer": {
-						"token": "1Et94XhAxGuaiunEaS2Ao-LXJw_WgMlm"
+						"token": "kNHeIeMoOxsQP0Or32HQzgilSrl_9Qfs"
 					}
 				},
 				"method": "POST",
@@ -31,7 +31,7 @@
 				"auth": {
 					"type": "bearer",
 					"bearer": {
-						"token": "1Et94XhAxGuaiunEaS2Ao-LXJw_WgMlm"
+						"token": "kNHeIeMoOxsQP0Or32HQzgilSrl_9Qfs"
 					}
 				},
 				"method": "GET",
@@ -46,7 +46,7 @@
 				"auth": {
 					"type": "bearer",
 					"bearer": {
-						"token": "1Et94XhAxGuaiunEaS2Ao-LXJw_WgMlm"
+						"token": "kNHeIeMoOxsQP0Or32HQzgilSrl_9Qfs"
 					}
 				},
 				"method": "GET",

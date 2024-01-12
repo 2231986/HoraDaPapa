@@ -12,7 +12,7 @@
 				"auth": {
 					"type": "bearer",
 					"bearer": {
-						"token": "1Et94XhAxGuaiunEaS2Ao-LXJw_WgMlm"
+						"token": "kNHeIeMoOxsQP0Or32HQzgilSrl_9Qfs"
 					}
 				},
 				"method": "GET",
@@ -22,12 +22,42 @@
 			"response": []
 		},
 		{
+			"name": "MealGetAllRequests",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "kNHeIeMoOxsQP0Or32HQzgilSrl_9Qfs"
+					}
+				},
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost/HoraDaPapa/backend/web/api/meals/1/requests"
+			},
+			"response": []
+		},
+		{
+			"name": "MealAddRequest",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "kNHeIeMoOxsQP0Or32HQzgilSrl_9Qfs"
+					}
+				},
+				"method": "POST",
+				"header": [],
+				"url": "http://localhost/HoraDaPapa/backend/web/api/meals/1/plate/1"
+			},
+			"response": []
+		},
+		{
 			"name": "MealGet",
 			"request": {
 				"auth": {
 					"type": "bearer",
 					"bearer": {
-						"token": "1Et94XhAxGuaiunEaS2Ao-LXJw_WgMlm"
+						"token": "kNHeIeMoOxsQP0Or32HQzgilSrl_9Qfs"
 					}
 				},
 				"method": "GET",
@@ -42,7 +72,7 @@
 				"auth": {
 					"type": "bearer",
 					"bearer": {
-						"token": "1Et94XhAxGuaiunEaS2Ao-LXJw_WgMlm"
+						"token": "kNHeIeMoOxsQP0Or32HQzgilSrl_9Qfs"
 					}
 				},
 				"method": "POST",

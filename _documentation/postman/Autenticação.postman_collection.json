@@ -12,7 +12,7 @@
 				"auth": {
 					"type": "basic",
 					"basic": {
-						"username": "admin",
+						"username": "client1",
 						"password": "12345678"
 					}
 				},
