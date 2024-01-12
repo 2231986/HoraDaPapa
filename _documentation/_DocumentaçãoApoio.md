@@ -61,7 +61,9 @@ pause
 > 
 > php vendor/bin/codecept generate:cest functional LoginTest --config frontend //CRIAR TESTES FUNCIONAIS 
 
-
+# Mosquitto
+>mosquitto_pub -h localhost -p 1883 -t "my_topic" -m "Hello, MQTT!"
+>mosquitto_sub -h localhost -p 1883 -t "my_topic"
 
 **GII**
 >http://localhost/HoraDaPapa/backend/web/gii
