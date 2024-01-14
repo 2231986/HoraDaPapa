@@ -18,32 +18,46 @@ class Mosquitto extends Component
     // Como usar? - "Yii::$app->Mosquitto->publish();"
     public function publish($topic, $payload)
     {
-        $mqtt = $this->initializeMqttClient();
+        try 
+        {
+            $mqtt = $this->initializeMqttClient();
 
-        $mqtt->publish(
-            // topic
-            $topic,
-            // payload
-            json_encode($payload),
-            // qos
-            0,
-            // retain
-            true
-        );
-
-        $mqtt->disconnect();
+            $mqtt->publish(
+                // topic
+                $topic,
+                // payload
+                json_encode($payload),
+                // qos
+                0,
+                // retain
+                true
+            );
+    
+            $mqtt->disconnect();
+        }
+        catch (\Throwable $th) 
+        {
+            //TODO: Adicionar log
+        }   
     }
 
     public function subscribe($topic)
     {
-        $mqtt = $this->initializeMqttClient();
-
-        $mqtt->subscribe($topic, function ($t, $m)
+        try 
         {
-            printf("Received message on topic [%s]: %s\n", $t, $m);
-        }, 0);
+            $mqtt = $this->initializeMqttClient();
 
-        $mqtt->disconnect();
+            $mqtt->subscribe($topic, function ($t, $m)
+            {
+                printf("Received message on topic [%s]: %s\n", $t, $m);
+            }, 0);
+    
+            $mqtt->disconnect();
+        }
+        catch (\Throwable $th)
+        {
+            //TODO: Adicionar log
+        }
     }
 
     private function initializeMqttClient()
