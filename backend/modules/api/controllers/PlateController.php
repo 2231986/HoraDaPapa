@@ -23,7 +23,16 @@ class PlateController extends APIActiveController
 
 	public function actionIndex()
 	{
-		return Plate::find()->select('*')->all();
+		$plates = Plate::find()->select('*')->all();
+
+		foreach ($plates as $plate)
+		{
+			$plate->image_name = $plate->image_name
+				? \Yii::getAlias('@web/uploads/') . $plate->image_name
+				: "";
+		}
+
+		return $plates;
 	}
 
 	public function actionView($id)
@@ -94,6 +103,10 @@ class PlateController extends APIActiveController
 		{
 			throw new NotFoundHttpException('Model not found.');
 		}
+
+		$model->image_name = $model->image_name
+			? \Yii::getAlias('@web/uploads/') . $model->image_name
+			: "";
 
 		return $model;
 	}
